@@ -1,0 +1,46 @@
+journal,publication year,email sent date,response received date,content recieved date,Response,all raw data included with paper?,primary data analysis software tool?,shared code,shared data,can repoduce figures,I know the author,author is graduate student at time of publication?,author home
+AAS,2015,7/04/2017,,,,,,,,,,,
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+JAS,2014,5/01/2014,7/05/2014,,"want more time to exploit data, need to clean R code more",,R,,,,y,n,US
+JAS,2014,5/01/2014,5/03/2014,,going into the field,,Excel macro,,,,y,n,US
+AMANT,2014,5/04/2014,5/09/2014,,intend to use part of this data in another test,,PAST/Excel,,,,n,y,UK
+PLOSONE,2014,5/08/2014,5/09/2014,,intend to use part of this data in another test,,PAST/Excel,,,,n,y,UK
+JAS,2014,5/09/2014,5/09/2014,,intend to use part of this data in another test,,,,,,n,y,UK
+QI,2014,,,,,No raw data,Olysim Basic Software,,,,,y,China
+,,,,,,,,,,,,,
+,,,,,,,,,,,,,
+JAS,2013,5/09/2014,5/10/2014,,previous negative experience,,,,,,n,n,US
+JAS,2013,5/09/2014,5/11/2014,,raw data in the paper,raw data,,,,"yes, figure 2",n,y,US
+JAS,2013,,,,raw data in the paper,Raw data of radiocarbon dates from wood/peat,AMS,,,,,y,Australia
+SAA,2013,,,,qualitative ,No raw data,none mentioned,,,,,y,UK
+ARCHMTRY,2013,6/04/2017,6/04/2017,8/04/2017,"has to look for the data, found it",No raw data,none mentioned,,,,,n,UK
+JAS,2013,6/04/2017,,,,Some raw frequencies (Fig 10) in Rplot,R,,,,,y,Germany
+,,,,,,,,,,,,,
+JFA,2012,6/04/2017,13/04/2017,,about to defend thesis,no raw data,none mentioned,,,,,n,South Africa
+LT,2012,6/04/2017,9/04/2017,9/04/2017,contained in MA thesis at http://scholarcommons.usf.edu/etd/1244/,no raw data,non mentioned,,,,,n,USA
+JHE,2012,6/04/2017,,,,raw data of force and pressure during knapping,Pliance,,,,,n,USA
+JAS,2012,6/04/2017,14/04/2017,,about to go on vacation,raw data on residue identification,Leica Application Suite ,,,,,n,USA
+SA,2012,,,,,raw data on tools found at site and use-wear,non mentioned,,,,,n,Italy
+JAS,2012,,,,,no raw data,non mentioned,,,,,n,Spain
+,,,,,,,,,,,,,
+PLOSONE,2011,,,,,"Gives link to contour data and scripts, but broken","Elliptical Fourier Analysis, Fiji, ImageJ, R",,,,,y,Germany
+AMANT,2011,6/04/2017,,,,No raw data,none mentioned,,,,,y,US
+JAS,2011,6/04/2017,7/04/2017,7/04/2017,Excel spreadsheet with no conditions,"Some, table 3, table 5",none mentioned,,,,,y,France
+JAS,2011,6/04/2017,7/04/2017,7/04/2017,Excel spreadsheet with conditions,"Some, debitage catagories",none mentioned,,,,,y,Ireland
+JAS,2011,,,,,No raw data,"SEM JEOL JSM-6400, equipped with EDX-EXL II system Link Analytical",,,,,y,Spain
+JAS,2011,,,,,"Some, bend-break counts, Table 1, Table 3","none mentioned, possibly Excel",,,,,y,US
+,,,,,,,,,,,,,
+SCI,2010,7/04/2017,7/04/2017,,Collaborator tensions within team,"Frequencies, no raw data",none mentioned,,,,,y,France
+JAS,2010,,,,,All pre- and post- experimental raw data available in supplementary materials,"Malvern Instruments Mastersizer 2000, Laser Diffraction particle size Analysis (LDPSA), Excel",,,,,y,US
+JAS,2010,13/04/2017,,,email bounce,"Raw weights and flake counts, table 1, 2, 3, all data presented in paper!",none mentioned,,,,,y ,US
+SCAN,2010,,,,,"Some example output profiles (Figure 4, 5)","UBM Laser Profilometer to generate 2D profiles, Sfrax analysis software for length-scale analysis and F-tests",,,,,y,US
+JAS,2010,,,,,"Inventory of artefacts, some macro-damage frequencies (Tables 2-6), summary of use-wear experiment (Table 7)",None Mentioned,,,,,y,US
+JAS,2010,7/04/2017,12/04/2017,12/04/2017,"email bounce, sent spreadsheet ok",Frequency of refits (Fig 2),None Mentioned,,,,,y,US
+,,,,,,,,,,,,,
+ARCHMTRY,2009,,,,,Example profiles (Fig 7),"UBM Laser Profilometer, Sfrax analysis software",,,,,n,US
+JAS,2009,7/04/2017,,,email bounce,Morphological data for all points (Table 1),none mentioned,,,,,y,US
+ASN PERS,2009,,,,,"Measurements (Table 1, 2), element concentrations (Table 4-6)","PIXE-PIGME analysis, LA/ICPMS, INAA analysis - no software mentioned",,,,,y,AUS
+JAS,2009,7/04/2017,,,"open data not there, maybe contact colleague? ",All averages/SD,"MS k - no software mentioned, although statistical analysis occured",,,,,n,HUNG
+SAS,2009,,,,,"Raw measurements (table 1, 2), use-wear (Tables 4, 5)","EDS, ESEM analysis - no software mentioned",,,,,n,US
+JAS,2009,13/04/2017,,,,"Flake weight x platform depth (Fig 5, 6)",mention 'software' but don't specify what software was used,,,,,y,US
