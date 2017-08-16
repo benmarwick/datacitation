@@ -32,6 +32,20 @@ knitr::opts_chunk$set(
 )
 
 library(datacitation)
+
+theme_new <- function(base_size = 12){
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      #axis.title.x=element_blank(),
+      # axis.title.y=element_blank(),
+      axis.title = element_text(size = 14),
+      legend.key=element_rect(colour=NA, fill =NA),
+      # panel.grid = element_blank(),   
+      panel.border = element_rect(fill = NA, colour = "black", size=0.5),
+      panel.background = element_rect(fill = "white", colour = "black"), 
+      strip.background = element_rect(fill = NA)
+    )
+}
 ```
 
 # Introduction
@@ -46,11 +60,11 @@ Here is a citation [@Marwick2017]
 library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
 # saveRDS(dc_arch, "dc_arch.rds")
-dc_arch <- readRDS("dc_arch.rds")
+dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
 
 library(tidyverse)
 library(stringr)
-glimpse(dc_arch)
+# glimpse(dc_arch)
 
 dc_arch <- 
 dc_arch %>% 
@@ -70,6 +84,10 @@ mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
   )) %>% 
   mutate(yyyy_created =  as.numeric(substr(created, 1,4)),
          yyyy_date =  as.numeric(substr(date, 1,4)))
+```
+
+
+```{r}
 
 
 # variables of interest:
@@ -119,21 +137,12 @@ contributor<- arrange(as_data_frame(table(xx[ , "contributor"])), desc(n))
 rights<-      arrange(as_data_frame(table(xx[ , "rights"])), desc(n)) 
 publisher <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n)) 
 
-# clean up rights a bit
 
-theme_new <- function(base_size = 12){
-  theme_bw(base_size = base_size) %+replace%
-    theme(
-      #axis.title.x=element_blank(),
-      # axis.title.y=element_blank(),
-      axis.title = element_text(size = 14),
-      legend.key=element_rect(colour=NA, fill =NA),
-      # panel.grid = element_blank(),   
-      panel.border = element_rect(fill = NA, colour = "black", size=0.5),
-      panel.background = element_rect(fill = "white", colour = "black"), 
-      strip.background = element_rect(fill = NA)
-    )
-}
+```
+
+
+
+```{r}
 
 datacentre_plot <- 
   datacentre %>% 
@@ -241,6 +250,10 @@ date_plot <-
 
 library(plotly)
 ggplotly(date_plot)
+```
+
+
+```{r}
 
 # why so many in 2010? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
 
@@ -284,7 +297,10 @@ why_2008 <-
   filter(as.numeric(substr(date, 1,4)) == 2008) %>% 
   group_by(publisher) %>% 
   tally(sort = TRUE)
+```
+  
 
+```{r}
 # panel of plots
 # combine plots for lang and data center
 datacentre_and_langugage_plot <- 
@@ -318,6 +334,11 @@ grid.arrange(datacentre_and_langugage_plot,
              # language_plot,
              # date_plot,
              layout_matrix = lay)
+             
+```
+
+
+```{r}
 
 # look at some relationships
 datacentre_rights_table <- 
@@ -348,7 +369,8 @@ datacentre_rights_table[1:11,] %>%
   xlab("") + 
   ylab("") +
   scale_size_continuous(range=c(5,25)) + 
-  geom_text(aes(label = n))
+  geom_text(aes(label = n)) +
+  theme(legend.position = "none") 
 
 # changes over time
 library(ggrepel)
