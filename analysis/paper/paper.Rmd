@@ -41,7 +41,336 @@ Here is a citation [@Marwick2017]
 # Background
 
 ```{r demo, eval = FALSE}
-1 + 1
+# install.packages("rdatacite")
+
+library(rdatacite)
+# dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
+# saveRDS(dc_arch, "dc_arch.rds")
+dc_arch <- readRDS("dc_arch.rds")
+
+library(tidyverse)
+library(stringr)
+glimpse(dc_arch)
+
+dc_arch <- 
+dc_arch %>% 
+mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
+       the_text = gsub("(\\-)\\1+", "\\1", the_text),
+       the_text = gsub("-$", "", the_text)) %>% 
+  mutate(cc = case_when(
+    grepl("SEMANTICS/OPENACCESS", the_text) ~ "EU Open Access",
+    grepl("SEMANTICS/RESTRICTEDACCESS", the_text) ~ "EU Restricted Access",
+    grepl("SEMANTICS/CLOSEDACCESS", the_text) ~ "EU Closed Access",
+    grepl("CC-BY-[^NC-ND]|CC-BY$|ATTRIBUTION-LICENSE|ATTRIBUTION-[^NON]", the_text) ~ "CC-BY",
+    grepl("CC-BY-NC-[^ND]|BY-NC-[^ND]|CC-NC$|ATTRIBUTION-NON-COMMERCIAL-", the_text) ~ "CC-BY-NC",
+    grepl("CC-BY-NC-SA-[^ND]|CC-NC-SA$|ATTRIBUTION-NON-COMMERCIAL-SHARE", the_text) ~ "CC-BY-NC-SA",
+    grepl("CC-BY-NC-ND|BY-NC-ND|ATTRIBUTION-NONCOMMERCIAL-NO-DERIVATIVE|ATTRIBUTION-NONCOMMERCIAL-NODERIVATIVES|ATTRIBUTION-NONCOMMERCIAL-NODERIVS|NAMENSNENNUNG-NICHTKOMMERZIELL-KEINEBEARBEITUNG|NAMENSNENNUNG-KEINE-KOMMERZIELLE-NUTZUNG", the_text) ~ "CC-BY-NC-ND",
+    grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
+    grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
+  )) %>% 
+  mutate(yyyy_created =  as.numeric(substr(created, 1,4)),
+         yyyy_date =  as.numeric(substr(date, 1,4)))
+
+
+# variables of interest:
+# datacentre
+# allocator 
+# date
+# creator
+# description
+# langauge
+# contributor
+# rights
+# publisher
+
+# select cols of interest
+xx <- 
+dc_arch %>% 
+  select( datacentre,
+          allocator ,
+          date,
+          creator,
+          description,
+          language,
+          contributor,
+          rights,
+          publisher) 
+
+# make a list of tallys of each col
+# yy <- map(xx, ~.x %>% as_data_frame() %>% group_by(value) %>% tally())
+
+
+# output <- vector("list", ncol(xx))
+# for(i in seq_len(ncol(xx))){
+#   output[[i]] <- 
+#     arrange(as_data_frame(table(xx[ , i])), desc(n))
+#   gc()
+#   print(i)
+# }
+
+
+datacentre<-  arrange(as_data_frame(table(xx[ , "datacentre"])), desc(n))
+allocator <-  arrange(as_data_frame(table(xx[ , "allocator"])), desc(n))
+dates<-        arrange(as_data_frame(table(xx[ , "date"])), desc(n))
+creator<-     arrange(as_data_frame(table(xx[ , "creator"])), desc(n)) 
+# description<- arrange(as_data_frame(table(xx[ , "description"])), desc(n)) 
+language<-    arrange(as_data_frame(table(xx[ , "language"])), desc(n))  
+contributor<- arrange(as_data_frame(table(xx[ , "contributor"])), desc(n)) 
+rights<-      arrange(as_data_frame(table(xx[ , "rights"])), desc(n)) 
+publisher <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n)) 
+
+# clean up rights a bit
+
+theme_new <- function(base_size = 12){
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      #axis.title.x=element_blank(),
+      # axis.title.y=element_blank(),
+      axis.title = element_text(size = 14),
+      legend.key=element_rect(colour=NA, fill =NA),
+      # panel.grid = element_blank(),   
+      panel.border = element_rect(fill = NA, colour = "black", size=0.5),
+      panel.background = element_rect(fill = "white", colour = "black"), 
+      strip.background = element_rect(fill = NA)
+    )
+}
+
+datacentre_plot <- 
+  datacentre %>% 
+  mutate(Var1 = str_wrap(Var1, 20)) %>% 
+  slice(1:10) %>% 
+ggplot(aes(reorder(Var1, n),
+           n)) +
+  geom_col() +
+  coord_flip() +
+  xlab("Data centre") +
+  ylab("") +
+  theme_new() +
+  theme(axis.text.y  = element_text(size = 8)) 
+
+allocator_plot <- 
+ggplot(allocator[1:10,],
+       aes(reorder(Var1, n),
+           n)) +
+  geom_col() +
+  coord_flip() +
+  theme_new()
+
+creator_plot <- 
+ggplot(creator[1:30,],
+       aes(reorder(Var1, n),
+           n)) +
+  geom_col() +
+  coord_flip() +
+  theme_new()
+
+language_plot <- 
+  language %>% 
+  mutate(Var2 = ifelse(grepl("en|En", Var1), "en", Var1)) %>% 
+  mutate(Var2 = ifelse(grepl("de|ger", Var2), "de", Var2)) %>% 
+  group_by(Var2) %>% 
+  tally(sort = TRUE) %>% 
+  slice(1:5) %>% 
+ggplot(aes(reorder(Var2, nn),
+           nn)) +
+  geom_col() +
+  coord_flip()  +
+  theme_new() +
+  xlab("Language") +
+  ylab("")
+
+contributor_plot <- 
+ggplot(contributor[1:20,],
+       aes(reorder(Var1, n),
+           n)) +
+  geom_col() +
+  coord_flip()  +
+  theme_new()
+
+
+rights_summary <- 
+  rights %>% 
+  mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", Var1)),
+         the_text = gsub("(\\-)\\1+", "\\1", the_text),
+         the_text = gsub("-$", "", the_text)) %>% 
+  mutate(cc = case_when(
+    grepl("SEMANTICS/OPENACCESS", the_text) ~ "EU Open Access",
+    grepl("SEMANTICS/RESTRICTEDACCESS", the_text) ~ "EU Restricted Access",
+    grepl("SEMANTICS/CLOSEDACCESS", the_text) ~ "EU Closed Access",
+    grepl("CC-BY-[^NC-ND]|CC-BY$|ATTRIBUTION-LICENSE|ATTRIBUTION-[^NON]", the_text) ~ "CC-BY",
+    grepl("CC-BY-NC-[^ND]|BY-NC-[^ND]|CC-NC$|ATTRIBUTION-NON-COMMERCIAL-", the_text) ~ "CC-BY-NC",
+    grepl("CC-BY-NC-SA-[^ND]|CC-NC-SA$|ATTRIBUTION-NON-COMMERCIAL-SHARE", the_text) ~ "CC-BY-NC-SA",
+    grepl("CC-BY-NC-ND|BY-NC-ND|ATTRIBUTION-NONCOMMERCIAL-NO-DERIVATIVE|ATTRIBUTION-NONCOMMERCIAL-NODERIVATIVES|ATTRIBUTION-NONCOMMERCIAL-NODERIVS|NAMENSNENNUNG-NICHTKOMMERZIELL-KEINEBEARBEITUNG|NAMENSNENNUNG-KEINE-KOMMERZIELLE-NUTZUNG", the_text) ~ "CC-BY-NC-ND",
+    grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
+    grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
+  )) %>% 
+  select(cc, n) %>% 
+  filter(!is.na(cc)) %>% 
+  group_by(cc) %>% 
+  tally(sort = TRUE) 
+  
+rights_plot <- 
+ggplot(rights_summary,
+       aes(reorder(cc, nn),
+           nn)) +
+  geom_col() +
+  coord_flip()  +
+  theme_new() +
+  xlab("License") +
+  ylab("")
+
+
+publisher_plot <- 
+ggplot(publisher[1:10,],
+       aes(reorder(Var1, n),
+           n)) +
+  geom_col() +
+  coord_flip() +
+  theme_new()
+
+date_plot <- 
+  dates %>% 
+  mutate(yyyy = as.numeric(substr(Var1, 1,4))) %>% 
+  select(yyyy) %>% 
+  ggplot(aes(yyyy)) +
+  geom_histogram() +
+  theme_new() +
+  xlim(c(1950,2017)) +
+  xlab("Year") +
+  ylab("")
+
+library(plotly)
+ggplotly(date_plot)
+
+# why so many in 2010? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
+
+what_2010 <- 
+  xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2010)
+
+why_2013 <- 
+  xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2013) %>% 
+  group_by(publisher) %>% 
+  tally(sort = TRUE)
+
+why_2012 <- 
+  xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2012) %>% 
+  group_by(publisher) %>% 
+  tally(sort = TRUE)
+
+why_2011 <- 
+  xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2011) %>% 
+  group_by(publisher) %>% 
+  tally(sort = TRUE)
+
+
+why_2010 <- 
+xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2010) %>% 
+  group_by(publisher) %>% 
+  tally(sort = TRUE)
+
+why_2009 <- 
+  xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2009) %>% 
+  group_by(publisher) %>% 
+  tally(sort = TRUE)
+
+why_2008 <- 
+  xx %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2008) %>% 
+  group_by(publisher) %>% 
+  tally(sort = TRUE)
+
+# panel of plots
+# combine plots for lang and data center
+datacentre_and_langugage_plot <- 
+  datacentre_plot + annotation_custom(ggplotGrob(language_plot),
+                                      xmin = 1.15, 
+                                      xmax = 6.15,
+                                      ymin = 10000,
+                                      ymax = 40000
+  )
+
+# combine plots for lisc and year
+rights_and_date_plot <- 
+  rights_plot + annotation_custom(ggplotGrob(date_plot),
+                                      xmin = 1, 
+                                      xmax = 5,
+                                      ymin = 10000,
+                                      ymax = 40000
+  )
+
+library(gridExtra)
+lay <- rbind(c(1,2),
+             c(1,2))
+grid.arrange(datacentre_and_langugage_plot,
+             rights_and_date_plot,
+             # datacentre_plot,
+             # allocator_plot,
+             # creator_plot,
+             # contributor_plot,
+             # publisher_plot,
+             # rights_plot,
+             # language_plot,
+             # date_plot,
+             layout_matrix = lay)
+
+# look at some relationships
+datacentre_rights_table <- 
+dc_arch %>% 
+  mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
+         the_text = gsub("(\\-)\\1+", "\\1", the_text),
+         the_text = gsub("-$", "", the_text)) %>% 
+  mutate(cc = case_when(
+    grepl("SEMANTICS/OPENACCESS", the_text) ~ "EU Open Access",
+    grepl("SEMANTICS/RESTRICTEDACCESS", the_text) ~ "EU Restricted Access",
+    grepl("SEMANTICS/CLOSEDACCESS", the_text) ~ "EU Closed Access",
+    grepl("CC-BY-[^NC-ND]|CC-BY$|ATTRIBUTION-LICENSE|ATTRIBUTION-[^NON]", the_text) ~ "CC-BY",
+    grepl("CC-BY-NC-[^ND]|BY-NC-[^ND]|CC-NC$|ATTRIBUTION-NON-COMMERCIAL-", the_text) ~ "CC-BY-NC",
+    grepl("CC-BY-NC-SA-[^ND]|CC-NC-SA$|ATTRIBUTION-NON-COMMERCIAL-SHARE", the_text) ~ "CC-BY-NC-SA",
+    grepl("CC-BY-NC-ND|BY-NC-ND|ATTRIBUTION-NONCOMMERCIAL-NO-DERIVATIVE|ATTRIBUTION-NONCOMMERCIAL-NODERIVATIVES|ATTRIBUTION-NONCOMMERCIAL-NODERIVS|NAMENSNENNUNG-NICHTKOMMERZIELL-KEINEBEARBEITUNG|NAMENSNENNUNG-KEINE-KOMMERZIELLE-NUTZUNG", the_text) ~ "CC-BY-NC-ND",
+    grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
+    grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
+  )) %>% 
+  group_by(datacentre, cc) %>% 
+  filter(!is.na(cc))  %>% 
+  tally(sort = TRUE) 
+
+datacentre_rights_table[1:11,] %>% 
+  ggplot(aes(cc, datacentre)) + 
+  geom_point(aes(size = n),
+             colour = "grey80") +
+  theme_bw() + 
+  xlab("") + 
+  ylab("") +
+  scale_size_continuous(range=c(5,25)) + 
+  geom_text(aes(label = n))
+
+# changes over time
+library(ggrepel)
+
+datacentre_by_year <- 
+dc_arch %>% 
+  group_by(yyyy_created, datacentre) %>% 
+  tally(sort = TRUE) %>% 
+  ungroup() %>% 
+  filter(n > 150)
+
+
+  ggplot(datacentre_by_year, 
+         aes(yyyy_created,
+             n,
+             colour = datacentre)) +
+  geom_line(size = 2) +
+  theme_bw()  +
+  scale_y_log10() +
+  theme(legend.position = "none")  +
+  facet_wrap(~ datacentre)
+
 ```
 
 # Methods
