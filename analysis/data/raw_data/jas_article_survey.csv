@@ -1,0 +1,35 @@
+URL,Data availability statement,Can I access the data without contacting the authors?,Where is the data?,What file format?,Analysis software?,data type?,code?,comment
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.002,"""All compositional and LIA data used can be found in Supplementary Table 1.""",Yes,Supplementary file,CSV,R,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.003,none,no,na,na,na,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.004,none,no,na,na,ANSYS and MATLAB,morphometric,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.007,none,no,na,na,na,"LIDAR, geoarch, 3D models included as supp",na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.006,"""sample of 59 uncalibrated dates on DSK horse remains (Table S1)""",yes,Supplementary file,table in MS Word doc,OxCal,C14 dates,"""see Appendix I for OxCal code used in the analysis""",
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.008,none,no,na,na,na,compositional,na,only calibration data in supp
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.010,none,yes,Table 2,na,na,Sterol and bile acids concs,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.04.002,none,yes,Supplementary file,XLSX,na,artefact attributes,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.013,"""Table 1 contains the Pb and Sr isotope results, and Pb concentrations (determined by isotopic dilution; ID) of 38 human tooth enamel and 6 faunal samples from Sala. """,yes,Table 1,na,na,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.016,none,yes,Tables,na,na,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.011,none,yes,Table 4,na,Excel,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.006,none,yes,Supplementary file,CSV,Python,C14 dates,Python on github,some metadata
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.017,"""These samples and their contextual data are presented in Table 2,""",yes,Tables,na,na,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.02.001,none,no,na,na,na,shell attributes,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.02.002,none,no,na,na,na,"DEM, LIDAR",na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.02.003,none,no,na,na,na,C14 dates,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.03.001,none,yes,Table 1,na,na,charcoal attributes,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.002,none,yes,Supplementary file,DOCX,na,DNA sequence,DNA seq in Word doc??,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.005,"""Sequence data and barcodes are curated at the European Nucleotide Archive under project accession number PRJEB11221""",yes,http://www.ebi.ac.uk/ena/data/view/PRJEB11221,Fastq,"Geneious, Seaview ",DNA sequence,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.007,none,yes,Supplementary file,table in MS Word doc,na,"pollen counts, C14 dates",na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.004,none,no,na,na,na,na,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.009,none,no,na,na,na,XRD,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.012,none,no,na,na,na,na,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.008,yes,yes,OSF.IO,CSV,R,"spatial, stone artefact",Yes,"DOI, trustworthy repo, open format, code... the best :)"
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.014,none,no,na,na,na,zeta analysis of powder,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.01.015,none,no,na,na,na,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.008,none,yes,Supplementary file,XLSX,"JMP® 11, Statistica 12 and Excel;",biometrics,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.004,none,no,na,na,"BioEdit software, Arlequin, R",DNA sequence,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.009,none,yes,Supplementary file,XLSX,Scaffold v4.4.8,proteomic,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.006,none,no,na,na,ArcGIS,DEM  ,na,maybe public data sources?
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.005,none,no,na,na,na,compositional,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.003,none,yes,Supplementary file,table in MS Word doc,na,OSL dates,na,
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.12.001,yes,yes,dryad,"CSV, XLSX","STRUCTURE, CLUMPP, DISTRUCT",DNA sequence,na,problem with website
+http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.12.002,none,no,na,XLSX,R,geometric morphometry of bones,na,"many supps with derived data, no raw data"
