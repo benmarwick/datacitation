@@ -244,7 +244,7 @@ script_perc <- software %>%
 
 ```
 
-In addition to our email survey, we also conducted a pilot study of a random sample of `r nrow(jas_article_survey)` articles published during 2016-2017 in the _Journal of Archaeological Science_ to investigate data sharing behaviours. In this sample we found openly available raw data in `r data_are_avail` papers (`r data_are_avail_perc`%), even though only `r have_data_avail_statement` articles (`r have_data_avail_statement_perc`%) include a data availability statement. For papers where data was available, `r data_in_supp` papers (`r data_in_supp_perc`%) have data contained in supplementary files published with the paper, `r data_in_table` (`r data_in_table_perc`%) have all the raw data in tables in the text of the paper, and `r data_in_repo` (`r data_in_repo_perc`%) have data in an online repository. The most frequently shared type of data is compositional (e.g. element concentrations, n = `r comp_n`, `r comp_perc`%), followed by radiocarbon and luminescence age data (where the dates are the primary object of analysis, n = `r dates_n`, `r dates_perc`%) and DNA sequences (n = `r dna_n`, `r dna_perc`%). Data shared in supplementary files and online repositories were most often in Microsoft Excel format (n = `r xlsx_n`, `r xlsx_perc`% of the files in supplements files and repositories), followed by CSV (comma separated variables, a open source plain text spreadsheet format, n = `r csv_n`, `r csv_perc`%), and tables embedded in Microsoft Word or PDF documents (n = `r doc_n`, `r doc_perc`%). When a scripting language such as R, Python, MATLAB or OxCal was used as the analysis software for a paper (n = `r script_n`, `r script_perc`% of the papers where would identify the software), only 2 papers also provided the script with the paper. 
+In addition to our email survey, we also conducted a pilot study of a random sample of `r nrow(jas_article_survey)` articles published during 2016-2017 in the _Journal of Archaeological Science_ to investigate data sharing behaviours. In this sample we found openly available raw data in `r data_are_avail` papers (`r data_are_avail_perc`%), even though only `r have_data_avail_statement` articles (`r have_data_avail_statement_perc`%) include a data availability statement. For papers where data was available, `r data_in_supp` papers (`r data_in_supp_perc`%) have data contained in supplementary files published with the paper, `r data_in_table` (`r data_in_table_perc`%) have all the raw data in tables in the text of the paper, and `r data_in_repo` (`r data_in_repo_perc`%) have data in an online repository. The most frequently shared type of data is compositional (e.g. element concentrations, n = `r comp_n`, `r comp_perc`%), followed by radiocarbon and luminescence age data (where the dates are the primary object of analysis, n = `r dates_n`, `r dates_perc`%) and DNA sequences (n = `r dna_n`, `r dna_perc`%). Generally, compositional data is presented in tables in the text, dating data is presented in supplementary files, and DNA data are in repositories (as is typical for DNA data). Data shared in supplementary files and online repositories were most often in Microsoft Excel format (n = `r xlsx_n`, `r xlsx_perc`% of the files in supplements files and repositories), followed by CSV (comma separated variables, a open source plain text spreadsheet format, n = `r csv_n`, `r csv_perc`%), and tables embedded in Microsoft Word or PDF documents (n = `r doc_n`, `r doc_perc`%). When a scripting language such as R, Python, MATLAB or OxCal was used as the analysis software for a paper (n = `r script_n`, `r script_perc`% of the papers where would identify the software), only 2 papers also provided the script with the paper. 
 
 
 ```{r eval=TRUE, fig.cap="No relationship between data file type and data sharing location"}
@@ -318,13 +318,18 @@ data_type_location %>%
 
 # Data sets in repositories
 
-```{r demo, eval = FALSE}
+
+```{r demo, eval = TRUE}
 # install.packages("rdatacite")
 
-library(rdatacite)
+# library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
 # saveRDS(dc_arch, "dc_arch.rds")
-dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
+# dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
+
+# library(osfr)
+# download_file("tsm89", private = TRUE, path = "../data/raw_data/")
+dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
 
 library(tidyverse)
 library(stringr)
@@ -364,6 +369,7 @@ mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
          yyyy_date =  as.numeric(substr(date, 1,4)))
 ```
 
+Our third and final exploration of archaeologist's data sharing behaviours is a 
 
 ```{r}
 
