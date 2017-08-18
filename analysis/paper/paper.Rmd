@@ -33,6 +33,22 @@ knitr::opts_chunk$set(
 )
 
 library(datacitation)
+
+# my custom plot theme
+theme_new <- function(base_size = 12){
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      #axis.title.x=element_blank(),
+      # axis.title.y=element_blank(),
+      axis.title = element_text(size = 14),
+      legend.key=element_rect(colour=NA, fill =NA),
+      # panel.grid = element_blank(),   
+      panel.border = element_rect(fill = NA, colour = "black", size=0.5),
+      panel.background = element_rect(fill = "white", colour = "black"), 
+      strip.background = element_rect(fill = NA)
+    )
+}
+
 ```
 
 # Email survey of data sharing behaviours
@@ -318,31 +334,29 @@ data_type_location %>%
 
 # Data sets in repositories
 
-```{r demo, eval = FALSE}
+```{r get-citation-data, eval = TRUE}
 # install.packages("rdatacite")
 
-library(rdatacite)
+# Originat data aquisition on 14 Aug 2017
+# library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
+
+# Saved locally then uploaded to osf.io/tsm89 (too big for GitHub)
 # saveRDS(dc_arch, "dc_arch.rds")
-dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
+# dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
+
+# Download from osf.io with this:
+# library(osfr)
+# download_file("tsm89", private = TRUE)
+dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
+```
+
+
+```{r eval = TRUE}
 
 library(tidyverse)
 library(stringr)
 # glimpse(dc_arch)
-
-theme_new <- function(base_size = 12){
-  theme_bw(base_size = base_size) %+replace%
-    theme(
-      #axis.title.x=element_blank(),
-      # axis.title.y=element_blank(),
-      axis.title = element_text(size = 14),
-      legend.key=element_rect(colour=NA, fill =NA),
-      # panel.grid = element_blank(),   
-      panel.border = element_rect(fill = NA, colour = "black", size=0.5),
-      panel.background = element_rect(fill = "white", colour = "black"), 
-      strip.background = element_rect(fill = NA)
-    )
-}
 
 dc_arch <- 
 dc_arch %>% 
@@ -365,20 +379,9 @@ mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
 ```
 
 
-```{r}
 
 
-# variables of interest:
-# datacentre
-# allocator 
-# date
-# creator
-# description
-# langauge
-# contributor
-# rights
-# publisher
-
+```{r eval = TRUE}
 # select cols of interest
 xx <- 
 dc_arch %>% 
@@ -390,38 +393,170 @@ dc_arch %>%
           language,
           contributor,
           rights,
+          subject,
+          format,
           publisher) 
 
-# make a list of tallys of each col
-# yy <- map(xx, ~.x %>% as_data_frame() %>% group_by(value) %>% tally())
-
-
-# output <- vector("list", ncol(xx))
-# for(i in seq_len(ncol(xx))){
-#   output[[i]] <- 
-#     arrange(as_data_frame(table(xx[ , i])), desc(n))
-#   gc()
-#   print(i)
-# }
-
-
-datacentre<-  arrange(as_data_frame(table(xx[ , "datacentre"])), desc(n))
-allocator <-  arrange(as_data_frame(table(xx[ , "allocator"])), desc(n))
-dates<-        arrange(as_data_frame(table(xx[ , "date"])), desc(n))
-creator<-     arrange(as_data_frame(table(xx[ , "creator"])), desc(n)) 
-# description<- arrange(as_data_frame(table(xx[ , "description"])), desc(n)) 
-language<-    arrange(as_data_frame(table(xx[ , "language"])), desc(n))  
-contributor<- arrange(as_data_frame(table(xx[ , "contributor"])), desc(n)) 
-rights<-      arrange(as_data_frame(table(xx[ , "rights"])), desc(n)) 
-publisher <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n)) 
-
-
+# tallies
+datacentre <-  arrange(as_data_frame(table(xx[ , "datacentre"])), desc(n))
+allocator  <-  arrange(as_data_frame(table(xx[ , "allocator"])), desc(n))
+dates <-       arrange(as_data_frame(table(xx[ , "date"])), desc(n))
+creator <-     arrange(as_data_frame(table(xx[ , "creator"])), desc(n)) 
+language <-    arrange(as_data_frame(table(xx[ , "language"])), desc(n))  
+contributor <- arrange(as_data_frame(table(xx[ , "contributor"])), desc(n)) 
+rights <-      arrange(as_data_frame(table(xx[ , "rights"])), desc(n)) 
+publisher  <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n)) 
+file_format <-  arrange(as_data_frame(table(xx[ , "format"])), desc(n))
 ```
 
+```{r first-dates}
+dates <- 
+  dc_arch %>% 
+  mutate(yyyy_date = as.numeric(substr(date, 1,4)),
+         yyyy_created = as.numeric(substr(created, 1,4)))
+
+# when was the first record created?
+first_created <- min(dates$yyyy_created)
+first_date <-  min(dates$yyyy_date, na.rm = TRUE)
+
+# when in that big peak
+dates_tally <- 
+  dates %>% 
+  group_by(yyyy_created) %>% 
+  tally(sort = TRUE)
+```
+
+```{r eval = FALSE}
+# text mine a little
+library(tidytext)
+subject_1gram <- 
+xx %>% 
+  unnest_tokens(word, subject) %>%
+  anti_join(stop_words) %>%
+  count(word, sort = TRUE) 
+
+subject_2gram <- 
+xx %>% 
+  unnest_tokens(bigram, subject, token = "ngrams", n = 2) %>%
+  count(word, sort = TRUE) 
+
+subject_3gram <- 
+xx %>% 
+  unnest_tokens(trigram, subject, token = "ngrams", n = 3) %>%
+  count(word, sort = TRUE) 
+```
+
+```{r}
+# File types
+
+# how many records with file type info?
+file_types <- c("pdf|image|imagejpeg|jpg|tiff|png|gif|bmp|ai|illustrator|access|mdb|dbf|dbase|accdb|dbase|doc|rtf|word|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet|ply|archeolink|autocad|dwg")
+
+number_of_records_with_file_type <- 
+file_format %>% 
+  filter(grepl(file_types, tolower(Var1))) %>% 
+  summarise(sum = sum(n)) %>% 
+  pull(sum)
+
+perc_of_records_with_file_type <- round(number_of_records_with_file_type / nrow(dc_arch) * 100, 0)
+
+# how many that are only PDFs? 
+have_a_pdf_in_there <- 
+file_format %>% 
+   filter(grepl("pdf", tolower(Var1))) %>% 
+   mutate(Var1 = tolower(gsub("application/|/", "", Var1)) )
+
+perc_have_a_pdf <- round(sum(have_a_pdf_in_there$n) / number_of_records_with_file_type * 100, 0)
+
+n_only_pdf <-  have_a_pdf_in_there %>% 
+    group_by(Var1) %>% 
+    tally(sort = TRUE) %>% 
+    filter(Var1 %in% c("pdf", "pdf,pdf", "pdfx,pdf", "pdfx")) %>% 
+    summarise(nnn = sum(nn)) %>% 
+    pull(nnn)
+
+perc_only_pdf <-  round(n_only_pdf / number_of_records_with_file_type * 100, 0)
+
+# how many that are only images?
+have_an_image_in_there <-
+file_format %>% 
+   filter(grepl("image|jpg|tiff|png|gif|bmp|ai|illustrator|imagejpeg", tolower(Var1))) %>% 
+   mutate(Var1 = tolower(gsub("application/|/", "", Var1)) )
+
+n_only_image <-  have_an_image_in_there %>% 
+    group_by(Var1) %>% 
+    tally(sort = TRUE) %>% 
+    filter(Var1 %in% c("image", "jpg", "tiff", "png", "gif", "bmp", "ai", "illustrator", "imagejpeg", "imagetiff", "imagepng")) %>% 
+    summarise(nnn = sum(nn)) %>% 
+    pull(nnn)
+
+perc_only_image <-  round(n_only_image / number_of_records_with_file_type * 100, 0)
+
+# how many records contain a structured data file (csv, xls, dbf, etc)?
+have_a_structured_data_file_in_there <- 
+  file_format %>% 
+  filter(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet", tolower(Var1))) %>% 
+   mutate(Var1 = tolower(gsub("application/|/", "", Var1)) )
+
+n_structured_data_file <- have_a_structured_data_file_in_there %>% 
+  group_by(Var1) %>% 
+  tally(sort=TRUE) %>% 
+  summarise(nnn = sum(nn)) %>% 
+  pull(nnn)
+
+perc_structured_data_file <- round(n_structured_data_file / number_of_records_with_file_type * 100, 0)
+
+# count each file type once, even for records with multiple files types
+file_format_single <- 
+file_format %>% 
+  filter(grepl(file_types, tolower(Var1))) %>% 
+  mutate(file_format = tolower(gsub("application|/", "", Var1))) %>% 
+  mutate(file_format_single = strsplit(as.character(file_format), ",|;")) %>% 
+  unnest(file_format_single) 
+
+# how many unique types?
+how_many_unique_file_types <- 
+file_format_single %>% 
+  group_by(file_format_single) %>% 
+  tally(sort = TRUE)
+  
+file_format_simple <- 
+file_format_single %>% 
+  mutate(file_type = case_when(
+    grepl("pdf", file_format_single) ~ "pdf",
+    grepl("image|imagejpeg|jpg|tiff|png|gif|bmp|ai|illustrator", file_format_single) ~ "image",
+    grepl("access|mdb|dbf|dbase|accdb|dbase", file_format_single) ~ "database",
+    grepl("doc|rtf|word", file_format_single) ~ "doc",
+    grepl("arcgis|shape|shp|mapinfo|mid|mif|surfer", file_format_single) ~ "GIS",
+    grepl("xls|excel|csv|spreadsheet", file_format_single) ~ "spreadsheet",
+    grepl("ply", file_format_single) ~ "3D",
+    grepl("archeolink", file_format_single) ~ "archeolink",
+    grepl("autocad|dwg", file_format_single) ~ "autocad"
+  ))  
+
+file_format_simple_tally <- 
+file_format_simple %>% 
+  filter(!is.na(file_type)) %>% 
+  group_by(file_type) %>% 
+  tally(sort = TRUE) %>% 
+  mutate(perc = round(nn / sum (nn) * 100, 0))
+
+file_format_combos_tally <- 
+file_format_simple %>% 
+  filter(!is.na(file_type)) %>% 
+  group_by(n) %>% 
+  filter(n_distinct(file_type) >= 2) %>% 
+  slice(1) %>% # look at the file_format col only
+  group_by(file_format) %>% 
+  tally(sort = TRUE)
+```
+
+Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, the first records in these repositories were created in `r first_created`
+
+Many of these records are grey literature such as unpublished reports, produced by commercial consultants or research projects. Of  the `r prettyNum(number_of_records_with_file_type,  big.mark = ",")` (`r perc_of_records_with_file_type`%) recrods that include infomation about the file types in the deposit, `r perc_only_pdf`% (n = `r n_only_pdf`) contain only PDFs, followed by `r perc_only_image`% (n = `r prettyNum(n_only_image, big.mark = ",")`) that contain only image files. Structured data files such as spreadsheets, databases and shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ","`) records.
 
 
 ```{r}
-
 datacentre_plot <- 
   datacentre %>% 
   mutate(Var1 = str_wrap(Var1, 20)) %>% 
@@ -527,11 +662,15 @@ date_plot <-
   ylab("")
 
 library(plotly)
-ggplotly(date_plot)
+# ggplotly(date_plot)
+
+format_plot <- 
+  
 ```
 
 
-```{r}
+```{r dates eval = TRUE}
+
 
 # why so many in 2010? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
 
@@ -578,7 +717,7 @@ why_2008 <-
 ```
   
 
-```{r}
+```{r eval=TRUE}
 # panel of plots
 # combine plots for lang and data center
 datacentre_and_langugage_plot <- 
