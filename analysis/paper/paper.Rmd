@@ -487,26 +487,29 @@ dates %>%
 top_data_sources <- 
   unique(top_data_source_each_year$datacentre)
 
- years_of_interest <- c(1957, 1990, 2009)
- ymax <- 15000
+ years_of_interest <- c(1990, 2009)
+ ymax <- 10000
 date_plot2 <- 
-  dates %>% 
-  filter(datacentre %in% top_data_sources) %>% 
-  ggplot(aes(yyyy_date)) +
-  geom_bar(aes(fill = datacentre)) +
-  scale_y_log10(limits = c(1, ymax)) +
+  dates  %>% 
+  filter(!is.na(yyyy_date)) %>% 
+  ggplot(aes(yyyy_date,
+             fill = datacentre_symbol
+             )) +
+  geom_bar() +
+  guides(fill=FALSE) +
   scale_fill_viridis(discrete = TRUE) +
   theme_new() +
-  xlim(c(1900,2017)) +
+  xlim(c(1950,2017)) +
   xlab("Year data was collected") +
   ylab("Number of archaeology DOIs\nknown to DataCite") +
   geom_vline(xintercept = years_of_interest, colour = "red") +
   annotate("text", 
-           x = years_of_interest + 4,
+           x = years_of_interest + 2,
            y = ymax,
            label = years_of_interest) 
 
-
+# plotly::ggplotly(date_plot2) %>%
+#   layout(showlegend = FALSE)
 
 
 ```
