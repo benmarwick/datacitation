@@ -1,8 +1,7 @@
 ---
-title: "Title Goes Here"
+title: "A Standard for the Scholarly Citation of Archaeological Data: Supplementary Information"
 author:
-  - author 1
-  - author 2
+  - "Ben Marwick"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
     bookdown::html_document2:
@@ -18,6 +17,9 @@ highlights: |
   These are the highlights. 
 ---
 
+This document contains code and text supporting the results presented in "A Standard for the Scholarly Citation of Archaeological Data" (draft online at https://docs.google.com/document/d/1UT4RuW4SCkdLGsn2UmNK22vgfJZxljg8ugRstjToCN8/edit).
+
+The source file for this document, and other files in the compendium are online at https://github.com/benmarwick/datacitation
 
 <!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored. -->
 
@@ -429,43 +431,6 @@ library(changepoint)
 out <- cpt.meanvar(dates_tally$n, test.stat = "Poisson", method = "BinSeg")
 breakouts <- dates_tally[cpts.ts(out), ]
 
-date_plot <- 
-  dates %>% 
-  group_by(yyyy_date) %>% 
-  tally() %>% 
-  ggplot(aes( yyyy_date, n)) +
-  geom_col(fill = datacentre) +
-  scale_y_log10() +
-  theme_new() +
-  xlim(c(1920,2017)) +
-  xlab("Year data was collected") +
-  ylab("Number of archaeology DOIs\nknown to DataCite")
-
-date_plot <- 
-  dates %>% 
-  group_by(yyyy_date) %>% 
-  tally() %>% 
-  ggplot(aes( yyyy_date, n)) +
-  geom_col() +
-  scale_y_log10() +
-  theme_new() +
-  xlim(c(1920,2017)) +
-  xlab("Year data was collected") +
-  ylab("Number of archaeology DOIs\nknown to DataCite")
-
-years_of_interest <- c(1957, 1990, 2009)
-ymax <- 15000
-date_plot + 
-  geom_vline(xintercept = years_of_interest, colour = "red") +
-  annotate("text", 
-           x = years_of_interest + 4,
-           y = ymax,
-           label = years_of_interest) +
-  scale_y_log10(limits = c(1, ymax)) 
-
-# library(plotly)
-# ggplotly(date_plot)
-
 # who is the top data source in each year?
 top_data_sources <- 
 dates %>% 
@@ -487,18 +452,22 @@ dates %>%
 top_data_sources <- 
   unique(top_data_source_each_year$datacentre)
 
- years_of_interest <- c(1990, 2009)
+ years_of_interest <- c(2009)
  ymax <- 10000
-date_plot2 <- 
+ 
+date_plot <- 
   dates  %>% 
   filter(!is.na(yyyy_date)) %>% 
   ggplot(aes(yyyy_date,
-             fill = datacentre_symbol
+             fill = datacentre
              )) +
   geom_bar() +
-  guides(fill=FALSE) +
-  scale_fill_viridis(discrete = TRUE) +
+  # guides(fill=FALSE) +
+  scale_fill_viridis(discrete = TRUE,
+                     breaks = top_data_sources[1:4],
+                     labels = top_data_sources[1:4]) +
   theme_new() +
+  theme(legend.position = c(0.3, 0.75)) +
   xlim(c(1950,2017)) +
   xlab("Year data was collected") +
   ylab("Number of archaeology DOIs\nknown to DataCite") +
@@ -639,7 +608,7 @@ file_format_simple %>%
   tally(sort = TRUE)
 ```
 
-Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, most of the data was collected after 1957. The was a steady increase in the amount of data deposited during 1990-2008, as personal computers become more affordable. There is a substantial increase in 2009 when the DANS-EASY
+Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, most of the data was collected after 1957. The was a steady increase in the amount of data deposited during 1990-2008, as personal computers become more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY
 
 Many of these records are grey literature such as unpublished reports, produced by commercial consultants or research projects. Of  the `r prettyNum(number_of_records_with_file_type, big.mark = ",")` (`r perc_of_records_with_file_type`%) records that include infomation about the file types in the deposit, `r perc_only_pdf`% (n = `r prettyNum(n_only_pdf, big.mark = ",")`) contain only PDFs. Structured data files such as spreadsheets, databases or shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ",")`) records.
 
@@ -738,9 +707,14 @@ ggplot(publisher[1:10,],
   coord_flip() +
   theme_new()
 
-
-
-
+# show plots
+datacentre_plot
+allocator_plot
+creator_plot
+language_plot
+contributor_plot
+rights_plot
+publisher_plot
   
 ```
 
@@ -748,15 +722,13 @@ ggplot(publisher[1:10,],
 ```{r dates, eval = TRUE}
 
 
-# why so many in 2010? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
+# why so many in 2009? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
 
+top_per_year <- 
 dates %>% 
   group_by(yyyy_date, datacentre) %>% 
    tally(sort = TRUE)  %>% 
-   top_n(n=1) %>% 
-  View
-  
-
+   top_n(n=1) 
 
 why_2013 <- 
   xx %>% 
@@ -776,7 +748,6 @@ why_2011 <-
   group_by(datacentre) %>% 
   tally(sort = TRUE)
 
-
 why_2010 <- 
 xx %>% 
   filter(as.numeric(substr(date, 1,4)) == 2010)  %>% 
@@ -794,10 +765,34 @@ why_2008 <-
   filter(as.numeric(substr(date, 1,4)) == 2008)  %>% 
   group_by(datacentre) %>% 
   tally(sort = TRUE)
+
+# in 2009, among the Dutch, what is going on?
+dutch_2009 <- 
+dc_arch %>% 
+  filter(yyyy_date == 2009,
+         datacentre == "DELFT.EASY - DANS-EASY") %>% 
+  group_by(publisher) %>% 
+  tally(sort=TRUE) 
+
+# how about in ADS?
+ads_2009 <- 
+dc_arch %>% 
+  filter(yyyy_date == 2009,
+         grepl("ADS", datacentre)) %>% 
+  group_by(creator) %>% 
+  tally(sort=TRUE) 
+
+# compare to 2009
+dutch_2008 <- 
+dc_arch %>% 
+  filter(yyyy_date == 2008,
+         datacentre == "DELFT.EASY - DANS-EASY") %>% 
+  group_by(publisher) %>% 
+  tally(sort=TRUE) 
 ```
   
 
-```{r eval=TRUE}
+```{r}
 # panel of plots
 # combine plots for lang and data center
 datacentre_and_langugage_plot <- 
@@ -890,5 +885,23 @@ dc_arch %>%
   theme(legend.position = "none")  +
   facet_wrap(~ datacentre)
 
+```
+
+
+### Colophon
+
+This report was generated on `r Sys.time()` using the following computational environment and dependencies: 
+
+```{r colophon, cache = FALSE, eval = TRUE}
+# which R packages and versions?
+devtools::session_info()
+```
+
+The current Git commit details are:
+
+```{r eval = TRUE}
+# what commit is this file at? You may need to change the path value
+# if your Rmd is not in analysis/paper/
+git2r::repository("../..")
 ```
 
