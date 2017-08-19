@@ -439,7 +439,6 @@ dates %>%
   slice(1:10) %>% 
   pull(datacentre)
 
-
 top_data_source_each_year <- 
 dates %>% 
   group_by(datacentre, yyyy_date) %>% 
@@ -449,8 +448,6 @@ dates %>%
   slice(which.max(n)) %>% 
   arrange(desc(yyyy_date))
 
-top_data_sources <- 
-  unique(top_data_source_each_year$datacentre)
 
  years_of_interest <- c(2009)
  ymax <- 10000
@@ -480,7 +477,25 @@ date_plot <-
 # plotly::ggplotly(date_plot2) %>%
 #   layout(showlegend = FALSE)
 
+# show plot 
+date_plot
 
+# change in each major repo over time
+dates  %>% 
+  filter(!is.na(yyyy_date)) %>% 
+  group_by(yyyy_date, datacentre)  %>% 
+  tally() %>% 
+  filter(n != 0,
+         datacentre %in% top_data_sources[1:9]) %>% 
+   ggplot(aes(yyyy_date,
+              n
+             )) +
+  geom_line(size = 1)  +
+  scale_color_viridis(discrete = TRUE) +
+  scale_y_log10() +
+  xlim(c(1990, 2017)) +
+  theme_new() +
+  facet_wrap(~ datacentre)
 ```
 
 ```{r eval = FALSE}
@@ -608,7 +623,7 @@ file_format_simple %>%
   tally(sort = TRUE)
 ```
 
-Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, most of the data was collected after 1957. The was a steady increase in the amount of data deposited during 1990-2008, as personal computers become more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY
+Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, most of the data was collected after 1957. The was a steady increase in the amount of data deposited during 1990-2008, as personal computers become more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY repository saw in influx of records from Dutch CRM firms. This may be a follow-on effect of the introduction of Dutch archaeology legislation, the _Wet op de archeologische monumentenzorg_ (Wamz), in 2007 that formally obligated archaeologists in the Netherlands to archive their data via DANS. After 2009 the volume of deposits declined, with the exception of generic repositories such as Figshare, Zenodo and ResearchGate, which continued to grow.
 
 Many of these records are grey literature such as unpublished reports, produced by commercial consultants or research projects. Of  the `r prettyNum(number_of_records_with_file_type, big.mark = ",")` (`r perc_of_records_with_file_type`%) records that include infomation about the file types in the deposit, `r perc_only_pdf`% (n = `r prettyNum(n_only_pdf, big.mark = ",")`) contain only PDFs. Structured data files such as spreadsheets, databases or shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ",")`) records.
 
@@ -720,8 +735,6 @@ publisher_plot
 
 
 ```{r dates, eval = TRUE}
-
-
 # why so many in 2009? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
 
 top_per_year <- 
@@ -830,7 +843,7 @@ grid.arrange(datacentre_and_langugage_plot,
 ```
 
 
-```{r}
+```{r eval = TRUE}
 
 # look at some relationships
 datacentre_rights_table <- 
@@ -881,9 +894,9 @@ dc_arch %>%
              colour = datacentre)) +
   geom_line(size = 2) +
   theme_bw()  +
-  scale_y_log10() +
+  #scale_y_log10() +
   theme(legend.position = "none")  +
-  facet_wrap(~ datacentre)
+  facet_wrap(~ datacentre, scales = "free_y")
 
 ```
 
