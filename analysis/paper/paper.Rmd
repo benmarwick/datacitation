@@ -334,17 +334,10 @@ data_type_location %>%
 
 # Data sets in repositories
 
-<<<<<<< HEAD
-
-```{r demo, eval = TRUE}
+```{r eval = TRUE}
 # install.packages("rdatacite")
 
-=======
-```{r get-citation-data, eval = TRUE}
-# install.packages("rdatacite")
-
-# Originat data aquisition on 14 Aug 2017
->>>>>>> 0fd56b87e2615f240e89badc31d17233cb598523
+# Original data aquisition on 14 Aug 2017
 # library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
 
@@ -352,11 +345,6 @@ data_type_location %>%
 # saveRDS(dc_arch, "dc_arch.rds")
 # dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
 
-<<<<<<< HEAD
-# library(osfr)
-# download_file("tsm89", private = TRUE, path = "../data/raw_data/")
-dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
-=======
 # Download from osf.io with this:
 # library(osfr)
 # download_file("tsm89", private = TRUE)
@@ -365,8 +353,6 @@ dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
 
 
 ```{r eval = TRUE}
->>>>>>> 0fd56b87e2615f240e89badc31d17233cb598523
-
 library(tidyverse)
 library(stringr)
 # glimpse(dc_arch)
@@ -387,12 +373,13 @@ mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
     grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
     grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
   )) %>% 
-  mutate(yyyy_created =  as.numeric(substr(created, 1,4)),
-         yyyy_date =  as.numeric(substr(date, 1,4)))
+  mutate(yyyy_date = as.numeric(substr(date, 1,4)),
+         yyyy_created = as.numeric(substr(created, 1,4))) %>% 
+  mutate(yyyy_date = if_else(is.na(yyyy_date), as.numeric(publicationYear), yyyy_date)) %>% 
+  filter(yyyy_date > 1500) %>% 
+  filter(yyyy_date < 2018) %>% 
+  filter(!grepl("PANGAEA|Global Biodiversity", datacentre)) # pesky Mediterranean Data Archaeology and Rescue & Danish plants!
 ```
-
-Our third and final exploration of archaeologist's data sharing behaviours is a 
-
 
 
 ```{r eval = TRUE}
@@ -423,21 +410,105 @@ publisher  <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n))
 file_format <-  arrange(as_data_frame(table(xx[ , "format"])), desc(n))
 ```
 
-```{r first-dates}
+```{r first-dates, eval = TRUE}
 dates <- 
-  dc_arch %>% 
-  mutate(yyyy_date = as.numeric(substr(date, 1,4)),
-         yyyy_created = as.numeric(substr(created, 1,4)))
+  dc_arch 
 
 # when was the first record created?
 first_created <- min(dates$yyyy_created)
 first_date <-  min(dates$yyyy_date, na.rm = TRUE)
 
-# when in that big peak
+# when is the break out
 dates_tally <- 
   dates %>% 
-  group_by(yyyy_created) %>% 
-  tally(sort = TRUE)
+  group_by(yyyy_date) %>% 
+  tally()
+
+# when is that big peak, it's 2009
+library(changepoint)
+out <- cpt.meanvar(dates_tally$n, test.stat = "Poisson", method = "BinSeg")
+breakouts <- dates_tally[cpts.ts(out), ]
+
+date_plot <- 
+  dates %>% 
+  group_by(yyyy_date) %>% 
+  tally() %>% 
+  ggplot(aes( yyyy_date, n)) +
+  geom_col(fill = datacentre) +
+  scale_y_log10() +
+  theme_new() +
+  xlim(c(1920,2017)) +
+  xlab("Year data was collected") +
+  ylab("Number of archaeology DOIs\nknown to DataCite")
+
+date_plot <- 
+  dates %>% 
+  group_by(yyyy_date) %>% 
+  tally() %>% 
+  ggplot(aes( yyyy_date, n)) +
+  geom_col() +
+  scale_y_log10() +
+  theme_new() +
+  xlim(c(1920,2017)) +
+  xlab("Year data was collected") +
+  ylab("Number of archaeology DOIs\nknown to DataCite")
+
+years_of_interest <- c(1957, 1990, 2009)
+ymax <- 15000
+date_plot + 
+  geom_vline(xintercept = years_of_interest, colour = "red") +
+  annotate("text", 
+           x = years_of_interest + 4,
+           y = ymax,
+           label = years_of_interest) +
+  scale_y_log10(limits = c(1, ymax)) 
+
+# library(plotly)
+# ggplotly(date_plot)
+
+# who is the top data source in each year?
+top_data_sources <- 
+dates %>% 
+  group_by(datacentre) %>% 
+  tally(sort = TRUE) %>% 
+  slice(1:10) %>% 
+  pull(datacentre)
+
+
+top_data_source_each_year <- 
+dates %>% 
+  group_by(datacentre, yyyy_date) %>% 
+  tally() %>%  
+  ungroup(datacentre) %>% 
+  group_by(yyyy_date) %>% 
+  slice(which.max(n)) %>% 
+  arrange(desc(yyyy_date))
+
+top_data_sources <- 
+  unique(top_data_source_each_year$datacentre)
+
+ years_of_interest <- c(1957, 1990, 2009)
+ ymax <- 15000
+date_plot2 <- 
+  dates %>% 
+  filter(datacentre %in% top_data_sources) %>% 
+  ggplot(aes(yyyy_date)) +
+  geom_bar(aes(fill = datacentre)) +
+  scale_y_log10(limits = c(1, ymax)) +
+  scale_fill_viridis(discrete = TRUE) +
+  theme_new() +
+  xlim(c(1900,2017)) +
+  xlab("Year data was collected") +
+  ylab("Number of archaeology DOIs\nknown to DataCite") +
+  geom_vline(xintercept = years_of_interest, colour = "red") +
+  annotate("text", 
+           x = years_of_interest + 4,
+           y = ymax,
+           label = years_of_interest) 
+
+
+
+
 ```
 
 ```{r eval = FALSE}
@@ -460,7 +531,7 @@ xx %>%
   count(word, sort = TRUE) 
 ```
 
-```{r}
+```{r file-types, eval = TRUE}
 # File types
 
 # how many records with file type info?
@@ -565,12 +636,12 @@ file_format_simple %>%
   tally(sort = TRUE)
 ```
 
-Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, the first records in these repositories were created in `r first_created`
+Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, most of the data was collected after 1957. The was a steady increase in the amount of data deposited during 1990-2008, as personal computers become more affordable. There is a substantial increase in 2009 when the DANS-EASY
 
-Many of these records are grey literature such as unpublished reports, produced by commercial consultants or research projects. Of  the `r prettyNum(number_of_records_with_file_type,  big.mark = ",")` (`r perc_of_records_with_file_type`%) recrods that include infomation about the file types in the deposit, `r perc_only_pdf`% (n = `r n_only_pdf`) contain only PDFs, followed by `r perc_only_image`% (n = `r prettyNum(n_only_image, big.mark = ",")`) that contain only image files. Structured data files such as spreadsheets, databases and shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ","`) records.
+Many of these records are grey literature such as unpublished reports, produced by commercial consultants or research projects. Of  the `r prettyNum(number_of_records_with_file_type, big.mark = ",")` (`r perc_of_records_with_file_type`%) records that include infomation about the file types in the deposit, `r perc_only_pdf`% (n = `r prettyNum(n_only_pdf, big.mark = ",")`) contain only PDFs. Structured data files such as spreadsheets, databases or shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ",")`) records.
 
 
-```{r}
+```{r eval = TRUE}
 datacentre_plot <- 
   datacentre %>% 
   mutate(Var1 = str_wrap(Var1, 20)) %>% 
@@ -664,69 +735,61 @@ ggplot(publisher[1:10,],
   coord_flip() +
   theme_new()
 
-date_plot <- 
-  dates %>% 
-  mutate(yyyy = as.numeric(substr(Var1, 1,4))) %>% 
-  select(yyyy) %>% 
-  ggplot(aes(yyyy)) +
-  geom_histogram() +
-  theme_new() +
-  xlim(c(1950,2017)) +
-  xlab("Year") +
-  ylab("")
 
-library(plotly)
-# ggplotly(date_plot)
 
-format_plot <- 
+
   
 ```
 
 
-```{r dates eval = TRUE}
+```{r dates, eval = TRUE}
 
 
 # why so many in 2010? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
 
-what_2010 <- 
-  xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2010)
+dates %>% 
+  group_by(yyyy_date, datacentre) %>% 
+   tally(sort = TRUE)  %>% 
+   top_n(n=1) %>% 
+  View
+  
+
 
 why_2013 <- 
   xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2013) %>% 
-  group_by(publisher) %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2013)  %>% 
+  group_by(datacentre) %>% 
   tally(sort = TRUE)
 
 why_2012 <- 
   xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2012) %>% 
-  group_by(publisher) %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2012)  %>% 
+  group_by(datacentre) %>% 
   tally(sort = TRUE)
 
 why_2011 <- 
   xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2011) %>% 
-  group_by(publisher) %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2011)  %>% 
+  group_by(datacentre) %>% 
   tally(sort = TRUE)
 
 
 why_2010 <- 
 xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2010) %>% 
-  group_by(publisher) %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2010)  %>% 
+  group_by(datacentre) %>% 
   tally(sort = TRUE)
 
 why_2009 <- 
   xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2009) %>% 
-  group_by(publisher) %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2009)  %>% 
+  group_by(datacentre) %>% 
   tally(sort = TRUE)
 
 why_2008 <- 
   xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2008) %>% 
-  group_by(publisher) %>% 
+  filter(as.numeric(substr(date, 1,4)) == 2008)  %>% 
+  group_by(datacentre) %>% 
   tally(sort = TRUE)
 ```
   
