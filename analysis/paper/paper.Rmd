@@ -961,6 +961,97 @@ dc_arch %>%
 ```
 
 
+```{r eval=FALSE}
+# can we scrape google scholar for citation data?
+# no, they are very sensitive to robots!
+
+base_url <- "https://scholar.google.com/scholar?q="
+doi <- dc_arch$doi
+the_url <- paste0(base_url,doi)
+
+# output storage
+title_of_citing_item <-  vector("list", length(the_url))
+title_of_no_items <- vector("list", length(the_url))
+
+for(i in seq_along(the_url)){
+  
+library(rvest) 
+the_content <- httr::GET(the_url[[i]],
+                         user_agent(paste0(sample(letters[1:10]), collapse = "")))
+the_content <- read_html(the_content)
+
+title_of_citing_item[[i]] <- 
+the_content %>% 
+html_nodes(".gs_rt a") %>%
+  html_text() 
+
+title_of_no_items[[i]] <- 
+the_content %>% 
+html_nodes("p") %>%
+  html_text()
+
+print(paste0(i, " ", title_of_citing_item[[i]], " ", title_of_no_items[[i]]))
+Sys.sleep(sample(10, 1) * 0.5)
+
+}
+
+saveRDS(title_of_citing_item, "../data/raw_data/title_of_citing_item.rds")
+saveRDS(title_of_no_items, "../data/raw_data/title_of_no_items.rds")
+
+# there are none?
+idx <- unlist(map(title_of_citing_item, ~!identical(.x, character(0))))
+sum(idx)
+title_of_citing_item[idx]
+
+title_of_no_items
+
+idx <- unlist(map(title_of_no_items, ~!identical(.x, character(0))))
+sum(idx)
+title_of_no_items[idx]
+
+```
+
+```{r eval = FALSE}
+# This also doesn't work
+require(RSelenium)
+
+# vignette("RSelenium-docker", package = "RSelenium")
+
+# docker run -d -p 4445:4444 selenium/standalone-firefox:2.53.0
+# docker-machine ip
+remDr <- remoteDriver(remoteServerAddr = "192.168.99.100",
+                      port = 4445L)
+
+base_url <- "https://scholar.google.com/scholar?q="
+doi <- dc_arch$doi
+the_url <- paste0(base_url,doi)
+
+remDr$navigate(the_url[i])
+
+remDr$getPageSource() %>% 
+  unlist() %>% 
+  read_html() %>% 
+  html_nodes(".gs_rt a") %>%
+  html_text() 
+
+remDr$getPageSource() %>% 
+  unlist() %>% 
+  read_html() %>% 
+  html_nodes(".gs_med") %>%
+  html_text() 
+
+remDr$getPageSource() %>% 
+  unlist() %>% 
+  read_html() %>% 
+  html_nodes("p") %>%
+  html_text() 
+ 
+
+
+```
+
+
+
 ### Colophon
 
 This report was generated on `r Sys.time()` using the following computational environment and dependencies: 
