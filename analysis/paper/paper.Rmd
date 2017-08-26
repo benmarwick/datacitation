@@ -2,6 +2,7 @@
 title: "A Standard for the Scholarly Citation of Archaeological Data: Supplementary Information"
 author:
   - "Ben Marwick"
+  - "Suzanne E. Pilaar Birch"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
     bookdown::html_document2:
@@ -17,11 +18,14 @@ highlights: |
   These are the highlights. 
 ---
 
+
+
+<!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored.
+
 This document contains code and text supporting the results presented in "A Standard for the Scholarly Citation of Archaeological Data" (draft online at https://docs.google.com/document/d/1UT4RuW4SCkdLGsn2UmNK22vgfJZxljg8ugRstjToCN8/edit).
 
 The source file for this document, and other files in the compendium are online at https://github.com/benmarwick/datacitation
-
-<!-- This is the format for text comments that will be ignored during renderings. Do not put R code in these comments because it will not be ignored. -->
+-->
 
 ```{r, setup, echo = FALSE}
 knitr::opts_chunk$set(
