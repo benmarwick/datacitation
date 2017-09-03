@@ -7,8 +7,6 @@ output:
     bookdown::html_document2:
     fig_caption: yes
     reference_docx: templates/template.docx
-bibliography: references.bib
-csl: journal-of-archaeological-science.csl
 abstract: |
   Text of abstract
 keywords: |
@@ -993,6 +991,9 @@ dc_arch %>%
 
 # How to share archaeological data?
 
+There are many guidelines and conventions from other disciplines that are relevant to sharing archaeological data. Table XXX summarises some of these, and recommendations specifically written for archaeologists can be found in XXX [archaeology data service manuals]. We recognise that many of these guidelines may create new technical and practical challenges to archaeologists who are not accustomed to sharing data, and many not want to dedicate resources to sharing data. However, we should not let the perfect be the enemy of the good. In our own work we try to follow these guidelines with no dedicated resources for data sharing, and with an incomplete knowledge of some of the technical details of repository operations. While we recognise that our data sharing pracitses fall short of all the guidelines, we still see value in sharing data imperfectly, rather than not at all. 
+
+Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the website of a research project is problematic because these files could disappear at any time, and published links to the files become broken when these websites are updated or reorganised. 
 
 # How to cite archaeological data?
 
