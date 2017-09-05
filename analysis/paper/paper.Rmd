@@ -370,20 +370,27 @@ data_type_location %>%
 ## Data sets in repositories tracked by DataCite
 
 ```{r eval = TRUE}
+library(tidyverse)
 # install.packages("rdatacite")
 
 # Original data aquisition on 14 Aug 2017
 # library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
 
+# It doesn't get much of tDAR, so let's be more specific 
+# dc_arch_tdar <- dc_search(q = "10.6067", rows = pretty(100000)[2])
+
 # Saved locally then uploaded to osf.io/tsm89 (too big for GitHub)
 # saveRDS(dc_arch, "dc_arch.rds")
+# saveRDS(dc_arch_tdar, "analysis/data/raw_data/dc_arch_tdar.rds")
 # dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
 
 # Download from osf.io with this:
 # library(osfr)
 # download_file("tsm89", private = TRUE)
 dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
+dc_arch_tdar <- readRDS("../data/raw_data/dc_arch_tdar.rds")
+dc_arch <- bind_rows(dc_arch, dc_arch_tdar)
 ```
 
 ```{r eval = TRUE}
@@ -480,9 +487,16 @@ dates %>%
   arrange(desc(yyyy_date))
 
 
- years_of_interest <- c(2009)
- ymax <- 10000
+ peak_year <- 
+   dates %>% 
+   group_by(yyyy_date) %>% 
+   tally(sort = TRUE) %>% 
+   slice(1) %>% 
+   pull(yyyy_date)
  
+ ymax <- 18000
+
+library(viridis)
 date_plot <- 
   dates  %>% 
   filter(!is.na(yyyy_date)) %>% 
@@ -492,18 +506,18 @@ date_plot <-
   geom_bar() +
   # guides(fill=FALSE) +
   scale_fill_viridis(discrete = TRUE,
-                     breaks = top_data_sources[1:4],
-                     labels = top_data_sources[1:4]) +
+                     breaks = top_data_sources[1:5],
+                     labels = top_data_sources[1:5]) +
   theme_new() +
   theme(legend.position = c(0.3, 0.75)) +
-  xlim(c(1950,2017)) +
+  scale_x_continuous(limits = c(1950,2017), expand = c(0,0)) +
   xlab("Year data was collected") +
   ylab("Number of archaeology DOIs\nknown to DataCite") +
-  geom_vline(xintercept = years_of_interest, colour = "red") +
+  geom_vline(xintercept = peak_year, colour = "red") +
   annotate("text", 
-           x = years_of_interest + 2,
+           x = peak_year - 3,
            y = ymax,
-           label = years_of_interest) 
+           label = peak_year) 
 
 # plotly::ggplotly(date_plot2) %>%
 #   layout(showlegend = FALSE)
@@ -734,7 +748,7 @@ rights_summary %>%
 
 ```
 
-Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, there was a steady increase in the amount of data deposited during 1990-2008, as personal computers become more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY repository saw in influx of records from Dutch CRM firms. This relates to the introduction of Dutch archaeology legislation, the _Wet op de archeologische monumentenzorg_ (Wamz), in 2007 that formally obligated archaeologists in the Netherlands to archive their data via DANS within two years of completion of their projects (Keers et al. 2011). After 2009 the volume of deposits declined in many repositories, with the exception of generic repositories such as Figshare, Zenodo and ResearchGate, which continued to grow.
+Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, file deposition started and steadily increased during 1990-2008, as personal computers become more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY repository saw in influx of records from Dutch CRM firms. This relates to the introduction of Dutch archaeology legislation, the _Wet op de archeologische monumentenzorg_ (Wamz), in 2007 that formally obligated archaeologists in the Netherlands to archive their data via DANS within two years of completion of their projects (Keers et al. 2011). After 2009 the volume of deposits declined in many repositories, with the exception of generic repositories such as Figshare, Zenodo and ResearchGate, which continued to grow.
 
 Of the `r prettyNum(sum(rights_summary$nn), big.mark = ",")` records with copyright information, the majority are released under the ADS conditions of use (n = `r prettyNum(rights_ads_n, big.mark = ",")`, `r rights_ads_perc`%), which is broadly similar to the CC-BY-NC (Moore and Richards 2015). The next most frequently used condition is the EU Open Access licence (n = `r prettyNum(rights_eu_n, big.mark = ",")`, `r rights_eu_perc`%), similar to the CC-BY licence. Creative Commons licenses such as CC-BY, CC-0 and others are used by less than 3% of records. 
 
@@ -993,7 +1007,7 @@ dc_arch %>%
 
 There are many guidelines and conventions from other disciplines that are relevant to sharing archaeological data. Table XXX summarises some of these, and recommendations specifically written for archaeologists can be found in XXX [archaeology data service manuals]. We recognise that many of these guidelines may create new technical and practical challenges to archaeologists who are not accustomed to sharing data, and many not want to dedicate resources to sharing data. However, we should not let the perfect be the enemy of the good. In our own work we try to follow these guidelines with no dedicated resources for data sharing, and with an incomplete knowledge of some of the technical details of repository operations. While we recognise that our data sharing pracitses fall short of all the guidelines, we still see value in sharing data imperfectly, rather than not at all. 
 
-Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the website of a research project is problematic because these files could disappear at any time, and published links to the files become broken when these websites are updated or reorganised. 
+Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier-issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the web server of a research project is problematic because these files could disappear at any tim, the data can change in untracked ways, and published links to the files are broken when these websites are reorganised, making the files inaccessible. Similarly, authors who write in their publications that 'the data are available by request' are not sharing data. Not only are the data not actually available, but there is no way to enforce that the authors will actually honour any requests for their data. When archaeological data is available to share, the first considration huold be deposit in a repository....
 
 # How to cite archaeological data?
 
