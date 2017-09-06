@@ -2,6 +2,8 @@
 title: "A Standard for the Scholarly Citation of Archaeological Data"
 author:
   - "Ben Marwick"
+  - "Suzanne E. Pilaar Birch"
+  - 
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
     bookdown::html_document2:
@@ -1015,10 +1017,35 @@ There are many guidelines and conventions from other disciplines that are releva
 
 Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier-issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the web server of a research project is problematic because these files could disappear at any tim, the data can change in untracked ways, and published links to the files are broken when these websites are reorganised, making the files inaccessible. Similarly, authors who write in their publications that 'the data are available by request' are not sharing data. Not only are the data not actually available, but there is no way to enforce that the authors will actually honour any requests for their data. When archaeological data is available to share, the first considration huold be deposit in a repository....
 
+<!-- 
+In the pilot studies reported above we see three common approaches to sharing data: sending files privately by email, following a personal request; including data as supplementary files submitted for publication with a journal article; and sharing data by depositing files in a trustworthy, public, DOI-issuing repository. The third method, via a public repository, is by far the most widely recommended method both specifically by archaeologists (Kintigh 2006; Kansa et al. 2011; Kansa and Kansa 2013), and in other sciences (cf. Cranston et al. 2014; Penev et al. 2017; Mounce 2014; Thessen & Patterson 2011; Whitlock 2011).		
+ -		
+ -		
+ -Several guides with detailed information relevant to preparing archaeological data for sharing on a repository. 		
+ -		
+ -- http://guides.archaeologydataservice.ac.uk/		
+ -- http://archaeologydataservice.ac.uk/arches/Wiki.jsp?page=ARCHES%20Introduction		
+ -		
+ -- http://www.icpsr.umich.edu/files/ICPSR/access/dataprep.pdf		
+ -- https://www.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf		
+ -- http://www.data-archive.ac.uk/media/2894/managingsharing.pdf
+ -->
+
+
 # How to cite archaeological data?
 
 [ ] - datacite method
 http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.2001414
+
+<!---
+-In-text citation:		
+		
+ “This paper uses data from the [name] data repository at https://doi.org/***** (Jones et al. 2008a), first described in Jones et al. 2008b. “		
+ 		
+ Data reference and article reference in reference list:		
+ 		
+ Jones A, Bloggs B, Smith C (2008a). <Title of data package>. <Repository name>. doi: https://doi.org/#####. [Version and/or date of access].
+ -->
 
 # Summary
 
