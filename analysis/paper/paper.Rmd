@@ -373,12 +373,16 @@ data_type_location %>%
 library(tidyverse)
 # install.packages("rdatacite")
 
+# osf project is at https://osf.io/ksruz/
+
 # Original data aquisition on 14 Aug 2017
 # library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
 
 # It doesn't get much of tDAR, so let's be more specific 
 # dc_arch_tdar <- dc_search(q = "10.6067", rows = pretty(100000)[2])
+# library(osfr)
+# upload_file("ksruz", "analysis/data/raw_data/dc_arch_tdar.rds", dest = "dc_arch_tdar.rds")
 
 # Saved locally then uploaded to osf.io/tsm89 (too big for GitHub)
 # saveRDS(dc_arch, "dc_arch.rds")
@@ -388,6 +392,8 @@ library(tidyverse)
 # Download from osf.io with this:
 # library(osfr)
 # download_file("tsm89", private = TRUE)
+
+
 dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
 dc_arch_tdar <- readRDS("../data/raw_data/dc_arch_tdar.rds")
 dc_arch <- bind_rows(dc_arch, dc_arch_tdar)
