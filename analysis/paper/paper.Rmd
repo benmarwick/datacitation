@@ -16,59 +16,14 @@ highlights: |
   These are the highlights. 
 ---
 
-# Introduction
 
-The goal of this paper is to present a standard for the scholarly citation of archaeological data, akin to the way we cite publications. The need for this has been motivated by Huggert’s (2017) findings of low levels of data citation and reuse in archaeology, and Clarke’s (2015) analysis that digital data preservation and management systems are under-developed in archaeology, despite our obligations as stewards of cultural heritage. A standard for data citation is important because it gives credit to the authors or compilers of the data, and so accords them visibility and recognition for their scholarly contribution in a way that is valued broadly in the discipline. A citation standard is also important for tracking the use of the data, and generating metrics about the impact of the dataset on the discipline. Understanding the use of resources such as datasets is important for allocating resources within the discipline and identifying novel research directions.
-
-We will start by defining what we mean by ‘data’, and reviewing previous work on researchers’ attitudes to sharing data. We motivate data sharing and citing behaviours by explaining why data sharing is beneficial to archaeology as a discipline, and to individual researchers. Then we will survey some of the data sharing and citing norms that have emerged in other research areas. From these norms we will present a standard suitable for citation of archaeological data. Finally, we will present some basic instructions on how to share archaeological data.
-
-# What are data? 
-
-Defining what data are is an ongoing research problem for information scientists (Leonelli 2016; Borgman 2012). Table X summarises some of the definitions debated in the philosophy of science literature. A more concrete starting point is this definition from the National Academies of Sciences: 
-
-“The term “data” as used in this document is meant to be broadly inclusive. In addition to digital manifestations of literature (including text, sound, still images, moving images, models, games, or simulations), it refers as well to forms of data and databases that generally require the assistance of computational machinery and software in order to be useful, such as various types of laboratory data including spectrographic, genomic sequencing, and electron microscopy data; observational data, such as remote sensing, geospatial, and socioeconomic data; and other forms of data either generated or compiled, by humans or machines.” (Uhlir & Cohen, 2011)
-
-This is a useful definition because it emphasizes data as digital manifestations, and so suitable for transmission, storage and retrieval using the internet. Physical objects (such as samples, collections, hard copies of notes, etc.) are data also, but they are out of scope of this discussion because of the different requirements for access, archiving, and so on. For many archaeologists, data are the contents of the files we use to generate visualisations, summary tables, and qualitative statements that appear in, and support the claims we make in, our scholarly publications and reports. The categories shown in Table X are useful as a rough guide to what data can be, although this table is not comprehensive, and does not represent the full diversity of data used by archaeologists. Ultimately, data are whatever the community decides, as the The National Science Foundation notes in their commentary on Data Management Plans: “What constitutes such data will be determined by the community of interest through the process of peer review and program management. This may include, but is not limited to: data, publications, samples, physical collections, software and models.” This is a highly pragmatic approach to defining data, but is also consistent with the relational account of data in philosophy of science scholarship, which holds that what data are is dependant on who uses it, how and for what purpose (Leonelli 2015; Daston and Galison 1992). It implies that the answer to the question of what counts as data is mostly emergent from our professional interactions, such as the materials we request when we do peer review of manuscripts and grant proposals, or when we make an informal request for more information by email.  Our citation standard imposes no constraints on what data can be, but we propose a few minimal qualities for how data should be organised that will help ground our discussion. Table X summarises some desirable minimum qualities for archaeological data that optimise its discovery and reuse. 
-
-# What are the benefits of data sharing to the individual researcher?
-
-While public and community benefits are well-rehearsed and widely agreed on (Table X), they offer no, or only weak, tangible incentives to the individual researcher (Rowhani-Farid et al. 2017). Previous work has identified citation advantages as a tangible benefit to individual researchers who share data with publications, although the magnitude of the advantage varies greatly (see Table X for a summary). Increased publication productivity also appeared to be associated with data sharing behaviours. Across over 7,000 NSF and NIH awards, Pienta et al. (2010) reported that research projects with archived data produced a median of 10 publications, versus only 5 for projects without archived data.
-
-
-
-# What do researchers think about sharing data?
-
-Sharing of data is a quality that is fundamental to the definition of science (cf. Merton’s (1942) communalism norm, where intellectual property rights are normally given up in exchange for recognition and esteem) and to data both as an abstract quality (cf. the definitions in Table X that mention data as ‘portable’, ‘stable across different domains’) and as a concrete detail to be managed with policy. For example, for over a decade the National Science Foundation (2016) has had a data sharing policy that states “Investigators are expected to share with other researchers, at no more than incremental cost and within a reasonable time, the primary data, samples, physical collections and other supporting materials created or gathered in the course of work under NSF grants. Grantees are expected to encourage and facilitate such sharing.” Surveys of researchers across different domains repeatedly show that people value the ideal of data sharing (Kratz and Strasser 2015). However, data sharing is not widespread in many disciplines, raising questions about why researchers do or do not share their data. Three recent studies have attempted to answer these questions, in the search for strategies to encourage sharing. 
-
-Stodden (2010) surveyed registrants at a top machine learning conference (the Neural Information Processing Systems (NIPS) conference) to identify the factors that affect researchers’ decisions to reveal data (Table X). Stodden found that communitarian factors influence scientists to share their data, but private incentives determine when scientists choose not to share their code and data. In the top three reasons not to share, we see a lack of incentives to invest time in data sharing (however, there are many other time-consuming tasks in research, and they get done because clear reward structures are in place); a lack of faith in data citation (which we hope this paper will help with); and a lack of an efficient copyright process. On this last point, Table X shows some of the current norms on this, based on Stodden’s (2009a) detailed legal discussion. See also Stodden’s (2009b) ‘Reproducible Research Standard’, summarised in Figure X for a convenient and robust copyright schema for typical research products. 
-
-Other surveys have found similar results. Tenopir et al. (2011) received 1,329 responses to a survey conducted by the research team of the National Science Foundation-funded DataONE project. They found that when researchers did not share data it was due to reasons that include: insufficient time (54%), a lack of funding (40%), having no place to put the data (24%), a lack of standards (20%), and because their sponsor did not require it (17%). A remarkable observation by Tenopir et al. is that while 75% of respondents say they share data, only 36% of those respondents say their data are easy to access, while only 6% say they make all their data available. This suggests that most data sharing occurs in private directly between individual researchers, rather than in public via open repositories. A similar focus on private, peer-to-peer sharing is evident in interviews conducted by Wallis et al. (2013) with 43 researchers at the Center for Embedded Networked Sensing. They found that the most commonly cited conditions for sharing data were (1) first rights to publish results, (2) proper attribution to the data source, (3) familiarity between sharer and recipient, (4) funding agency expectations, and (5) the amount of effort required to share. 
-
-# What are the current norms of data sharing?
-
-The surveys above show that data sharing practices tend to be a private activity, but where public sharing does occur, what forms does it take, and how to these vary across different fields of research?  Wouters and Haak (2017) surveyed 1,200 researchers about data sharing behaviours and found a spectrum from ‘intensive data-sharing fields’ to ‘restricted data-sharing fields’. Intensive data-sharing fields often depend on access to global databases, for example human genetics, while restricted data-sharing fields depend mostly on data collected by the individual researcher or their immediate collaborators, such as digital humanities. These differences in disciplinary norms have implications for data ownership (intensive: collectively owned, willing to share; restrictive: owned by the individual, reluctant to share) and the effort required to share (intensive: low effort because data are prepared for sharing as an integral part of the research process, restrictive: high effort because data are prepared for sharing after the research, or apart from it, in response to a request from another researcher). Archaeologists can be found all over this spectrum because of the diversity of archaeological research, however, our view is that archaeology is for the most part a restricted data-sharing field. There are few standardised and widely used methods for sharing and citing data, a challenge for archaeological data sharing that we hope this paper will help to address. 
-
-Even though there is a wide spectrum of data sharing behaviours, from intensive to restrictive, overall rates of data sharing are very low in many fields. Wicherts et al. (2006) emailed authors of 141 empirical articles recently published by the American Psychological Association (APA) journals to request a copy of the original data reported in the articles. They received 64 of the 249 datasets they requested, resulting in a data sharing rate of about 26%, despite all the authors of the articles in their study being bound to the APA’s Ethical Principles, which state authors must ‘not withhold the data on which their conclusions are based from other competent professionals who seek to verify the substantive claims’ (American Psychological Association, 2001, p. 396). Valpaemel et al. (2015) similarly requested data from 394 papers, published in all issues of four APA journals in 2012 and found that 38% of authors responded with their data. They concluded that although the data sharing rate  increased as compared to the study by Wicherts et al., their findings are ‘worrisome’ and indicate a ‘poor availability of data’.
-
-Savage and Vickers (2009) requested data from authors of ten papers published in PLOS journals, and received only one reply. Although this is a very small sample, it is notable because PLOS journals require authors to share data as a condition of publication: “PLOS journals require authors to make all data underlying the findings described in their manuscript fully available without restriction, with rare exception.” (PLoS Medicine Editorial and Publishing Policies nd), and yet only one out of the ten authors actually complied with this requirement. Alsheikh-Ali et al. (2011) inspected 500 articles published in high-impact science journals in 2009 and found that only 47 papers (9%) deposited full primary raw data online. Similarly, Womak (2015) inspected 4,370 articles published in high-impact science journals in 2014 and found that 13% of articles with original data published make the data available to others.  
-
-The absence of a standardised and sustainable approach to data sharing is starkly demonstrated by Vines et al.’s (2014) study of data availability over time in biology publications. They examined the availability of data from 516 studies of plants or animal morphology between 2 and 22 years old. Vines et al. found that odds of a data set referred to in a publication being available fell by 17% per year. The found that the key factors responsible for the unavailability of data was that the data were lost or on inaccessible storage media. 
-
-# Do archaeologists share data?
-
-Here we present the results of three small pilot studies aimed at understanding how archaeologists share their data. First, we emailed a sample of authors of research publications to request access to the data behind their publication. Second, we surveyed a sample of journal articles to see what data was available. Third, we analysed information about archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). 
-
-## Email requests for data in a published article
-
-Our sample of authors that we wrote email to focused on Journal of Archaeological Science articles on experiments with stone artefacts that were published during 2009 and 2015. We focused on stone artefact experiments because the all research materials in these projects are generated by the researcher, so there are no other stakeholders to consider when determining how to share the data: the researcher has complete control over the data. There are also no risks of damage to people or property in sharing these data because they do not include archaeological sites or human subjects. In contacting the authors, we requested the datasets for use in a graduate seminar with the aim of reproducing the published results and further exploring the data (this stage is still in progress). We promised to contact the authors if we discovered anything new, and not to share the data further without their permission. The data included with this paper is anonymised so the specific authors we contacted are not identifiable.
-
-```{r, setup, echo = FALSE}
+```{r, setup2, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
   message = FALSE,
   echo = FALSE,
-  eval = FALSE,
+  eval = TRUE,
   comment = "#>",
   fig.path = "../figures/"
 )
@@ -92,7 +47,76 @@ theme_new <- function(base_size = 12){
 
 ```
 
-```{r import-email-data, eval = TRUE}
+
+# Introduction
+
+The goal of this paper is to present a standard for the scholarly citation of archaeological data, akin to the way we cite publications. The need for this has been motivated by Huggert’s (2017) findings of low levels of data citation and reuse in archaeology, and Clarke’s (2015) analysis that digital data preservation and management systems are under-developed in archaeology, despite our obligations as stewards of cultural heritage. A standard for data citation is important because it gives credit to the authors or compilers of the data, and so accords them visibility and recognition for their scholarly contribution in a way that is valued broadly in the discipline. A citation standard is also important for tracking the use of the data, and generating metrics about the impact of the dataset on the discipline. Understanding the use of resources such as datasets is important for allocating resources within the discipline and identifying novel research directions.
+
+We will start by defining what we mean by ‘data’, and reviewing previous work on researchers’ attitudes to sharing data. We motivate data sharing and citing behaviours by explaining why data sharing is beneficial to archaeology as a discipline, and to individual researchers. Then we will survey some of the data sharing and citing norms that have emerged in other research areas. From these norms we will present a standard suitable for citation of archaeological data. Finally, we will present some basic instructions on how to share archaeological data.
+
+# What are data? 
+
+Defining what data are is an ongoing research problem for information scientists (Leonelli 2016; Borgman 2012). Table \@ref(tab:summary-of-defs-of-data) summarises some of the definitions debated in the philosophy of science literature. A more concrete starting point is this definition from the National Academies of Sciences: 
+
+“The term “data” as used in this document is meant to be broadly inclusive. In addition to digital manifestations of literature (including text, sound, still images, moving images, models, games, or simulations), it refers as well to forms of data and databases that generally require the assistance of computational machinery and software in order to be useful, such as various types of laboratory data including spectrographic, genomic sequencing, and electron microscopy data; observational data, such as remote sensing, geospatial, and socioeconomic data; and other forms of data either generated or compiled, by humans or machines.” (Uhlir & Cohen, 2011)
+
+```{r summary-of-defs-of-data}
+tbl <- readr::read_csv("../figures/tbl_definitions_of_data.csv")
+knitr::kable(tbl, caption = "A selection of defintions of research data")
+```
+
+This is a useful definition because it emphasizes data as digital manifestations, and so suitable for transmission, storage and retrieval using the internet. Physical objects (such as samples, collections, hard copies of notes, etc.) are data also, but they are out of scope of this discussion because of the different requirements for access, archiving, and so on. For many archaeologists, data are the contents of the files we use to generate visualisations, summary tables, and qualitative statements that appear in, and support the claims we make in, our scholarly publications and reports. The categories shown in Table \@ref(tab:types-of-data) are useful as a rough guide to what data can be, although this table is not comprehensive, and does not represent the full diversity of data used by archaeologists. Ultimately, data are whatever the community decides, as the The National Science Foundation notes in their commentary on Data Management Plans: "What constitutes such data will be determined by the community of interest through the process of peer review and program management. This may include, but is not limited to: data, publications, samples, physical collections, software and models." This is a highly pragmatic approach to defining data, but is also consistent with the relational account of data in philosophy of science scholarship, which holds that what data are is dependant on who uses it, how and for what purpose (Leonelli 2015; Daston and Galison 1992). It implies that the answer to the question of what counts as data is mostly emergent from our professional interactions, such as the materials we request when we do peer review of manuscripts and grant proposals, or when we make an informal request for more information by email.  Our citation standard imposes no constraints on what data can be, but we propose a few minimal qualities for how data should be organised that will help ground our discussion. Table \@ref(tab:desirable) summarises some desirable minimum qualities for archaeological data that optimise its discovery and reuse. 
+
+```{r types-of-data}
+tbl <- readr::read_csv("../figures/tbl_types_of_data_nsb.csv")
+knitr::kable(tbl, caption = "A selection of types of data encountereed by archaeologists.")
+```
+
+# What are the benefits of data sharing to the individual researcher?
+
+While public and community benefits and costs are well-rehearsed and widely agreed on (Table \@ref(tab:costsbenefits)), they offer no, or only weak, tangible incentives to the individual researcher (Rowhani-Farid et al. 2017). Previous work has identified citation advantages as a tangible benefit to individual researchers who share data with publications, although the magnitude of the advantage varies greatly (see Table \@ref(tab:indivbenefits) for a summary). Increased publication productivity also appeared to be associated with data sharing behaviours. Across over 7,000 NSF and NIH awards, Pienta et al. (2010) reported that research projects with archived data produced a median of 10 publications, versus only five for projects without archived data.
+
+```{r costsbenefits}
+tbl <- readr::read_csv("../figures/tbl_reasons_to_share_data.csv")
+knitr::kable(tbl, caption = "Summary of public and community benefits and costs of data sharing")
+```
+
+```{r indivbenefits}
+tbl <- readr::read_csv("../figures/tbl_evidence_of_sharing_benefits.csv")
+knitr::kable(tbl, caption = "Summary of individual benefits to data sharing")
+```
+
+# What do researchers think about sharing data?
+
+Sharing of data is a quality that is fundamental to the definition of science (cf. Merton’s (1942) communalism norm, where intellectual property rights are normally given up in exchange for recognition and esteem) and to data both as an abstract quality (cf. the definitions in Table \@ref(tab:summary-of-defs-of-data) that mention data as ‘portable’, ‘stable across different domains’) and as a concrete detail to be managed with policy. For example, for over a decade the National Science Foundation (2016) has had a data sharing policy that states "Investigators are expected to share with other researchers, at no more than incremental cost and within a reasonable time, the primary data, samples, physical collections and other supporting materials created or gathered in the course of work under NSF grants. Grantees are expected to encourage and facilitate such sharing." Surveys of researchers across different domains repeatedly show that people value the ideal of data sharing (Kratz and Strasser 2015). However, data sharing is not widespread in many disciplines, raising questions about why researchers do or do not share their data. Three recent studies have attempted to answer these questions, in the search for strategies to encourage sharing. 
+
+Stodden (2010) surveyed registrants at a top machine learning conference (the Neural Information Processing Systems (NIPS) conference) to identify the factors that affect researchers’ decisions to reveal data (Table \@ref(tab:costsbenefits)). Stodden found that communitarian factors influence scientists to share their data, but private incentives determine when scientists choose not to share their code and data. In the top three reasons not to share, we see a lack of incentives to invest time in data sharing (however, there are many other time-consuming tasks in research, and they get done because clear reward structures are in place); a lack of faith in data citation (which we hope this paper will help with); and a lack of an efficient copyright process. On this last point, Table X shows some of the current norms on this, based on Stodden’s (2009a) detailed legal discussion. See also Stodden’s (2009b) ‘Reproducible Research Standard’, summarised in Figure \@(ref:stodden-rrs) for a convenient and robust copyright schema for typical research products. 
+
+```{r stodden-rrs, fig.cap="Summary of Stodden’s (2009b) 'Reproducible Research Standard'"}
+knitr::include_graphics("../figures/fig1_rrs.png")
+```
+
+Other surveys have found similar results. Tenopir et al. (2011) received 1,329 responses to a survey conducted by the research team of the National Science Foundation-funded DataONE project. They found that when researchers did not share data it was due to reasons that include: insufficient time (54%), a lack of funding (40%), having no place to put the data (24%), a lack of standards (20%), and because their sponsor did not require it (17%). A remarkable observation by Tenopir et al. is that while 75% of respondents say they share data, only 36% of those respondents say their data are easy to access, while only 6% say they make all their data available. This suggests that most data sharing occurs in private directly between individual researchers, rather than in public via open repositories. A similar focus on private, peer-to-peer sharing is evident in interviews conducted by Wallis et al. (2013) with 43 researchers at the Center for Embedded Networked Sensing. They found that the most commonly cited conditions for sharing data were (1) first rights to publish results, (2) proper attribution to the data source, (3) familiarity between sharer and recipient, (4) funding agency expectations, and (5) the amount of effort required to share. 
+
+# What are the current norms of data sharing?
+
+The surveys above show that data sharing practices tend to be a private activity, but where public sharing does occur, what forms does it take, and how to these vary across different fields of research?  Wouters and Haak (2017) surveyed 1,200 researchers about data sharing behaviours and found a spectrum from ‘intensive data-sharing fields’ to ‘restricted data-sharing fields’. Intensive data-sharing fields often depend on access to global databases, for example human genetics, while restricted data-sharing fields depend mostly on data collected by the individual researcher or their immediate collaborators, such as digital humanities. These differences in disciplinary norms have implications for data ownership (intensive: collectively owned, willing to share; restrictive: owned by the individual, reluctant to share) and the effort required to share (intensive: low effort because data are prepared for sharing as an integral part of the research process, restrictive: high effort because data are prepared for sharing after the research, or apart from it, in response to a request from another researcher). Archaeologists can be found all over this spectrum because of the diversity of archaeological research, however, our view is that archaeology is for the most part a restricted data-sharing field. There are few standardised and widely used methods for sharing and citing data, a challenge for archaeological data sharing that we hope this paper will help to address. 
+
+Even though there is a wide spectrum of data sharing behaviours, from intensive to restrictive, overall rates of data sharing are very low in many fields. Wicherts et al. (2006) emailed authors of 141 empirical articles recently published by the American Psychological Association (APA) journals to request a copy of the original data reported in the articles. They received 64 of the 249 datasets they requested, resulting in a data sharing rate of about 26%, despite all the authors of the articles in their study being bound to the APA's Ethical Principles, which state authors must ‘not withhold the data on which their conclusions are based from other competent professionals who seek to verify the substantive claims’ (American Psychological Association, 2001, p. 396). Valpaemel et al. (2015) similarly requested data from 394 papers, published in all issues of four APA journals in 2012 and found that 38% of authors responded with their data. They concluded that although the data sharing rate increased as compared to the study by Wicherts et al., their findings are ‘worrisome’ and indicate a 'poor availability of data'.
+
+Savage and Vickers (2009) requested data from authors of ten papers published in PLOS journals, and received only one reply. Although this is a very small sample, it is notable because PLOS journals require authors to share data as a condition of publication: "PLOS journals require authors to make all data underlying the findings described in their manuscript fully available without restriction, with rare exception." (PLoS Medicine Editorial and Publishing Policies nd), and yet only one out of the ten authors actually complied with this requirement. Alsheikh-Ali et al. (2011) inspected 500 articles published in high-impact science journals in 2009 and found that only 47 papers (9%) deposited full primary raw data online. Similarly, Womak (2015) inspected 4,370 articles published in high-impact science journals in 2014 and found that 13% of articles with original data published make the data available to others.  
+
+The absence of a standardised and sustainable approach to data sharing is starkly demonstrated by Vines et al.’s (2014) study of data availability over time in biology publications. They examined the availability of data from 516 studies of plants or animal morphology between 2 and 22 years old. Vines et al. found that odds of a data set referred to in a publication being available fell by 17% per year. The found that the key factors responsible for the unavailability of data was that the data were lost or on inaccessible storage media. 
+
+# Do archaeologists share data?
+
+Here we present the results of three small pilot studies aimed at understanding how archaeologists share their data. First, we emailed a sample of authors of research publications to request access to the data behind their publication. Second, we surveyed a sample of journal articles to see what data was available. Third, we analysed information about archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The small sample sizes of the first two of these pilot studies limit how generalisable the results are, but as the first of their kind for archaeology, they are valuable for proposing hypotheses for larger-scale investigations.
+
+## Email requests for data in a published article
+
+Our sample of authors that we wrote email to focused on Journal of Archaeological Science articles on experiments with stone artefacts that were published during 2009 and 2015. We focused on stone artefact experiments because the all research materials in these projects are generated by the researcher, so there are no other stakeholders to consider when determining how to share the data: the researcher has complete control over the data. There are also no risks of damage to people or property in sharing these data because they do not include archaeological sites or human subjects. In contacting the authors, we requested the datasets for use in a graduate seminar with the aim of reproducing the published results and further exploring the data (this stage is still in progress). We promised to contact the authors if we discovered anything new, and not to share the data further without their permission. The data included with this paper is anonymised so the specific authors we contacted are not identifiable.
+
+```{r import-email-data}
 library(tidyverse)
 email_survey <- readr::read_csv("../data/raw_data/email_survey.csv")
 
@@ -108,14 +132,16 @@ Our sample focused on _Journal of Archaeological Science_ articles on experiment
 
 We sent out emails to the first authors of `r emails_out` stone artefact experiment papers, and recieved `r emails_back` replies, resulting in a `r email_response_rate`% response rate. We recieved `r data_items_received` responses that included data files, giving an overall sharing rate of `r sharing_rate`%. Our small sample size limits the robustness of our analysis, but points to some observations that may be worth following up in a larger study. We found no clear relationship of data sharing and date of publication. We do not have any insights into why authors of older papers decline to share, but three of the six responses for papers published in 2014-2015 said they declined to share data because they intend to use these data in a future publication. Other noteworthy reasons provided by respondents for declining to share include the author about to defend their thesis or about to go on vacation. We interpret these to mean that the author does not have time to prepare their data for sharing, perhaps because the data are not already in a well-organised for ready for distribution. We found no effect on the author's student status at time of publication on data sharing behaviours, with roughly equal proportions of students and non-students sharing and not sharing. 
 
-Similarly there are no clear patterns data sharing of among different journals. It is remarkable that the authors of the one PLOS One paper we contacted declined to share because that refusal violates the policy of that journal at the time of publication of that paper (early 2014): "Publication is conditional upon the agreement of the authors to make freely available any materials and information described in their publication that may be reasonably requested by others for the purpose of academic, non-commercial research." Chambers' (2017) examined 50 PLOS One papers on brain images published in November 2014 - May 2015 and found that only 38% of these papers archived their data in an open repository. Similarly, Nuijten et al. (2017) found that of 462 PLOS One articles that promised data availability, 29% of these did not have any available data. Unfulfilled promised to share data are not unique to PLOS One (Kidwell et al. 2016), but these studies highlight the need to resolve ambiguity among authors about what counts as data, and for editors and peer reviwers to more critically assess whether an author has been made their data openly available. 
+Similarly there are no clear patterns data sharing of among different journals. It is remarkable that the authors of the one PLOS One paper we contacted declined to share because that refusal violates the policy of that journal at the time of publication of that paper (early 2014): "Publication is conditional upon the agreement of the authors to make freely available any materials and information described in their publication that may be reasonably requested by others for the purpose of academic, non-commercial research." Chambers' (2017) examined 50 PLOS One papers on brain images published in November 2014 - May 2015 and found that only 38% of these papers archived their data in an open repository. Similarly, Nuijten et al. (2017) found that of 462 PLOS One articles that promised data availability, 29% of these did not have any available data. Unfulfilled promises to share data are not unique to PLOS One (Kidwell et al. 2016), but these studies highlight the need to resolve ambiguity among authors about what counts as data, and for editors and peer reviwers to more critically assess whether an author has been made their data openly available. 
 
 We see similar rates of sharing in response to email requests among archaeologist to what have been described in other disciplines (Tenopir et al. 2015; Vanpaemel et al. 2015). However, our result may overestimate the true rate because our sample did not include datasets that authors might not be able or willing to share because they contain sensitive location or cultural information. Analysis of the qualitative responses suggests two key reasons why author are reluctant to share: they are fearful that they will lose the opportunity to produce further publications from those data, and that their data is not in a form suitable for sharing and the task of organising those data is not a high priority. These reasons not to share have also been documented in other research areas. The absence of patterns in the date of the paper, student status of the author and other variables may relate to more to our small sample size than a real absence of relationships in data sharing behaviour. 
 
-```{r date-and-sharing, fig.cap="There is no obvious trend in data sharing becavious and date of publication", eval = TRUE}
+```{r date-and-sharing, fig.cap="There is no obvious trend in data sharing becavious and date of publication"}
 library(viridis)
 years <- seq(min(email_survey$'publication year', na.rm = TRUE),
     max(email_survey$'publication year', na.rm = TRUE), 1)
+
+sharing_by_year <- 
 email_survey %>% 
   filter(!is.na( `email sent date`)) %>% 
   group_by(`publication year`, `content recieved date`) %>% 
@@ -128,14 +154,17 @@ email_survey %>%
              # need devtools::install_github("tidyverse/ggplot2") for this
              position = position_dodge(preserve = 'single')) +
     scale_fill_viridis(discrete = TRUE,
-                       guide = guide_legend(title = "Data shared?")) +
+                       guide = FALSE) +
     scale_x_continuous(breaks = years,
                        labels = years) +
-    theme_bw()
+  xlab("Publication year") +
+    theme_bw() +
+  coord_fixed(ratio = 0.5)
 
 ```
 
-```{r student, fig.cap="No relationship between student status and data sharing behaviour", eval = TRUE}
+```{r student, fig.cap="No relationship between student status and data sharing behaviour"}
+sharing_by_student <- 
 email_survey %>% 
   filter(!is.na( `email sent date`)) %>% 
     mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
@@ -149,11 +178,14 @@ email_survey %>%
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
     scale_fill_viridis(discrete = TRUE,
-                       guide = guide_legend(title = "Data shared?")) +
-    theme_bw()
+                       guide = FALSE) +
+    xlab("Author was graduate student at time of publication?") +
+    theme_bw() +
+  coord_fixed(ratio = 0.05)
 ```
 
-```{r author-country, eval = TRUE}
+```{r author-country}
+sharing_by_country <- 
 email_survey %>% 
   filter(!is.na( `email sent date`)) %>% 
     mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
@@ -167,12 +199,15 @@ email_survey %>%
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
     scale_fill_viridis(discrete = TRUE,
-                       guide = guide_legend(title = "Data shared?")) +
-    theme_bw()
+                       guide = FALSE) +
+    theme_bw() +
+  xlab("Author location at time of publication") +
+  coord_fixed(ratio = 0.25)
 ```
 
-```{r journals, fig.cap="No relationship between sharing behaviour and journal.", eval = TRUE}
-email_survey %>% 
+```{r journals, fig.cap="No relationship between sharing behaviour and journal."}
+sharing_by_journal <- 
+  email_survey %>% 
   filter(!is.na( `email sent date`)) %>% 
     mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
   "yes", "no")) %>% 
@@ -186,12 +221,42 @@ email_survey %>%
              position = position_dodge(preserve = 'single')) +
     scale_fill_viridis(discrete = TRUE,
                        guide = guide_legend(title = "Data shared?")) +
-    theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        legend.position = c(0.8, 0.7)) +
+  xlab("Journal name") +
+  coord_fixed(ratio = 0.25)
+```
+
+```{r}
+library(ggplot2)
+library(gtable)
+library(gridExtra)
+library(grid)
+
+library(cowplot)
+email_sharing_plots <- 
+plot_grid(sharing_by_year, 
+                     sharing_by_student,
+                     sharing_by_country,
+                     sharing_by_journal,  
+          axis = "lt",
+          ncol = 2, 
+          align = "hv", 
+          labels = "AUTO")
+
+save_plot("../figures/email_sharing_plots.svg", 
+          email_sharing_plots,
+          base_height = 8)
+```
+
+```{r fig.cap="Summary of results of email requests for data"}
+knitr::include_graphics("../figures/email_sharing_plots_hand_edit.png")
 ```
 
 ## Survey of articles published in the _Journal of Archaeological Science_
 
-```{r eval = TRUE}
+```{r}
 jas_article_survey <- readr::read_csv("../data/raw_data/jas_article_survey.csv")
 
 have_data_avail_statement <- nrow(jas_article_survey[jas_article_survey$`Data availability statement` != "none", ])
@@ -307,7 +372,7 @@ In addition to our email survey, we also conducted a pilot study of a random sam
 
 The _Journal of Archaeological Science_ has had a ‘data disclosure’ policy since at least 2013 (Editors, 2013) which states that “All data relating to the article must be made available in Supplementary files or deposited in external repositories and linked to within the article”. The data availability rate of 53% reported in our pilot study reflects either weak enforcement of this policy or an incomplete understanding among editors and authors of how to interpret and implement this policy. The prominence of compositional and dating data among the shared data types suggests a least effort strategy by authors sharing data that do not require extensive cleaning and tidying (because the data are generated by instrumented rather than entered by hand, such as artefact attribute data). The size of compositional and dating datasets means that they mostly fit easily into tables in the text or supplementary files, and do not require much effort to organise (e.g. very little metadata is required for others to use these data). The small proportion of papers in our sample using or sharing a scripting language suggests that unlike other fields (Eglen et al. 2017), archaeologists do not appear to recognise code for data analysis as a primary research object to share with the research community. 
 
-```{r eval=TRUE, fig.cap="No relationship between data file type and data sharing location"}
+```{r}
 # correlation of data type and location of sharing
 file_type_location <- 
 jas_article_survey %>% 
@@ -326,21 +391,23 @@ jas_article_survey %>%
     TRUE ~ file
     ))
 
+plot_file_type_location <- 
 file_type_location %>% 
   group_by(file, location) %>% 
   tally() %>% 
   ggplot(aes(file, location)) + 
   geom_point(aes(size = n),
-             colour = "grey80") +
+             colour = viridis(2)[2],
+             shape = 16) +
   theme_bw() + 
   xlab("") + 
   ylab("") +
-  scale_size_continuous(range=c(5,25)) + 
+  scale_size_continuous(range=c(7,25)) + 
   geom_text(aes(label = n)) +
   theme(legend.position = "none") 
 ```
 
-```{r eval=TRUE, fig.cap="Plot of the relationship between data type and location where it is shared."}
+```{r}
 # correlation of data type and location of sharing
 data_type_location <- 
 jas_article_survey %>% 
@@ -358,20 +425,30 @@ jas_article_survey %>%
     grepl("www|dryad|osf", tolower(`Where is the data?`)) ~ "Repository"
   )) 
 
+plot_data_type_location <- 
 data_type_location %>% 
   group_by(data_type, location) %>% 
   tally() %>% 
   filter(n >= 2) %>% 
   ggplot(aes(data_type, location)) + 
   geom_point(aes(size = n),
-             colour = "grey80") +
+             colour = viridis(2)[1],
+             shape = 16) +
   theme_bw() + 
   xlab("") + 
   ylab("") +
-  scale_size_continuous(range=c(5,25)) + 
-  geom_text(aes(label = n)) +
+  scale_size_continuous(range=c(7,25)) + 
+  geom_text(aes(label = n), colour = "white") +
   theme(legend.position = "none") 
 ```
+
+```{r  fig.cap="Summary of relationships between file types, data types, and data locations"}
+plot_data_type <- plot_grid(plot_file_type_location, 
+                            plot_data_type_location,
+                      labels="AUTO", ncol = 1)
+plot_data_type
+```
+
 
 ## Data sets in repositories tracked by DataCite
 
@@ -1057,11 +1134,11 @@ Marwick, B. (2017). Dataset and R code for "Movement of lithics by trampling: An
 
 # Ethics and data sharing
 
-A full treatment of the ethical issues of data sharing is beyond the scope of this paper, but we can highlight some points specifically relevant to the question of when archaeological data. Much of the discussion on ethics and data sharing generally relates to appropriate attribution (assigning credit for the data) in data reuse (Duke et al. 2013). The default position for archaeological data, like data from many other sciences, is that they are part of the global human patrimony, and should be accessible to other scholars and the public (Zimmerman et al. 2003; Vitelli & Colwell-Chanthaphonh 2006). However, archaeologists, like other researchers working with indigenous communities and governments, generate research data that is intellectual property with many stakeholders. With diverse stakeholders, archaeological data can become entangled in economics, nationalism, cultural politics, and identity (Nicholas and Wylie 2009). Often, one of these stakeholders is an indigenous community, and archaeologists may find differences between Western and indigenous conceptions of what data are, how they may be generated, used, shared, and 'owned' (Harding et al. 2012). 
+A full treatment of the ethical issues of data sharing is beyond the scope of this paper, but we can highlight some points specifically relevant to the question of when _not_ to share archaeological data. Much of the discussion on ethics and data sharing generally relates to appropriate attribution (assigning credit for the data) in data reuse (Duke et al. 2013). The default position for archaeological data, like data from many other sciences, is that they are part of the global human patrimony, and should be accessible to other scholars and the public (Zimmerman et al. 2003; Vitelli & Colwell-Chanthaphonh 2006). However, archaeologists, like other researchers working with local and indigenous communities, governments, and international collaborators, generate research data that is intellectual property with many stakeholders. With diverse stakeholders, archaeological data can become entangled in economics, nationalism, cultural politics, and identity (Nicholas and Wylie 2009). Often, one of these stakeholders is an indigenous community, and archaeologists may find differences between Western and indigenous conceptions of what data are, how they may be generated, used, shared, and 'owned' (Harding et al. 2012). 
 
-One of these differences is that Western researchers often have individual autonomy in sharing data, and once data are shared, it is free for all to use. In contrast, within indigenous communities, data are part of the group's identity and property, akin to tangible hertiage (Nicholas 2014), with certain members entrusted to keep that data on behalf of the group, and sometimes it may be inappropriate for these people to share the data with other members of the group, or beyond the group (Tsosie 2007). Differences between Western and indigenous concepts or data are not only cultural - substantial inequalities exist in access to resources for converting archaeological data into economic and political benefit (e.g. graduate degrees, employment, publications, grants, promotions). On one hand, making archaeological data openly available benefits indigenous communities, because it removes some of the financial barriers to accessing that data (e.g. subscription fees to journals). On the other hand, this may be little more than a useless courtesy (Hymes 1972), because simply making data openly available does not give indigenous people access to the contexts where the data can be used to generate economic and political benefits. Thus, open data has different values for Western and indigenous communities, and if archaeologists want to make a compelling case to their indigenous partners for data sharing, they should also make a committement to reducing some of the inequalities in making use of the data, for example, by providing some training in data analysis, or adapting the data into a context that is valued by the indigenous community.
+One of these differences is that Western researchers often have individual autonomy in sharing data, and once data are shared, it is free for all to use. In contrast, within indigenous communities, data are part of the group's identity and property, akin to tangible hertiage (Nicholas 2014), with certain members entrusted to keep that data on behalf of the group, and sometimes it may be inappropriate for these people to share the data with other members of the group, or beyond the group (Tsosie 2007). Differences between Western and indigenous concepts or data are not only cultural - substantial inequalities exist in access to resources for converting archaeological data into economic and political benefit (e.g. graduate degrees, employment, publications, grants, promotions). On one hand, making archaeological data openly available benefits indigenous communities, because it removes some of the financial and technical barriers to accessing that data (e.g. subscription fees to journals). On the other hand, this may be little more than a useless courtesy (Hymes 1972), because simply making data openly available does not give indigenous people access to the contexts where the data can be used to generate economic and political benefits. Thus, open data has different values for Western and indigenous communities, and if archaeologists want to make a compelling case to their indigenous partners for data sharing, they should also make a committement to reducing some of the inequalities in making use of the data, for example, by providing some training in data analysis, or adapting the data into a context that is valued by the indigenous community.
 
-In short, there is more to the ethics of data sharing than avoiding risk of damage. Redacting the locations of archaeological sites to prevent looting as an obvious case of preparing data for sharing to reduce the risk of damage to the sites. However, because of cultural, economic and political differences between Western archaeologists and the communities they work with, an archaeologist cannot consider their own risk assessment to be comprehensive (Nicholas and Wylie 2012). It is crucial for archaeologists to discuss data sharing plans during negotiatations with representatives authorized by the indigenous peoples whose cultural heritage is the subject of investigation. This negotiation process is important because only indigenous peoples themselves can identify potential adverse outcomes to data sharing, and they can do this only if they understand the proposed research and anticipated results. The concrete outcome of this process is often a Memorandum of Understanding between the indigenous community and the archaeologist's employer that documents the ourcome of negotiations about data sharing. If the archaeologist's indigenous partners have reasons not to share data in public, then the archaeologist should respect that position, and note in publication that the data are restricted at the request of the indigenous collaborators. 
+In short, there is more to the ethics of data sharing than avoiding risk of damage. Redacting the locations of archaeological sites to prevent looting as an obvious case of preparing data for sharing to reduce the risk of damage to the sites. However, because of cultural, economic and political differences between Western archaeologists and the communities they work with, an archaeologist cannot consider their own risk assessment to be comprehensive and exhaustive (Nicholas and Wylie 2012). It is crucial for archaeologists to discuss data sharing plans during negotiatations with representatives authorized by the indigenous peoples whose cultural heritage is the subject of investigation. This negotiation process is important because only indigenous peoples themselves can identify potential adverse outcomes to data sharing, and they can do this only if they understand the proposed research and anticipated results. The concrete outcome of this process is often a Memorandum of Understanding between the indigenous community and the archaeologist's employer that documents the ourcome of negotiations about data sharing. If the archaeologist's indigenous partners have reasons not to share data in public, then the archaeologist should respect that position, and note in publication that the data are restricted at the request of the indigenous collaborators. 
 
 # Summary
 
@@ -1099,7 +1176,7 @@ Eglen, S. J., Marwick, B., Halchenko, Y. O., Hanke, M., Sufi, S., Gleeson, P.,  
 
 Gleditsch, N. P., Metelits, C., & Strand, H. (2003). Posting your data: will you be scooped or will you be famous. International Studies Perspectives, 4(1), 89-97.
 
-Hart EM, Barmby P, LeBauer D, Michonneau F, Mount S, et al. (2016) Ten Simple Rules for Digital Data Storage. PLOS Computational Biology 12(10): e1005097. doi: 10.1371/journal.pcbi.1005097
+Hart, E. M., Barmby, P., LeBauer, D., Michonneau, F., Mount, S., Mulrooney, P., Hollister, J. W. (2016). Ten Simple Rules for Digital Data Storage. PLOS Computational Biology, 12(10), e1005097. https://doi.org/10.1371/journal.pcbi.1005097
 
 Henneken, E. A., & Accomazzi, A. (2011). Linking to data-effect on citation rates in astronomy. arXiv preprint arXiv:1111.3618.
 
