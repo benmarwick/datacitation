@@ -5,7 +5,7 @@ author:
   - "Suzanne E. Pilaar Birch"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
-    bookdown::html_document2:
+    bookdown::word_document2:
     fig_caption: yes
     reference_docx: templates/template.docx
 abstract: |
