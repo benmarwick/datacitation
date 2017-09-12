@@ -3,7 +3,6 @@ title: "A Standard for the Scholarly Citation of Archaeological Data"
 author:
   - "Ben Marwick"
   - "Suzanne E. Pilaar Birch"
-  - 
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
     bookdown::html_document2:
@@ -1018,28 +1017,51 @@ dc_arch %>%
 
 # How to share archaeological data?
 
-In the pilot studies reported above we see three common approaches to sharing data: sending files privately by email, following a personal request; including data as supplementary files submitted for publication with a journal article; and sharing data by depositing files in a trustworthy, public, DOI-issuing repository. The third method, via a public repository, is by far the most widely recommended method both specifically by archaeologists (Kintigh 2006; Kansa et al. 2011; Kansa and Kansa 2013), and in other sciences (cf. Cranston et al. 2014; Penev et al. 2017; Mounce 2014; Thessen & Patterson 2011; Whitlock 2011).	There are many guidelines and conventions from other disciplines that are relevant to sharing archaeological data (ICPSR 2012; Strasser et al. 2012). Table XXX summarises some of these, and recommendations specifically written for archaeologists can be found in UK Archaeology Data Service (n.d.), ARCHES project. (n.d.) [archaeology data service manuals]. Many of these guidelines may create new technical and practical challenges to archaeologists who are not accustomed to sharing data, and many not want to dedicate resources to sharing data. However, we should not let the perfect be the enemy of the good. In our own work we try to follow these guidelines with no dedicated resources for data sharing, and with an incomplete knowledge of some of the technical details of repository operations. While we recognise that our data sharing pracitses fall short of all the guidelines, we still see value in sharing data imperfectly, rather than not at all. 
+In the pilot studies reported above we see three common approaches to sharing data: sending files privately by email, following a personal request; including data as supplementary files submitted for publication with a journal article; and sharing data by depositing files in a trustworthy, public, DOI-issuing repository. The third method, via a public repository, is by far the most widely recommended method both specifically by archaeologists (Kintigh 2006; Kansa et al. 2011; Kansa and Kansa 2013), and in other sciences (cf. Cranston et al. 2014; Penev et al. 2017; Mounce 2014; Thessen & Patterson 2011; Whitlock 2011).	There are many guidelines and conventions from other disciplines that are relevant to sharing archaeological data (ICPSR 2012; Strasser et al. 2012; Wilkinson et al. 2016). Table XXX summarises some of these, and recommendations specifically written for archaeologists can be found in UK Archaeology Data Service (n.d.), ARCHES project. (n.d.) [archaeology data service manuals]. Many of these guidelines may create new technical and practical challenges to archaeologists who are not accustomed to sharing data, and many not want to dedicate resources to sharing data. However, we should not let the perfect be the enemy of the good. In our own work we try to follow these guidelines with no dedicated resources for data sharing, and with an incomplete knowledge of some of the technical details of repository operations. While we recognise that our data sharing pracitses fall short of all the guidelines, we still see value in sharing data imperfectly, rather than not at all. 
 
 Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier-issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the web server of a research project is problematic because these files could disappear at any tim, the data can change in untracked ways, and published links to the files are broken when these websites are reorganised, making the files inaccessible. Sharing data via supplementary files attached to a journal article is problematic because the are inaccessible to non-subscribers for paywalled journals, and because publishers often alter the data file formats and and file names during the production process. For example, machine-readable format such as CSV are sometimes presented as PDF or Microsoft Word files in supplementary files. The modification of supplementary file names during the article production process can break scrips that attempt to read files by referring to file names as they were prior to the publisher handling the files.  Finally, authors who write in their publications that 'the data are available by request' are not sharing data. Not only are the data not actually available, but there is no way to enforce that the authors will actually honour any requests for their data.  A simple strategy for avoiding these pseudo-sharing behaviours is to deposit data files in a trustworthy data reposity, and link to the files in reports and manuscripts. 
 
 # How to cite archaeological data?
 
+The Joint Declaration of Data Citation Principles is the current standard in may disciplines for data citation within any research object (Data Citation Synthesis Group 2014). The result of these principles is a citation formation as follows (the exact order of the items may vary slightly across different referencing styles):
 
+Creator (PublicationYear). Title. Version. Publisher. Identifier
 
-[ ] - datacite method
-http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.2001414
+The 'PublicationYear', 'Title' and 'Publisher' are familiar from traditional citation formats. 'Creator' is equivalent to the author or primary collector and arranger of the data. The 'Version' and 'Identifier' fields are unique to data citation, and can take a variety of forms. The identifier is a special type of persistent internet address. The identifier must have two important qualities: the address contains some metadata (such as the identity of the publisher), and they remained fixed to a specific file or bundle of files over the lifetime of those objects, even if their location on the internet changes. There are several varieties of these in use, with DOIs (digital object identified) being the most common form. When a data publisher changes the internet address of a data set, the are responsible for informing the DOI-issuing authority so that the DOI resolves to the new location of the files. 
 
-<!---
--In-text citation:		
-		
- “This paper uses data from the [name] data repository at https://doi.org/***** (Jones et al. 2008a), first described in Jones et al. 2008b. “		
- 		
- Data reference and article reference in reference list:		
- 		
- Jones A, Bloggs B, Smith C (2008a). <Title of data package>. <Repository name>. doi: https://doi.org/#####. [Version and/or date of access].
- -->
- 
- # Ethical limitations to data sharing
+A DOI consists of three parts: 
+
+- the proxy, usually https://doi.org but sometimes also https://hdl.handle.net/ or just doi:
+- the prefix, usually a string of numbers that is unique to the organisation publishing the DOI. For example, tDAR prefix is 10.6067
+- the suffix, a random-looking string of any combination of characters and numbers that uniquely identified the file or bundle of files. This is also known as a  local identifier (local ID) or an 'accession', an identifier which, by itself, is only guaranteed to be locally unique within the database or source (McMurry et al. 2017) 
+
+A DOI alone is not suffcient for citing a dataset because, like many things onthe internet, the files can change over time. For example we might upload data files to the repository when we submit a paper for peer review, then get a DOI and cite that in our manuscript so the peer reviewers can see them (some services provide a private URL the can be shared with reviewers but it not publicly accessible or discoverable by a search engine). Then when we resubmit our manuscript after peer review, we might update the repository to include additional data files relating to additional analyses requested by the reviewers. We still have the same DOI in our manuscript for this data set, but the files have changed because of the revisions we did in response to the peer reviewers' comments. Most data repositories will keep each version of the files that you upload, so in this scenario there will be at least two versions of the files in our data repository. Even if we do not follow this exact sequence of updating the files, we may still change them in the future, after our paper has been published. Because of this potential to change the files stored at the DOI, it is necessary to identify specific file versions in our citation of the data. A simple method to record the version is to include the date that the data files were accessed, as when citing any other resource found on the internet. Some repositories also provide DOIs that have a version number suffix like '.v2', '.2', '/2'. However this is not formally a functionality of the DOI system, so including the date accessed is a more robust and general method of indicating the version. 
+
+When citing data in the text of a manuscript or report, the ideal practice is to cite the dataset and the traditional publication that first described it, like so (Penev et al. 2017):
+
+"This paper uses data from the [name] data repository at http://doi.org/xxx/xxx (Author YYYY), first described in Author YYYY"
+
+For example:
+
+"This paper uses data from the Open Science Framework data repository at http://doi.org/10.17605/OSF.IO/RTZTH (Marwick 2017), first described in Marwick et al. 2017."
+
+Citing both the dataset and the publication helps to resolve ambiguity about the source of the data, and gives context to the data. Furthermore the authorship of the data files may differ from those of the author's paper describing the data, and it is important that both authors (or sets of authors) recieve credit for their work through the normal mechanisms of citation recognition.
+
+When referring to newly published data in the paper in which these data are first described, the citation statement should be included in the body of the paper, in the Material and Methods section. In addition, the formal data reference should be included in the paper's reference list, using the recommended journal's reference format. For example:
+
+“The data underpinning the analysis reported in this paper were deposited in the Open Science Framework Repository at http://dx.doi.org/10.17605/OSF.IO/RTZTH (Marwick 2017).
+
+With the reference list of that paper including Marwick (2017) as:
+
+Marwick, B. (2017). Dataset and R code for "Movement of lithics by trampling: An experiment in the Madjedbebe sediments", http://doi.org/10.17605/OSF.IO/RTZTH, Accessed 7 Sept 2017
+
+# Ethics and data sharing
+
+A full treatment of the ethical issues of data sharing is beyond the scope of this paper, but we can highlight some points specifically relevant to the question of when archaeological data. Much of the discussion on ethics and data sharing generally relates to appropriate attribution (assigning credit for the data) in data reuse (Duke et al. 2013). The default position for archaeological data, like data from many other sciences, is that they are part of the global human patrimony, and should be accessible to other scholars and the public (Zimmerman et al. 2003; Vitelli & Colwell-Chanthaphonh 2006). However, archaeologists, like other researchers working with indigenous communities and governments, generate research data that is intellectual property with many stakeholders. With diverse stakeholders, archaeological data can become entangled in economics, nationalism, cultural politics, and identity (Nicholas and Wylie 2009). Often, one of these stakeholders is an indigenous community, and archaeologists may find differences between Western and indigenous conceptions of what data are, how they may be generated, used, shared, and 'owned' (Harding et al. 2012). 
+
+One of these differences is that Western researchers often have individual autonomy in sharing data, and once data are shared, it is free for all to use. In contrast, within indigenous communities, data are part of the group's identity and property, akin to tangible hertiage (Nicholas 2014), with certain members entrusted to keep that data on behalf of the group, and sometimes it may be inappropriate for these people to share the data with other members of the group, or beyond the group (Tsosie 2007). Differences between Western and indigenous concepts or data are not only cultural - substantial inequalities exist in access to resources for converting archaeological data into economic and political benefit (e.g. graduate degrees, employment, publications, grants, promotions). On one hand, making archaeological data openly available benefits indigenous communities, because it removes some of the financial barriers to accessing that data (e.g. subscription fees to journals). On the other hand, this may be little more than a useless courtesy (Hymes 1972), because simply making data openly available does not give indigenous people access to the contexts where the data can be used to generate economic and political benefits. Thus, open data has different values for Western and indigenous communities, and if archaeologists want to make a compelling case to their indigenous partners for data sharing, they should also make a committement to reducing some of the inequalities in making use of the data, for example, by providing some training in data analysis, or adapting the data into a context that is valued by the indigenous community.
+
+In short, there is more to the ethics of data sharing than avoiding risk of damage. Redacting the locations of archaeological sites to prevent looting as an obvious case of preparing data for sharing to reduce the risk of damage to the sites. However, because of cultural, economic and political differences between Western archaeologists and the communities they work with, an archaeologist cannot consider their own risk assessment to be comprehensive (Nicholas and Wylie 2012). It is crucial for archaeologists to discuss data sharing plans during negotiatations with representatives authorized by the indigenous peoples whose cultural heritage is the subject of investigation. This negotiation process is important because only indigenous peoples themselves can identify potential adverse outcomes to data sharing, and they can do this only if they understand the proposed research and anticipated results. The concrete outcome of this process is often a Memorandum of Understanding between the indigenous community and the archaeologist's employer that documents the ourcome of negotiations about data sharing. If the archaeologist's indigenous partners have reasons not to share data in public, then the archaeologist should respect that position, and note in publication that the data are restricted at the request of the indigenous collaborators. 
 
 # Summary
 
@@ -1067,6 +1089,8 @@ Daston, Lorraine, Galison Peter. (1992) The Image of Objectivity. Representation
 
 Dorch, B. F., Drachen, T. M., & Ellegaard, O. (2015). The data sharing advantage in astrophysics. Proceedings of the International Astronomical Union, 11(A29A), 172-175.
 
+Duke, C. S., & Porter, J. H. (2013). The Ethics of Data Sharing and Reuse in Biology. BioScience, 63(6), 483–489. https://doi.org/10.1525/bio.2013.63.6.10
+
 Editors, (2013). Guide for Authors. Journal of Archaeological Science. Retrieved from https://web.archive.org/web/20130125222940/https://www.elsevier.com/journals/journal-of-archaeological-science/0305-4403/guide-for-authors
 
 Ellison, L. A. (2012). Just 20 days left!! Upload your archaeological information FREE to tDAR!! | The Digital Archaeological Record. Retrieved September 7, 2017, from https://www.tdar.org/news/2012/12/just-20-days-left-upload-your-archaeological-information-free-to-tdar/
@@ -1081,6 +1105,8 @@ Henneken, E. A., & Accomazzi, A. (2011). Linking to data-effect on citation rate
 
 Huggett, J. (2017, May 23). Citing Data Reuse. Retrieved from https://introspectivedigitalarchaeology.wordpress.com/2017/05/23/citing-data-reuse/
 
+Hymes, D. (1972). 1974. Reinventing anthropology.
+
 Inter-university Consortium for Political and Social Research (ICPSR). (2012). Guide to Social Science Data Preparation and Archiving: Best Practice Throughout the Data Life Cycle (5th ed.). Ann Arbor, MI
 
 Kidwell, M. C., Lazarević, L. B., Baranski, E., Hardwicke, T. E., Piechowski, S., Falkenberg, L. S., ... & Errington, T. M. (2016). Badges to acknowledge open practices: A simple, low-cost, effective method for increasing transparency. PLoS Biol, 14(5), e1002456.
@@ -1093,11 +1119,19 @@ Kratz, J., Strasser, C., 2014. Data publication consensus and controversies, F10
 
 Leonelli, S. (2016). The philosophy of data, In Floridi, L. (Ed.) The Routledge Handbook of Philosophy of Information. Routledge.
 
+McMurry, J. A., Juty, N., Blomberg, N., Burdett, T., Conlin, T., Conte, N., … Parkinson, H. (2017). Identifiers for the 21st century: How to design, provision, and reuse persistent identifiers to maximize utility and impact of life science data. PLOS Biology, 15(6), e2001414. https://doi.org/10.1371/journal.pbio.2001414
+
 Merton, R.K. (1942) "The Normative Structure of Science". In: Merton, R. K., The Sociology of Science: Theoretical and Empirical Investigations, Chicago, IL: University Of Chicago Press.
 
 Moore, R., & Richards, J. (2015). Here Today, Gone Tomorrow: Open Access, Open Data and Digital Preservation. In Andrew T. Wilson, Ben Edwards (eds) Open Source Archaeology: Ethics and Practice. De Gruyter, Netherlands
 
+Nicholas, G. (2014). Indigenous cultural heritage in the age of technological reproducibility: Towards a postcolonial ethic of the public domain. Dynamic Fair Dealing: Creating Canadian Culture Online, 213-24.
+
 Nichols, D.M., Twidale, M.B., 2017. Metrics for openness, Journal of the Association for Information Science and Technology 68, 1048-1060.
+
+Nicholas, G. P., & Wylie, A. (2012). Do Not Do Unto Others…’: Cultural misrecognition and the harms of appropriation in an open-source world. Appropriating the Past: Philosophical Perspectives on Archaeological Practice, 195-221.
+
+Nicholas, G. P., & Wylie, A. (2009). Archaeological finds: legacies of appropriation, modes of response. The Ethics of Cultural Appropriation, 11-54.
 
 Nuijten, M. B., Borghuis, J., Veldkamp, C. L. S., Alvarez, L. D., van Assen, M. A. L. M., & Wicherts, J. M. (2017, July 13). Journal Data Sharing Policies and Statistical Reporting Inconsistencies in Psychology. Retrieved from psyarxiv.com/sgbta
 
@@ -1106,6 +1140,8 @@ National Science Board. (2005). Long-lived digital data collections. Retrieved f
 National Science Foundation. (2010). Data Management & Sharing Frequently Asked Questions (FAQs). Retrieved from https://www.nsf.gov/bfa/dias/policy/dmpfaqs.jsp#1
 
 National Science Foundation. (2016). Dissemination and Sharing of Research Results. Retrieved from https://www.nsf.gov/bfa/dias/policy/dmp.jsp
+
+Penev L, Mietchen D, Chavan V, Hagedorn G, Smith V, Shotton D, Ó Tuama É, Senderov V, Georgiev T, Stoev P, Groom Q, Remsen D, Edmunds S (2017) Strategies and guidelines for scholarly publishing of biodiversity data. Research Ideas and Outcomes 3: e12431. https://doi.org/10.3897/rio.3.e12431
 
 Piwowar HA, Day RS, Fridsma DB (2007) Sharing Detailed Research Data Is Associated with Increased Citation Rate. PLOS ONE 2(3): e308. https://doi.org/10.1371/journal.pone.0000308
 
@@ -1127,6 +1163,8 @@ Stodden, V. 2010, The Scientific Method in Practice: Reproducibility in the Comp
 
 Tenopir, C., Dalton, E. D., Allard, S., Frame, M., Pjesivac, I., Birch, B., … Dorsett, K. (2015). Changes in Data Sharing and Data Reuse Practices and Perceptions among Scientists Worldwide. PLOS ONE, 10(8), e0134826. https://doi.org/10.1371/journal.pone.0134826
 
+Tsosie, R. (2007). Cultural challenges to biotechnology: Native American genetic resources and the concept of cultural harm. The Journal of Law, Medicine & Ethics: A Journal of the American Society of Law, Medicine & Ethics, 35(3), 396–411. https://doi.org/10.1111/j.1748-720X.2007.00163.x
+
 Uhlir, P.F., & Cohen, D. (2011). Internal document. Board on Research Data and Information, Policy and Global Affairs Division, National Academy of Sciences. 18 March 2011.
 
 UK Archaeology Data Service. (n.d.). Guides to Good Practice: Main. Retrieved September 7, 2017, from http://guides.archaeologydataservice.ac.uk/
@@ -1135,13 +1173,20 @@ Vanpaemel, W., Vermorgen, M., Deriemaecker, L., & Storms, G. (2015). Are We Wast
 
 Vines, Timothy H, et al. 2014 The Availability of Research Data Declines Rapidly with Article Age. Current Biology 24(1):94-97.
 
+Vitelli, K. D., & Colwell-Chanthaphonh, J. S. (Eds.). (2006). Archaeological ethics. Rowman Altamira.
+
 Wallis, J. C., Rolando, E., & Borgman, C. L. (2013). If We Share Data, Will Anyone Use Them? Data Sharing and Reuse in the Long Tail of Science and Technology. PLoS ONE, 8(7), e67332. doi:10.1371/journal.pone.0067332
 
 White E, Baldridge E, Brym Z, Locey K, McGlinn D, Supp S. (2013) Nine simple ways to make it easier to (re)use your data. Ideas in Ecology and Evolution. 2013;6: 1–10. doi: 10.4033/iee.2013.6b.6.f.
 
 Wicherts, J. M., Borsboom, D., Kats, J., & Molenaar, D. (2006). The poor availability of psychological research data for reanalysis. American Psychologist, 61(7), 726.
 
+Wilkinson, M. D., Dumontier, M., Aalbersberg, Ij. J., Appleton, G., Axton, M., Baak, A., Bourne, P. E. (2016). The FAIR Guiding Principles for scientific data management and stewardship. Scientific Data, 3, 160018. https://doi.org/10.1038/sdata.2016.18
+
 Womack RP (2015) Research Data in Core Journals in Biology, Chemistry, Mathematics, and Physics. PLOS ONE 10(12): e0143460. doi: 10.1371/journal.pone.0143460
+
+Zimmerman, L. J., Vitelli, K. D., & Hollowell-Zimmer, J. (Eds.). (2003). Ethical issues in archaeology. Rowman Altamira.
+
 
 ### Colophon
 
