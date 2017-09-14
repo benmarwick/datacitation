@@ -105,7 +105,7 @@ Other surveys have found similar results. Tenopir et al. (2011) received 1,329 r
 
 # What are the current norms of data sharing?
 
-The surveys above show that data sharing practices tend to be a private activity, but where public sharing does occur, what forms does it take, and how to these vary across different fields of research?  Wouters and Haak (2017) surveyed 1,200 researchers about data sharing behaviours and found a spectrum from ‘intensive data-sharing fields’ to ‘restricted data-sharing fields’. Intensive data-sharing fields often depend on access to global databases, for example human genetics, while restricted data-sharing fields depend mostly on data collected by the individual researcher or their immediate collaborators, such as digital humanities. These differences in disciplinary norms have implications for data ownership (intensive: collectively owned, willing to share; restrictive: owned by the individual, reluctant to share) and the effort required to share (intensive: low effort because data are prepared for sharing as an integral part of the research process, restrictive: high effort because data are prepared for sharing after the research, or apart from it, in response to a request from another researcher). Archaeologists can be found all over this spectrum because of the diversity of archaeological research, however, our view is that archaeology is for the most part a restricted data-sharing field. There are few standardised and widely used methods for sharing and citing data, a challenge for archaeological data sharing that we hope this paper will help to address. 
+The surveys above show that data sharing practices tend to be a private activity, but where public sharing does occur, what forms does it take, and how to these vary across different fields of research?  Wouters and Haak (2017) surveyed 1,200 researchers about data sharing behaviours and found a spectrum from ‘intensive data-sharing fields’ to ‘restricted data-sharing fields’. Intensive data-sharing fields often depend on access to global databases, for example human genetics, while restricted data-sharing fields depend mostly on data collected by the individual researcher or their immediate collaborators, such as digital humanities. These differences in disciplinary norms have implications for data ownership (intensive: collectively owned, willing to share; restrictive: owned by the individual, reluctant to share) and the effort required to share (intensive: low effort because data are prepared for sharing as an integral part of the research process, restrictive: high effort because data are prepared for sharing after the research, or apart from it, in response to a request from another researcher). Archaeologists can be found all over this spectrum because of the diversity of archaeological research, however, our view is that archaeology is, for the most part, currently a restricted data-sharing field. There are few standardised and widely used methods for sharing and citing data, a challenge for archaeological data sharing that we hope this paper will help to address. 
 
 Even though there is a wide spectrum of data sharing behaviours, from intensive to restrictive, overall rates of data sharing are very low in many fields. Wicherts et al. (2006) emailed authors of 141 empirical articles recently published by the American Psychological Association (APA) journals to request a copy of the original data reported in the articles. They received 64 of the 249 datasets they requested, resulting in a data sharing rate of about 26%, despite all the authors of the articles in their study being bound to the APA's Ethical Principles, which state authors must ‘not withhold the data on which their conclusions are based from other competent professionals who seek to verify the substantive claims’ (American Psychological Association, 2001, p. 396). Valpaemel et al. (2015) similarly requested data from 394 papers, published in all issues of four APA journals in 2012 and found that 38% of authors responded with their data. They concluded that although the data sharing rate increased as compared to the study by Wicherts et al., their findings are ‘worrisome’ and indicate a 'poor availability of data'.
 
@@ -119,11 +119,11 @@ Here we present the results of three small pilot studies aimed at understanding 
 
 ## Reproducibility and open source materials for this study
 
-To enable re-use of our materials and improve reproducibility and transparency according to the principles outlined in Marwick (2017), we include the entire R code used for all the analysis and visualizations contained in this paper in our SOM at http://dx.doi.org/10.17605/OSF.IO/KSRUZ. Also in this version-controlled compendium are the raw data for all the tests reported here. All of the figures, tables and statistical test results presented here can be independently reproduced with the code and data in this repository. In our SOM our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use (for more details, see Marwick 2017).
+To enable re-use of our materials and improve reproducibility and transparency according to the principles outlined in Marwick (2017), we include the entire R code used for all the analysis and visualizations contained in this paper in our compendium at http://dx.doi.org/10.17605/OSF.IO/KSRUZ. Also in this version-controlled compendium are the raw data for all the tests reported here. All of the figures and quantitative results presented here can be independently reproduced with the code and data in this repository. In our compendium our code is released under the MIT licence, our data as CC-0, and our figures as CC-BY, to enable maximum re-use (for more details, see Marwick 2017).
 
 ## Email requests for data in a published article
 
-Our sample of authors that we wrote email to focused on Journal of Archaeological Science articles on experiments with stone artefacts that were published during 2009 and 2015. We focused on stone artefact experiments because the all research materials in these projects are generated by the researcher, so there are no other stakeholders to consider when determining how to share the data: the researcher has complete control over the data. There are also no risks of damage to people or property in sharing these data because they do not include archaeological sites or human subjects. In contacting the authors, we requested the datasets for use in a graduate seminar with the aim of reproducing the published results and further exploring the data (this stage is still in progress). We promised to contact the authors if we discovered anything new, and not to share the data further without their permission. The data included with this paper is anonymised so the specific authors we contacted are not identifiable.
+Our sample of authors that we wrote email to focused on _Journal of Archaeological Science_ articles on experiments with stone artefacts that were published during 2009 and 2015. We focused on stone artefact experiments because the all research materials in these projects are generated by the researcher, so there are no other stakeholders to consider when determining how to share the data: the researcher has complete control over the data. There are also no risks of damage to people or property in sharing these data because they do not include archaeological sites or human subjects. In contacting the authors, we requested the datasets for use in a graduate seminar with the aim of reproducing the published results and further exploring the data (this stage is still in progress). We promised to contact the authors if we discovered anything new, and not to share the data further without their permission. The data included with this paper is anonymised so the specific authors we contacted are not identifiable.
 
 ```{r import-email-data}
 library(tidyverse)
@@ -147,7 +147,7 @@ We see similar rates of sharing in response to email requests among archaeologis
 
 ```{r sharing-rates}
 tbl <- readr::read_csv("../figures/tbl_studies_of_data_sharing.csv")
-knitr::kable(tbl, caption = "Summary of a selection of previous studies of data sharing in various fields.")
+knitr::kable(tbl, caption = "Summary of a selection of previous studies of data sharing in various fields, from Spencer (2010). In the study by Peng et al., the authors did not attempt to contact other researchers, but noted the availability of data as described in the published article.")
 ```
 
 ```{r date-and-sharing, fig.cap="There is no obvious trend in data sharing becavious and date of publication"}
@@ -824,7 +824,7 @@ n_struc_in_dans <-
 
 ```
 
-```{r, fig.cap = "Relationships between data centres and file formats. The ten most frequently found file formats are shown here, in the data centres with these files from the top ten data centres by number of DOIs. Open file formats for structured data, such as CSV, are not common."}
+```{r}
 library(tidyr)
 
 structured_data_files_per_file <- 
@@ -868,15 +868,22 @@ structured_data_files_per_file %>%
   filter(format %in% top_file_formats$format) %>% 
   filter(datacentre %in% top_data_sources)
  
+library(ggrepel)
 plot_structured_data_files_per_file_tally <- 
 ggplot(structured_data_files_per_file_tally,
        aes(str_wrap(datacentre, 20), 
            format)) +
-  geom_point(aes(size = n), 
+      geom_point(aes(size = n), 
              shape = 16, 
              #alpha = 0.4,
              colour = viridis(3)[3]) +
-  geom_text(aes(label = prettyNum(n, big.mark = ",")), size = 3) +
+    geom_text_repel(aes(label = prettyNum(n, big.mark = ",")), 
+                  size = 2.5,
+                  colour = "black", 
+                  segment.colour="black",
+                  min.segment.length = unit(0.5, "lines"), 
+                  nudge_x = 0.3, 
+                  nudge_y = 0.5) +
   scale_size_continuous(range=c(2,25), guide = FALSE) +
     theme_bw() +
   theme(axis.text.x = element_text(angle = 90, 
@@ -889,8 +896,10 @@ ggplot(structured_data_files_per_file_tally,
 ggsave("../figures/plot_structured_data_files_per_file_tally.png",
        plot_structured_data_files_per_file_tally,
        width = 10)
+```
 
-knitr::include_graphics("plot_structured_data_files_per_file_tally.png")
+```{r, fig.cap = "Relationships between data centres and file formats. The ten most frequently found file formats are shown here, in the data centres with these files from the top ten data centres by number of DOIs. Open file formats for structured data, such as CSV, are not common."}
+knitr::include_graphics("../figures/plot_structured_data_files_per_file_tally.png")
 ```
 
 ```{r rights}
@@ -1231,7 +1240,7 @@ With the reference list of that paper including Marwick (2017) as:
 
 Marwick, B. (2017). Dataset and R code for "Movement of lithics by trampling: An experiment in the Madjedbebe sediments", http://doi.org/10.17605/OSF.IO/RTZTH, Open Science Framework, Accessed 7 Sept 2017
 
-# Ethics and data sharing
+# What are the ethics of data sharing?
 
 A full treatment of the ethical issues of data sharing is beyond the scope of this paper, but we can highlight some points specifically relevant to the question of when _not_ to share archaeological data. Much of the discussion on ethics and data sharing generally relates to appropriate attribution (assigning credit for the data) in data reuse (Duke et al. 2013). The default position for archaeological data, like data from many other sciences, is that they are part of the global human patrimony, and should be accessible to other scholars and the public (Zimmerman et al. 2003; Vitelli & Colwell-Chanthaphonh 2006). However, archaeologists, like other researchers working with local and indigenous communities, governments, and international collaborators, generate research data that is intellectual property with many stakeholders. With diverse stakeholders, archaeological data can become entangled in economics, nationalism, cultural politics, and identity (Nicholas and Wylie 2009). Often, one of these stakeholders is an indigenous community, and archaeologists may find differences between Western and indigenous conceptions of what data are, how they may be generated, used, shared, and 'owned' (Harding et al. 2012). 
 
@@ -1241,7 +1250,7 @@ In short, there is more to the ethics of data sharing than avoiding risk of dama
 
 # Summary and Conclusion
 
-The status of research data is slowly changing in many fields from a privately-held commodity traded for co-authorship and other status tokens to part of the public commons, accessible to anyone with an internet connection. This change in status has been fastest in 'big science' fields, such as astronomy, physics, and oceanography, that use expensive instruments that generate data shared with large teams of collaborators to produce new discoveries (Reichman and Uhlir 2003). However, in 'smaller' sciences such as archaeology, where collaborative groups are small, data sharing is still mostly ad hoc and disaggregated. Our pilot studies support this with an overall sharing rate of `r sharing_rate`% in responses to private requests for data, and `r data_are_avail_perc`% of sampled journal articles with openly available data, in a wide variety of formats and locations. In exmaning archaeological data deposited in repositories, we found that most of the contents are PDF files of reports, and only a very small fraction of the data files are structured data such as spreadsheets. Archaeologists still have a long way to go in making their data easier to reuse by sharing data in plain text structured data formats such as CSV. We found that legislation requiring data sharing resulted in a substantial increase in the rate of data deposition, and that archaeologists are sensitive to fees charged by a respository. 
+The status of research data is slowly changing in many fields from a privately-held commodity traded for co-authorship and other status tokens to part of the public commons, accessible to anyone with an internet connection. This change in status has been fastest in 'big science' fields, such as astronomy, physics, and oceanography, that use expensive instruments that generate data shared with large teams of collaborators to produce new discoveries (Reichman and Uhlir 2003). However, in 'smaller' sciences such as archaeology, where collaborative groups are small, data sharing is still mostly ad hoc and disaggregated. Our pilot studies, while small and limited in many ways, support this with an overall sharing rate of `r sharing_rate`% in responses to private requests for data, and `r data_are_avail_perc`% of sampled journal articles with openly available data, in a wide variety of formats and locations. In exmanining archaeological data deposited in repositories, we found that most of the contents are PDF files of reports, and only a very small fraction of the data files are structured data such as spreadsheets. Archaeologists still have a long way to go in making their data easier to reuse by sharing data in plain text structured data formats such as CSV. We found that legislation requiring data sharing resulted in a substantial increase in the rate of data deposition, and that archaeologists are sensitive to fees charged by a respository. 
 
 Among the many challenges of increased the rate of data sharing in archaeology other 'small' sciences is that data sharing is unfunded, unrewarded and is only rarely required. The challenge of funding can be addressed by professional societies, such as the Society of American Archaeology, communicating to funding bodies, such as the National Science Foundation, about the importance of allocating funds specifically for data sharing and requesting a chance in policy. The challenge of requiring data sharing can also be addressed by funding bodies, but may be most effectively tackled by journal editors and editorial boards, for example by adopting the Transparency and Openness Protocols of the Centre for Open Science (Nosek et al. 2015). Changes in journal-specific submission guidelines can result in desirable changes in authors’ research practices (Giofrè et al 2017). For example, if archaeology journals require as a condition of publication that submitted articles include in the text a properly formatted citation to the data analysed in the article (or an explanation why the data are not available), authors would quickly adapt to this new requirement to ensure their article will be published. As peer reviewers, we can also communicate to editors that we require the manuscripts that we review to include citations of datasets analysied in the manuscript. 
 
@@ -1306,9 +1315,15 @@ Kratz JE, Strasser C (2015) Researcher Perspectives on Publication and Peer Revi
 Kratz J and Strasser C. Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research 2014, 3:94 
 (doi: 10.12688/f1000research.3979.1)
 
+Kyzas PA, Loizou KT, and Ioannidis JP. (2005) Selective reporting biases in cancer prognostic factor studies. Journal of the National Cancer Institute 97, 1043-1055.
+
 Leonelli, S. (2016). The philosophy of data, In Floridi, L. (Ed.) The Routledge Handbook of Philosophy of Information. Routledge, NY.
 
 Marwick, B. (2017). Computational reproducibility in archaeological research: Basic principles and a case study of their implementation. Journal of Archaeological Method and Theory, 24(2), 424-450.
+
+McCullough BD, McGeary KA, Harrison TD. (2006) Lessons from the JMCB Archive. Journal of Money, Credit, and Banking 38(4), 1093-1107. doi:10.1353/mcb.2006.0061
+
+McCullough BD and Vinod HD. (2005) Comment: Econometrics and Software. Journal of Economic Perspectives 17(1), 223-224.
 
 McMurry, J. A., Juty, N., Blomberg, N., Burdett, T., Conlin, T., Conte, N., … Parkinson, H. (2017). Identifiers for the 21st century: How to design, provision, and reuse persistent identifiers to maximize utility and impact of life science data. PLOS Biology, 15(6), e2001414. https://doi.org/10.1371/journal.pbio.2001414
 
@@ -1336,6 +1351,8 @@ National Science Foundation. (2016). Dissemination and Sharing of Research Resul
 
 Pampel, H., Vierkant, P., Scholze, F., Bertelmann, R., Kindling, M., Klump, J. & Dierolf, U. (2013). Making research data repositories visible: The re3data.org registry. PloS one, 8(11), e78080.
 
+Peng RD, Dominici F, and Zeger SL. (2006) Reproducible Epidemiological Research. American Journal of Epidemology 163, 783-789 doi: 10.1093/aje/kwj093
+
 Penev L, Mietchen D, Chavan V, Hagedorn G, Smith V, Shotton D, Ó Tuama É, Senderov V, Georgiev T, Stoev P, Groom Q, Remsen D, Edmunds S (2017) Strategies and guidelines for scholarly publishing of biodiversity data. Research Ideas and Outcomes 3: e12431. https://doi.org/10.3897/rio.3.e12431
 
 Piwowar HA, Day RS, Fridsma DB (2007) Sharing Detailed Research Data Is Associated with Increased Citation Rate. PLOS ONE 2(3): e308. https://doi.org/10.1371/journal.pone.0000308
@@ -1346,11 +1363,18 @@ PLoS Medicine Editorial and Publishing Policies. 13. Sharing of Materials, Metho
 
 Reichman, J. H., & Uhlir, P. F. (2003). A contractually reconstructed research commons for scientific data in a highly protectionist intellectual property environment. Law and Contemporary problems, 66(1/2), 315-462.
 
+Reidpath DD, and Allotey PA. Data Sharing in Medical Research: An Empirical Investigation. Bioethics 15(2), 125- 134 (2002). doi: 10.1111/1467-8519.00220
+
 Rowhani-Farid, A., Allen, M., & Barnett, A. G. (2017). What incentives increase data sharing in health and medical research? A systematic review. Research Integrity and Peer Review, 2(1), 4. https://doi.org/10.1186/s41073-017-0028-9
+
+Savage CJ, Vickers AJ (2009) Empirical Study of Data Sharing by Authors Publishing in PLoS Journals. PLoS ONE 4(9): e7078. doi:10.1371/journal.pone.0007078
 
 Scientific Data Editors (n.d) Recommended Data Repositories. Retrieved September 13, 2017, from https://www.nature.com/sdata/policies/repositories
 
 Sears, J.R.L (2011) Data sharing effect on article citation rate in paleoceanography. Presented at Fall Meeting of the American Geophysical Union. Retrieved September 7, 2017, from https://doi.org/10.6084/M9.FIGSHARE.1222998.V1
+
+Spencer, Hilary (2010). Thoughts on the sharing of data and research
+materials and the role of journal policies. Retrieved September 7, 2017, from https://web.stanford.edu/~vcs/Nov21/hilary_spencer_rdcscsJan2010.pdf
 
 Strasser, C., Cook, R., Michener, W., & Budden, A. (2012). Primer on Data Management: What you always wanted to know. EScholarship. Retrieved September 7, 2017, from https://doi.org/10.5060/D2251G48
 
