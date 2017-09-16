@@ -843,7 +843,7 @@ structured_data_files_per_file <-
 dc_arch %>% 
     mutate(has_data = ifelse(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet|pdf", tolower(format)), "has_data", "no")) %>% 
   filter(has_data == "has_data") %>% 
-  mutate(format_simple = gsub("application|text|image|\\(|\\)", "", format)) %>% 
+  mutate(format_simple = gsub("application|text|image|\\(|\\)| en ", "", format)) %>% 
   separate(format_simple, 
            sapply(1:50, function(i) paste0('f', i)),
            sep = "/|,|:|;|-|\\.| ") %>% 
@@ -871,7 +871,8 @@ top_file_formats <-
   structured_data_files_per_file %>% 
   group_by(format) %>% 
   tally(sort = TRUE) %>% 
-  slice(1:20) 
+  slice(1:20) %>% 
+  filter(format != "p") 
   
 structured_data_files_per_file_tally <- 
 structured_data_files_per_file %>% 
