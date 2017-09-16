@@ -1,13 +1,14 @@
 ---
 title: "A Standard for the Scholarly Citation of Archaeological Data"
 author:
-  - "Ben Marwick, Department of Anthropology, University of Washington, Seatll, 98115, WA, USA, bmarwick@uw.edu, corresponding author"
-  - "Suzanne E. Pilaar Birch, Anthropology and Geography Department, University of Georgia,  Athens, Georgia,  30602, USA, sepbirch@uga.edu"
+  - ""
+  - ""
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
     bookdown::word_document2:
-    fig_caption: yes
     reference_docx: ../templates/template.docx
+    fig_caption: yes
+
 abstract: |
   "How do archaeologists share their research data, if at all? We review what data are, according to current influential definitions, and previous work on the benefits, costs and norms of data sharing in the sciences broadly. To understand data sharing in archaeology, we present the results of three pilot studies: requests for data by email; review of data availability in published articles, and analysis of archaeological datasets deposited in repositories. We find that archaeologists are often willing to share, but discipline-wide sharing is patchy and ad hoc. Legislation and mandates are effective at increasing data-sharing, but editorial policies at journals lack adequate enforcement. Although most of data available at repositories are licensed to enable flexible reuse, only a small proportion of the data are stored in structured formats for easy reuse. We present some suggestions for improving the state of date sharing in archaeology, among these is a standard for citing data sets to ensure that researchers making their data publicly available receive appropriate credit."
 keywords: |
