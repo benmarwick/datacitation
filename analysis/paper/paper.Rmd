@@ -29,7 +29,9 @@ lang              : "english"
 class             : "man"
 
 output: 
-  papaja::apa6_word
+  papaja::apa6_pdf:
+   latex_engine: xelatex
+
   
 abstract: |
   "How do archaeologists share their research data, if at all? We review what data are, according to current influential definitions, and previous work on the benefits, costs and norms of data sharing in the sciences broadly. To understand data sharing in archaeology, we present the results of three pilot studies: requests for data by email; review of data availability in published articles, and analysis of archaeological datasets deposited in repositories. We find that archaeologists are often willing to share, but discipline-wide sharing is patchy and ad hoc. Legislation and mandates are effective at increasing data-sharing, but editorial policies at journals lack adequate enforcement. Although most of data available at repositories are licensed to enable flexible reuse, only a small proportion of the data are stored in structured formats for easy reuse. We present some suggestions for improving the state of date sharing in archaeology, among these is a standard for citing data sets to ensure that researchers making their data publicly available receive appropriate credit."
@@ -1225,6 +1227,29 @@ ggsave("../figures/datacentre_rights_table.png",
 ```{r fig.cap = "Summary of licenses used by data centers with archaeological data"}
 knitr::include_graphics("../figures/datacentre_rights_table.png")
 ```
+
+
+
+```{r events, eval = FALSE}
+# get cross-ref events for dataset dois
+# this is mostly citations of the datasets
+library(crevents)
+
+# contact the API and get the data...
+cred_query_safe <- safely(cred_query)
+events <- 
+map(dc_arch$doi, ~cred_query_safe(rows = 10, 
+                                  filter = list(`obj-id` = .x)))
+
+saveRDS(events, "../data/raw_data/cross_ref_events.rds")
+
+# Extract dataframes for analysis
+events_df <- 
+map_df(events, ~.x$result$message$events)
+
+
+```
+
 
 # How to share archaeological data?
 
