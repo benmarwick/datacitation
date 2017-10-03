@@ -1241,11 +1241,14 @@ events <-
 map(dc_arch$doi, ~cred_query_safe(rows = 10, 
                                   filter = list(`obj-id` = .x)))
 
-saveRDS(events, "../data/raw_data/cross_ref_events.rds")
+# saveRDS(events, "../data/raw_data/cross_ref_events_2017_09_03.rds")
+# events <- read_rds("../data/raw_data/cross_ref_events.rds")
 
 # Extract dataframes for analysis
 events_df <- 
 map_df(events, ~.x$result$message$events)
+# 366 obs 2 Oct
+# 367 obs 3 Oct
 
 
 ```
