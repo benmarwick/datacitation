@@ -1,6 +1,6 @@
 ---
-title: "A Standard for the Scholarly Citation of Archaeological Data"
-author: 
+title: "A standard for the scholarly citation of archaeological data as an incentive to data sharing"
+author:
   - name          : "Ben Marwick"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
@@ -23,17 +23,17 @@ tablelist         : no
 footnotelist      : no
 lineno            : no
 keywords          : ""
-wordcount         : ""
+wordcount         : '`r  unname(stringi::stri_stats_latex(readLines("paper.Rmd"))[4])` (includes reference list )'
 
 lang              : "english"
 class             : "man"
 
-output: 
-  papaja::apa6_word 
+output:
+  papaja::apa6_word
    # :
    # latex_engine: xelatex
 
-  
+
 abstract: |
   "How do archaeologists share their research data, if at all? We review what data are, according to current influential definitions, and previous work on the benefits, costs and norms of data sharing in the sciences broadly. To understand data sharing in archaeology, we present the results of three pilot studies: requests for data by email; review of data availability in published articles, and analysis of archaeological datasets deposited in repositories. We find that archaeologists are often willing to share, but discipline-wide sharing is patchy and ad hoc. Legislation and mandates are effective at increasing data-sharing, but editorial policies at journals lack adequate enforcement. Although most of data available at repositories are licensed to enable flexible reuse, only a small proportion of the data are stored in structured formats for easy reuse. We present some suggestions for improving the state of date sharing in archaeology, among these is a standard for citing data sets to ensure that researchers making their data publicly available receive appropriate credit."
 ---
@@ -51,6 +51,7 @@ knitr::opts_chunk$set(
 )
 
 library(datacitation)
+library(tidyverse)
 
 # my custom plot theme
 theme_new <- function(base_size = 12){
@@ -60,9 +61,9 @@ theme_new <- function(base_size = 12){
       # axis.title.y=element_blank(),
       axis.title = element_text(size = 14),
       legend.key=element_rect(colour=NA, fill =NA),
-      # panel.grid = element_blank(),   
+      # panel.grid = element_blank(),
       panel.border = element_rect(fill = NA, colour = "black", size=0.5),
-      panel.background = element_rect(fill = "white", colour = "black"), 
+      panel.background = element_rect(fill = "white", colour = "black"),
       strip.background = element_rect(fill = NA)
     )
 }
@@ -71,11 +72,11 @@ theme_new <- function(base_size = 12){
 
 Data are the building blocks of research, and access to data is necessary to fully understand and extend the work of others (Fienberg et al 1985). Yet archaeological data are often not available for a variety of reasons, including a perceived lack of credit for making data available. The goal of this paper is to present a standard for the scholarly citation of archaeological data, akin to the way we cite publications. The need for this has been motivated by Huggert’s (2017) findings of low levels of data citation and reuse in archaeology, and Clarke’s (2015) analysis that digital data preservation and management systems are under-developed in archaeology, despite our obligations as stewards of cultural heritage. A standard for data citation is important because it gives credit to the authors or compilers of the data, and so accords them visibility and recognition for their scholarly contribution in a way that is valued broadly in the discipline. A citation standard is also important for tracking the use of the data, and generating metrics about the impact of the dataset on the discipline. Understanding the use of resources such as datasets is important for allocating resources within archaeology and identifying novel research directions.
 
-We will start by defining what we mean by ‘data’, and reviewing previous work on researchers’ attitudes to sharing data. We motivate data sharing and citing behaviours by explaining why data sharing is beneficial to archaeology as a discipline, and to individual researchers. Then we will survey some of the data sharing and citing norms that have emerged in other research areas. From these norms we will present a standard suitable for citation of archaeological data. Finally, we will present some basic instructions on how to share archaeological data.
+Archaeologists work with data in research, commercial, government, and other contexts. A full investigation of data in each of these contexts is beyond the scope of this paper, so we limit this study to what we are most famliar with, the research context. However, many of the practical details we discuss here will also be relevant to archaeologists working in other contexts. We begin by defining what we mean by ‘data’, and reviewing previous work on researchers’ attitudes to sharing data.  We motivate data sharing and citing behaviours by explaining why data sharing is beneficial to archaeology as a discipline, and to individual researchers. Then we survey some of the data sharing and citing norms that have emerged in other research areas. From these norms we derive a standard suitable for citation of archaeological data. Finally, we present some basic instructions on how to share archaeological data. 
 
-# What are data? 
+# What are data?
 
-Defining what data are is an ongoing research problem for information scientists (Leonelli 2016; Borgman 2012). Table \@ref(tab:summary-of-defs-of-data) summarises some of the definitions debated in the philosophy of science literature. A more concrete starting point is this definition from the National Academies of Sciences: 
+Defining what data are is an ongoing research problem for information scientists (Leonelli 2016; Borgman 2012). Table \@ref(tab:summary-of-defs-of-data) summarises some of the definitions debated in the philosophy of science literature. A more concrete starting point is this definition from the National Academies of Sciences:
 
 "The term "data" as used in this document is meant to be broadly inclusive. In addition to digital manifestations of literature (including text, sound, still images, moving images, models, games, or simulations), it refers as well to forms of data and databases that generally require the assistance of computational machinery and software in order to be useful, such as various types of laboratory data including spectrographic, genomic sequencing, and electron microscopy data; observational data, such as remote sensing, geospatial, and socioeconomic data; and other forms of data either generated or compiled, by humans or machines." (Uhlir & Cohen, 2011, cited in Borgman 2015)
 
@@ -84,27 +85,35 @@ tbl <- readr::read_csv("../figures/tbl_definitions_of_data.csv")
 knitr::kable(tbl, caption = "A selection of definitions of research data")
 ```
 
-This is a useful definition because it emphasizes data as digital manifestations, and so suitable for transmission, storage and retrieval using the internet. Physical objects (such as samples, collections, hard copies of notes, etc.) are data also, but they are out of scope of this discussion because of the different requirements for access, archiving, and so on. For many archaeologists, data are the contents of the files we use to generate visualisations, summary tables, and qualitative statements that appear in, and support the claims we make in, our scholarly publications and reports. The categories shown in Table \@ref(tab:types-of-data) are useful as a rough guide to what data can be, although this table is not comprehensive, and does not represent the full diversity of data used by archaeologists. Ultimately, data are whatever the community decides, as the The National Science Foundation notes in their commentary on Data Management Plans: "What constitutes such data will be determined by the community of interest through the process of peer review and program management. This may include, but is not limited to: data, publications, samples, physical collections, software and models." This is a highly pragmatic approach to defining data, but is also consistent with the relational account of data in philosophy of science scholarship, which holds that what data are is dependent on who uses it, how and for what purpose (Leonelli 2015; Daston and Galison 1992). It implies that the answer to the question of what counts as data is mostly emergent from our professional interactions, such as the materials we request when we do peer review of manuscripts and grant proposals, or when we make an informal request for more information by email.
+This is a useful definition because it emphasizes data as digital manifestations, and so suitable for transmission, storage and retrieval using the internet. Physical objects (such as samples, collections, hard copies of notes, etc.) are data also, but they are out of scope of this discussion because of the different challenges and requirements for access, archiving, and so on. The categories shown in Table \@ref(tab:types-of-data) are useful as a rough guide to what data can be, although this table is not comprehensive, and does not represent the full diversity of data used by archaeologists. Ultimately, data are whatever the community decides, as the The National Science Foundation notes in their commentary on Data Management Plans: "What constitutes such data will be determined by the community of interest through the process of peer review and program management. This may include, but is not limited to: data, publications, samples, physical collections, software and models." These definitions in policy are consistent with the relational account of data in philosophy of science scholarship, which holds that what data are is dependent on who uses it, how and for what purpose (Leonelli 2015; Daston and Galison 1992). How can these definitions and philosophical discussions inform our practice? They tell us that what counts as data is emergent from our professional interactions. Data are the materials we request when we do peer review of manuscripts and grant proposals, or when we make an informal request for more information by email. Ther are not exclusively objective archaeometric records, but include interpretive and derivative results. In short, data are anything another person needs to understand our work better. 
 
-Pragmatically in our own work, we consider that the main data suitable for sharing as the contents of the computer files (e.g. text, raw structured data, and images) that we analyse or otherwise use to create the figures, tables and quantitative results that we include in our reports and publications. The selection omits materials that could also be considered data according to the definitions noted above (e.g. field notes), but we feel our selection represents the most information-dense and meaningful data records that are useful for others wanting to assess the reliability of our work, or reuse our findings in their own work. These are also the items that have been most frequently requested by others writing to us about our publications. Our citation standard imposes no constraints on what data can be, but we propose a few minimal qualities for how data should be organised that will help ground our discussion. Table \@ref(tab:desirable) summarises some desirable minimum qualities for archaeological data that optimise its discovery and reuse. 
+To translate this into a more applied context, our practice of data sharing it to make available the computer files (e.g. containing text, raw structured data, images, etc.) that we analyse or otherwise use to create the figures, tables and quantitative results that we include in our reports and publications. These include our derived results and secondary data, such as taxonomic and typological classifications. This selection omits materials that could also be considered data according to the definitions noted above (e.g. field notes), but we feel our selection represents the most information-dense and meaningful items that are useful for our community of interest. These are also the items that have been most frequently requested from us by others in our professional interactions. Our citation standard is inclusive and imposes no constraints on what data can be, but we propose a few minimal qualities for how data should be organised that will help ground our discussion.
 
 ```{r types-of-data}
 tbl <- readr::read_csv("../figures/tbl_types_of_data_nsb.csv")
-knitr::kable(tbl, caption = "A selection of types of data encountereed by archaeologists.")
+knitr::kable(tbl, caption = "A selection of types of data encountered by archaeologists.")
 ```
 
-```{r desirable}
-tbl <- readr::read_csv("../figures/tbl_rules_of_data_sharing.csv")
-knitr::kable(tbl, caption = "Best practices for preparing data for sharing, from Hart et al. (2016) ")
-```
+# What are the ethics of data sharing?
+
+A full treatment of the ethical issues of data sharing is beyond the scope of this paper, but we can highlight some points specifically relevant to the question of when _not_ to share archaeological data. Much of the discussion on ethics and data sharing generally relates to appropriate attribution (assigning credit for the data) in data reuse (Duke et al. 2013). The default position for archaeological data, like data from many other sciences, is that they are part of the global human patrimony, and should be accessible to other scholars and the public (Zimmerman et al. 2003; Vitelli & Colwell-Chanthaphonh 2006). However, archaeologists, like other researchers working with local and indigenous communities, governments, and international collaborators, generate research data that is intellectual property with many stakeholders. With diverse stakeholders, archaeological data can become entangled in economics, nationalism, cultural politics, and identity (Nicholas and Wylie 2009). Often, one of these stakeholders is an indigenous community, and archaeologists may find differences between Western and indigenous conceptions of what data are, how they may be generated, used, shared, and 'owned' (Harding et al. 2012).
+
+One of these differences is that Western researchers often have individual autonomy in sharing data, and once data are shared, it is free for all to use. In contrast, within indigenous communities, data are part of the group's identity and property, akin to tangible heritage (Nicholas 2014), with certain members entrusted to keep that data on behalf of the group, and sometimes it may be inappropriate for these people to share the data with other members of the group, or beyond the group (Tsosie 2007). Differences between Western and indigenous concepts or data are not only cultural - substantial inequalities exist in access to resources for converting archaeological data into economic and political benefit (e.g. graduate degrees, employment, publications, grants, promotions). On one hand, making archaeological data openly available benefits indigenous communities, because it removes some of the financial and technical barriers to accessing that data (e.g. subscription fees to journals). On the other hand, this may be little more than a useless courtesy (Hymes 1972), because simply making data openly available does not give indigenous people access to the contexts where the data can be used to generate economic and political benefits. Thus, open data has different values for Western and indigenous communities, and if archaeologists want to make a compelling case to their indigenous partners for data sharing, they should also make a commitment to reducing some of the inequalities in making use of the data, for example, by providing some training in data analysis, or adapting the data into a context that is valued by the indigenous community.
+
+In short, there is more to the ethics of data sharing than avoiding risk of damage. Redacting the locations of archaeological sites to prevent looting is an obvious case of preparing data for sharing to reduce the risk of damage to the sites (and in some jurisdictions, mandated by law). However, because of cultural, economic and political differences between Western archaeologists and the communities they work with, an archaeologist cannot consider their own risk assessment to be comprehensive and exhaustive (Nicholas and Wylie 2012). It is crucial for archaeologists to discuss data sharing plans during negotiations with representatives authorized by the indigenous peoples whose cultural heritage is the subject of investigation. This negotiation process is important because only indigenous peoples themselves can identify potential adverse outcomes to data sharing, and they can do this only if they understand the proposed research and anticipated results. The concrete outcome of this process is often a Memorandum of Understanding between the indigenous community and the archaeologist's employer that documents the outcome of negotiations about data sharing. If the archaeologist's indigenous partners have reasons not to share data in public, then the archaeologist should respect that position, and note in publication that the data are restricted at the request of the indigenous collaborators.
 
 # What are the benefits of data sharing to the individual researcher?
 
-While public and community benefits and costs are well-rehearsed and widely agreed on (Table \@ref(tab:costsbenefits)), they offer no, or only weak, tangible incentives to the individual researcher (Rowhani-Farid et al. 2017). Previous work has identified citation advantages as a tangible benefit to individual researchers who share data with publications, although the magnitude of the advantage varies greatly (see Table \@ref(tab:indivbenefits) for a summary). Increased publication productivity also appeared to be associated with data sharing behaviours. Across over 7,000 NSF and NIH awards, Pienta et al. (2010) reported that research projects with archived data produced a median of 10 publications, versus only five for projects without archived data.
+While public and community benefits and costs are well-rehearsed and widely agreed on (Tables \@ref(tab:sharing-costs) and \@ref(tab:sharing-benefits)), they offer no, or only weak, tangible incentives to the individual researcher (Rowhani-Farid et al. 2017). Previous work has identified citation advantages as a tangible benefit to individual researchers who share data with publications, although the magnitude of the advantage varies greatly (see Table \@ref(tab:indivbenefits) for a summary). Increased publication productivity also appeared to be associated with data sharing behaviours. Across over 7,000 NSF and NIH awards, Pienta et al. (2010) reported that research projects with archived data produced a median of 10 publications, versus only five for projects without archived data.
 
-```{r costsbenefits}
+```{r sharing-costs}
+tbl <- readr::read_csv("../figures/tbl_reasons_not_to_share_data.csv")
+knitr::kable(tbl, caption = "Summary of public and community costs of data sharing, from Stodden (2010) and Borgman (2012)")
+```
+
+```{r sharing-benefits}
 tbl <- readr::read_csv("../figures/tbl_reasons_to_share_data.csv")
-knitr::kable(tbl, caption = "Summary of public and community benefits and costs of data sharing")
+knitr::kable(tbl, caption = "Summary of public and community benefits of data sharing, from Stodden (2010) and Borgman (2012)")
 ```
 
 ```{r indivbenefits}
@@ -114,27 +123,30 @@ knitr::kable(tbl, caption = "Summary of individual benefits to data sharing")
 
 # What do researchers think about sharing data?
 
-Sharing of data is a quality that is fundamental to the definition of science (cf. Merton’s (1942) communalism norm, where intellectual property rights are normally given up in exchange for recognition and esteem) and to data both as an abstract quality (cf. the definitions in Table \@ref(tab:summary-of-defs-of-data) that mention data as ‘portable’, ‘stable across different domains’) and as a concrete detail to be managed with policy. For example, for over a decade the National Science Foundation (2016) has had a data sharing policy that states "Investigators are expected to share with other researchers, at no more than incremental cost and within a reasonable time, the primary data, samples, physical collections and other supporting materials created or gathered in the course of work under NSF grants. Grantees are expected to encourage and facilitate such sharing." Surveys of researchers across different domains repeatedly show that people value the ideal of data sharing (Kratz and Strasser 2015). However, data sharing is not widespread in many disciplines, raising questions about why researchers do or do not share their data. Three recent studies have attempted to answer these questions, in the search for strategies to encourage sharing. 
+Sharing of data is a quality that is fundamental to the definition of science (cf. Merton’s (1942) communalism norm, where intellectual property rights are normally given up in exchange for recognition and esteem) and to data both as an abstract quality (cf. the definitions in Table \@ref(tab:summary-of-defs-of-data) that mention data as ‘portable’, ‘stable across different domains’) and as a concrete detail to be managed with policy. For example, for over a decade the National Science Foundation (2016) has had a data sharing policy that states "Investigators are expected to share with other researchers, at no more than incremental cost and within a reasonable time, the primary data, samples, physical collections and other supporting materials created or gathered in the course of work under NSF grants. Grantees are expected to encourage and facilitate such sharing." Surveys of researchers across different domains repeatedly show that people value the ideal of data sharing (Kratz and Strasser 2015). However, data sharing is not widespread in many disciplines, raising questions about why researchers do or do not share their data. Three recent studies have attempted to answer these questions, in the search for strategies to encourage sharing.
 
-Stodden (2010) surveyed registrants at a top machine learning conference (the Neural Information Processing Systems (NIPS) conference) to identify the factors that affect researchers’ decisions to reveal data (Table \@ref(tab:costsbenefits)). Stodden found that communitarian factors influence scientists to share their data, but private incentives determine when scientists choose not to share their code and data. In the top three reasons not to share, we see a lack of incentives to invest time in data sharing (however, there are many other time-consuming tasks in research, and they get done because clear reward structures are in place); a lack of faith in data citation (which we hope this paper will help with); and a lack of an efficient copyright process. Stodden’s (2009a, b) ‘Reproducible Research Standard’, summarised in Figure \@ref(fig:stodden-rrs), is a convenient and robust copyright schema that is in wide use for many typical research projects. 
+Stodden (2010) surveyed registrants at a top machine learning conference (the Neural Information Processing Systems (NIPS) conference) to identify the factors that affect researchers’ decisions to reveal data (Table \@ref(tab:costsbenefits)). Stodden found that communitarian factors influence scientists to share their data, but private incentives determine when scientists choose not to share their code and data. In the top three reasons not to share, we see a lack of incentives to invest time in data sharing (however, there are many other time-consuming tasks in research, and they get done because clear reward structures are in place); a lack of faith in data citation (which we hope this paper will help with); and a lack of an efficient copyright process. Stodden’s (2009a, b) ‘Reproducible Research Standard’, summarised in Table \@ref(tab:stodden-rrs), is a convenient and robust copyright schema that is in wide use for many typical research projects.
 
 ```{r stodden-rrs, fig.cap="Summary of Stodden’s (2009b) 'Reproducible Research Standard'"}
-knitr::include_graphics("../figures/fig1_rrs.png")
+
+tbl <- readr::read_csv("../figures/tbl_rrs.csv")
+names(tbl) <- c("Contents", "Example", "License", "Comment")
+knitr::kable(tbl, caption = "Summary of Stodden’s (2009b) 'Reproducible Research Standard'. This standard realigns legal rights with scientific norms by freeing scientific work from copying and reuse restrictions, with attribution. It encourages researchers to release their products with standardised instructions for reuse and attribution")
 ```
 
-Other surveys have found similar results. Tenopir et al. (2011) received 1,329 responses to a survey conducted by the research team of the National Science Foundation-funded DataONE project. They found that when researchers did not share data it was due to reasons that include: insufficient time (54%), a lack of funding (40%), having no place to put the data (24%), a lack of standards (20%), and because their sponsor did not require it (17%). A remarkable observation by Tenopir et al. is that while 75% of respondents say they share data, only 36% of those respondents say their data are easy to access, while only 6% say they make all their data available. This suggests that most data sharing occurs in private directly between individual researchers, rather than in public via open repositories. A similar focus on private, peer-to-peer sharing is evident in interviews conducted by Wallis et al. (2013) with 43 researchers at the Center for Embedded Networked Sensing. They found that the most commonly cited conditions for sharing data were (1) first rights to publish results, (2) proper attribution to the data source, (3) familiarity between sharer and recipient, (4) funding agency expectations, and (5) the amount of effort required to share. 
+Other surveys have found similar results. Tenopir et al. (2011) received 1,329 responses to a survey conducted by the research team of the National Science Foundation-funded DataONE project. They found that when researchers did not share data it was due to reasons that include: insufficient time (54%), a lack of funding (40%), having no place to put the data (24%), a lack of standards (20%), and because their sponsor did not require it (17%). A remarkable observation by Tenopir et al. is that while 75% of respondents say they share data, only 36% of those respondents say their data are easy to access, while only 6% say they make all their data available. This suggests that most data sharing occurs in private directly between individual researchers, rather than in public via open repositories. A similar focus on private, peer-to-peer sharing is evident in interviews conducted by Wallis et al. (2013) with 43 researchers at the Center for Embedded Networked Sensing. They found that the most commonly cited conditions for sharing data were (1) first rights to publish results, (2) proper attribution to the data source, (3) familiarity between sharer and recipient, (4) funding agency expectations, and (5) the amount of effort required to share.
 
 # What are the current norms of data sharing?
 
 The surveys above show that data sharing practices tend to be a private activity, but where public sharing does occur, what forms does it take, and how do these vary across different fields of research?  Wouters and Haak (2017) surveyed 1,200 researchers about data sharing behaviours and found a spectrum from ‘intensive data-sharing fields’ to ‘restricted data-sharing fields’. Intensive data-sharing fields often depend on access to global databases, for example human genetics, while restricted data-sharing fields depend mostly on data collected by the individual researcher or their immediate collaborators, such as digital humanities. These differences in disciplinary norms have implications for data ownership (intensive: collectively owned, willing to share; restrictive: owned by the individual, reluctant to share) and the effort required to share (intensive: low effort because data are prepared for sharing as an integral part of the research process, restrictive: high effort because data are prepared for sharing after the research, or apart from it, in response to a request from another researcher). This intensive-restricted spectrum also maps on to Sawyer's (2008) analysis of data sharing in data-rich fields compared to data-poor fields. Data rich fields, such as astronomy, oceanography, and ecology, are have three common characteristics: pooling and sharing data resources is expected; the cumulative nature of work that builds on common data and common methods reduces the likelihood of alternative data sources and other methods being common; and the number of theoretical choices is limited because there is enough data to adequately test competing theories. Data-poor fields have three common characteristics: data are rare, or hard to get, or both; the types of data available often dictate the methods taken; and theories are relatively easy to generate and more difficult to validate. In data-poor fields, researchers often invest substantial time and resources on gathering their own data. The getting of data, and the quality of the data collected, is often a key determinant of the status of a researcher, leading to hoarding of data as an asset to be traded for professional benefit.
 
-Archaeologists can be found all over this spectrum because of the diversity of archaeological research. However, our observations of data sharing in archaeology, and the nature of archaeological research generally, is that it is, for the most part, currently a restricted data-sharing and a data-poor field. There are few standardised and widely used methods for sharing and citing data, a challenge for archaeological data sharing that we hope this paper will help to address. 
+Archaeologists can be found all over this spectrum because of the diversity of archaeological research. However, our observations of data sharing in archaeology, and the nature of archaeological research generally, is that it is, for the most part, currently a restricted data-sharing and a data-poor field. There are few standardised and widely used methods for sharing and citing data, a challenge for archaeological data sharing that we hope this paper will help to address.
 
 Even though there is a wide spectrum of data sharing behaviours, overall rates of data sharing by individual researchers are very low in many fields. Wicherts et al. (2006) emailed authors of 141 empirical articles recently published by the American Psychological Association (APA) journals to request a copy of the original data reported in the articles. They received 64 of the 249 datasets they requested, resulting in a data sharing rate of about 26%, despite all the authors of the articles in their study being bound to the APA's Ethical Principles, which state authors must ‘not withhold the data on which their conclusions are based from other competent professionals who seek to verify the substantive claims’ (American Psychological Association, 2001, p. 396). Valpaemel et al. (2015) similarly requested data from 394 papers, published in all issues of four APA journals in 2012 and found that 38% of authors responded with their data. They concluded that although the data sharing rate increased as compared to the study by Wicherts et al., their findings are ‘worrisome’ and indicate a 'poor availability of data'.
 
-Savage and Vickers (2009) requested data from authors of ten papers published in PLOS journals, and received only one reply. Although this is a very small sample, it is notable because PLOS journals require authors to share data as a condition of publication: "PLOS journals require authors to make all data underlying the findings described in their manuscript fully available without restriction, with rare exception." (PLoS Medicine Editorial and Publishing Policies nd), and yet only one out of the ten authors actually complied with this requirement. Alsheikh-Ali et al. (2011) inspected 500 articles published in high-impact science journals in 2009 and found that only 47 papers (9%) deposited full primary raw data online. Similarly, Womak (2015) inspected 4,370 articles published in high-impact science journals in 2014 and found that 13% of articles with original data published make the data available to others.  
+Savage and Vickers (2009) requested data from authors of ten papers published in PLOS journals, and received only one reply. Although this is a very small sample, it is notable because PLOS journals require authors to share data as a condition of publication: "PLOS journals require authors to make all data underlying the findings described in their manuscript fully available without restriction, with rare exception." (PLoS Medicine Editorial and Publishing Policies nd), and yet only one out of the ten authors actually complied with this requirement. Alsheikh-Ali et al. (2011) inspected 500 articles published in high-impact science journals in 2009 and found that only 47 papers (9%) deposited full primary raw data online. Similarly, Womak (2015) inspected 4,370 articles published in high-impact science journals in 2014 and found that 13% of articles with original data published make the data available to others.
 
-The absence of a standardised and sustainable approach to data sharing is starkly demonstrated by Vines et al.’s (2014) study of data availability over time in biology publications. They examined the availability of data from 516 studies of plants or animal morphology between 2 and 22 years old. Vines et al. found that odds of a data set referred to in a publication being available fell by 17% per year. They found that the key factors responsible for the unavailability of data was that the data were lost or on inaccessible storage media. 
+The absence of a standardised and sustainable approach to data sharing is starkly demonstrated by Vines et al.’s (2014) study of data availability over time in biology publications. They examined the availability of data from 516 studies of plants or animal morphology between 2 and 22 years old. Vines et al. found that odds of a data set referred to in a publication being available fell by 17% per year. They found that the key factors responsible for the unavailability of data was that the data were lost or on inaccessible storage media.
 
 # Do archaeologists share data?
 
@@ -158,13 +170,13 @@ data_items_received <-  sum(!is.na(email_survey$`content recieved date`))
 sharing_rate <-  round(data_items_received / emails_out, 1) * 100
 ```
 
-Our sample focused on _Journal of Archaeological Science_ articles on experiments with stone artefacts that were published during `r min(email_survey$'publication year', na.rm = TRUE)` and `r max(email_survey$'publication year', na.rm = TRUE)`. We focused on stone artefact experiments because all research materials in these projects are generated by the researcher, so there are no other stakeholders to consider when determining how to share the data: the researcher has complete control over the data. There are also no risks of damage to people or property in sharing these data because they do not include archaeological sites or human subjects. In contacting the authors, we requested the datasets for use in a graduate seminar with the aim of reproducing the published results and further exploring the data (this stage is still in progress). We promised to contact the authors if we discovered anything new, and not to share the data further without their permission. The data included with this paper is anonymised so the specific authors we contacted are not identifiable. 
+Our sample focused on _Journal of Archaeological Science_ articles on experiments with stone artefacts that were published during `r min(email_survey$'publication year', na.rm = TRUE)` and `r max(email_survey$'publication year', na.rm = TRUE)`. We focused on stone artefact experiments because all research materials in these projects are generated by the researcher, so there are no other stakeholders to consider when determining how to share the data: the researcher has complete control over the data. There are also no risks of damage to people or property in sharing these data because they do not include archaeological sites or human subjects. Because we contacted authors of papers at the intersection of (1) containing eminently sharable data and (2) our _bona fide_ research interests (i.e. stone artefacts for BM), this is a targeted, non-random sample that may not be representative of the entire archaeological community. In contacting the authors, we requested the datasets for use in a graduate seminar with the aim of reproducing the published results and further exploring the data (this stage is still in progress). We promised to contact the authors if we discovered anything new, and not to share the data further without their permission. The data included with this paper is anonymised so the specific authors we contacted are not identifiable.
 
-We sent out emails to the first authors of `r emails_out` stone artefact experiment papers, and received `r emails_back` replies, resulting in a `r email_response_rate`% response rate. We received `r data_items_received` responses that included data files, giving an overall sharing rate of `r sharing_rate`%. Our small sample size limits the robustness of our analysis, but points to some observations that may be worth following up in a larger study. We found no clear relationship of data sharing and date of publication. We do not have any insights into why authors of older papers decline to share, but three of the six responses for papers published in 2014-2015 said they declined to share data because they intend to use these data in a future publication. Other noteworthy reasons provided by respondents for declining to share include the author about to defend their thesis or about to go on vacation. We interpret these to mean that the author does not have time to prepare their data for sharing, perhaps because the data are not already in a well-organised form ready for distribution. We found no effect on the author's student status at time of publication on data sharing behaviours, with roughly equal proportions of students and non-students sharing and not sharing. 
+We sent out emails to the first authors of `r emails_out` stone artefact experiment papers, and received `r emails_back` replies, resulting in a `r email_response_rate`% response rate. We received `r data_items_received` responses that included data files, giving an overall sharing rate of `r sharing_rate`%. Our small sample size limits the robustness of our analysis, but points to some observations that may be worth following up in a larger study. We found no clear relationship of data sharing and date of publication. We do not have any insights into why authors of older papers decline to share, but three of the six responses for papers published in 2014-2015 said they declined to share data because they intend to use these data in a future publication. Other noteworthy reasons provided by respondents for declining to share include the author about to defend their thesis or about to go on vacation. We found no effect on the author's student status at time of publication on data sharing behaviours, with roughly equal proportions of students and non-students sharing and not sharing.
 
-Similarly there are no clear patterns data sharing of among different journals. It is remarkable that the authors of the PLOS One paper we contacted declined to share because that refusal violates the policy of that journal at the time of publication of that paper (early 2014). Our finding is not unique - Chambers' (2017) examined 50 PLOS One papers on brain images published in November 2014 - May 2015 and found that only 38% of these papers archived their data in an open repository. Similarly, Nuijten et al. (2017) found that of 462 PLOS One articles that promised data availability, 29% of these did not have any available data. Unfulfilled promises to share data are not unique to PLOS One (Kidwell et al. 2016), but these studies highlight the need to resolve ambiguity among authors about what counts as data, and for editors and peer reviwers to more critically assess whether an author has made their data openly available. 
+Similarly there are no clear patterns data sharing of among different journals. It is remarkable that the authors of the PLOS One paper we contacted declined to share because that refusal violates the policy of that journal at the time of publication of that paper (early 2014). Our finding is not unique - Chambers' (2017) examined 50 PLOS One papers on brain images published in November 2014 - May 2015 and found that only 38% of these papers archived their data in an open repository. Similarly, Nuijten et al. (2017) found that of 462 PLOS One articles that promised data availability, 29% of these did not have any available data. Unfulfilled promises to share data are not unique to PLOS One (Kidwell et al. 2016), but these studies highlight the need to resolve ambiguity among authors about what counts as data, and for editors and peer reviwers to more critically assess whether an author has made their data openly available.
 
-We see similar rates of sharing in response to email requests among archaeologists to what have been described in other disciplines (Table \@ref(tab:sharing-rates), Tenopir et al. 2015; Vanpaemel et al. 2015). However, our result may overestimate the true rate because our sample did not include datasets that authors might not be able or willing to share because they contain sensitive location or cultural information. Analysis of the qualitative responses suggests two key reasons why authors are reluctant to share: they are fearful that they will lose the opportunity to produce further publications from those data (a typical concern of researchers in data-poor fields), and that their data are not in a form suitable for sharing and the task of organising those data is not a high priority. These reasons not to share have also been documented in other research areas, noted above. The absence of patterns in the date of the paper, student status of the author and other variables may relate to more to our small sample size than a real absence of relationships in data sharing behaviour. 
+We see similar rates of sharing in response to email requests among archaeologists to what have been described in other disciplines (Table \@ref(tab:sharing-rates), Tenopir et al. 2015; Vanpaemel et al. 2015). However, our result may overestimate the true rate because our sample did not include datasets that authors might not be able or willing to share because they contain sensitive location or cultural information. Analysis of the qualitative responses we received suggests two key reasons why authors are reluctant to share: they are fearful that they will lose the opportunity to produce further publications from those data (a typical concern of researchers in data-poor fields), and that their data are not in a form suitable for sharing and the task of organising those data is not a high priority. These reasons not to share have also been documented in other research areas, noted above. The absence of patterns in the date of the paper, student status of the author and other variables (Figure \@ref(fig:email-figs)) may relate to more to our small sample size than a real absence of relationships in data sharing behaviour.
 
 ```{r sharing-rates}
 tbl <- readr::read_csv("../figures/tbl_studies_of_data_sharing.csv")
@@ -173,89 +185,108 @@ knitr::kable(tbl, caption = "Summary of a selection of previous studies of data 
 
 ```{r date-and-sharing, fig.cap="There is no obvious trend in data sharing becavious and date of publication"}
 library(viridis)
+library(scales) 
+library(wesanderson)
+
 years <- seq(min(email_survey$'publication year', na.rm = TRUE),
     max(email_survey$'publication year', na.rm = TRUE), 1)
 
-sharing_by_year <- 
-email_survey %>% 
-  filter(!is.na( `email sent date`)) %>% 
-  group_by(`publication year`, `content recieved date`) %>% 
-  tally() %>% 
-  filter(!is.na(`publication year`)) %>% 
-  mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
-  "yes", "no")) %>% 
+sharing_by_year <-
+email_survey %>%
+  filter(!is.na(`email sent date`)) %>%
+  group_by(`publication year`, `content recieved date`) %>%
+  tally() %>%
+  filter(!is.na(`publication year`)) %>%
+  mutate(`content recieved date` = if_else(!is.na(`content recieved date`),
+  "yes", "no")) %>%
   ggplot(aes(`publication year`, n)) +
     geom_col(aes(fill = `content recieved date`),
              # need devtools::install_github("tidyverse/ggplot2") for this
              position = position_dodge(preserve = 'single')) +
-    scale_fill_viridis(discrete = TRUE,
-                       guide = FALSE) +
-    scale_x_continuous(breaks = years,
-                       labels = years) +
+  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)], 
+                    guide = FALSE) +
+  scale_x_continuous(breaks = years,
+                    labels = years) +
   xlab("Publication year") +
-    theme_bw() +
+  scale_y_continuous("Number of papers",
+                     breaks= pretty_breaks()) +
+  theme_bw() +
   coord_fixed(ratio = 0.5)
 
 ```
 
 ```{r student, fig.cap="No relationship between student status and data sharing behaviour"}
-sharing_by_student <- 
-email_survey %>% 
-  filter(!is.na( `email sent date`)) %>% 
-    mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
-  "yes", "no")) %>% 
+sharing_by_student <-
+email_survey %>%
+  filter(!is.na( `email sent date`)) %>%
+    mutate(`content recieved date` = if_else(!is.na(`content recieved date`),
+  "yes", "no")) %>%
   group_by(
-  `author is graduate student at time of publication?`, 
-  `content recieved date`) %>% 
-  tally() %>% 
-  filter(!is.na(`author is graduate student at time of publication?`)) %>% 
+  `author is graduate student at time of publication?`,
+  `content recieved date`) %>%
+  tally() %>%
+  filter(!is.na(`author is graduate student at time of publication?`)) %>%
   ggplot(aes(`author is graduate student at time of publication?`, n)) +
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
-    scale_fill_viridis(discrete = TRUE,
-                       guide = FALSE) +
+  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)],
+                    guide = FALSE) +
+  scale_y_continuous("Number of papers",
+                     breaks= pretty_breaks()) +
     xlab("Author was graduate student at time of publication?") +
     theme_bw() +
   coord_fixed(ratio = 0.05)
 ```
 
 ```{r author-country}
-sharing_by_country <- 
-email_survey %>% 
-  filter(!is.na( `email sent date`)) %>% 
-    mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
-  "yes", "no")) %>% 
+sharing_by_country <-
+email_survey %>%
+  filter(!is.na( `email sent date`)) %>%
+    mutate(`content recieved date` = if_else(!is.na(`content recieved date`),
+  "yes", "no")) %>%
   group_by(
-  `author home`, 
-  `content recieved date`) %>% 
-  tally() %>% 
-  filter(!is.na(`author home`)) %>% 
+  `author home`,
+  `content recieved date`) %>%
+  tally() %>%
+  filter(!is.na(`author home`)) %>%
   ggplot(aes(`author home`, n)) +
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
-    scale_fill_viridis(discrete = TRUE,
-                       guide = FALSE) +
+  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)],
+                    guide = FALSE) +
+    scale_y_continuous("Number of papers",
+                     breaks= pretty_breaks()) +
     theme_bw() +
   xlab("Author location at time of publication") +
   coord_fixed(ratio = 0.25)
 ```
 
 ```{r journals, fig.cap="No relationship between sharing behaviour and journal."}
-sharing_by_journal <- 
+
+email_survey <- 
   email_survey %>% 
-  filter(!is.na( `email sent date`)) %>% 
-    mutate(`content recieved date` = if_else(!is.na(`content recieved date`), 
-  "yes", "no")) %>% 
+  mutate(journal = ifelse(journal == "AMANT", 
+                          "AQ",
+                          journal))
+
+
+sharing_by_journal <-
+  email_survey %>%
+  filter(!is.na( `email sent date`)) %>%
+    mutate(`content recieved date` = if_else(!is.na(`content recieved date`),
+  "yes", "no")) %>%
   group_by(
-  journal, 
-  `content recieved date`) %>% 
-  tally() %>% 
-  filter(!is.na(journal)) %>% 
+  journal,
+  `content recieved date`) %>%
+  tally() %>%
+  filter(!is.na(journal)) %>%
   ggplot(aes(journal, n)) +
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
-    scale_fill_viridis(discrete = TRUE,
-                       guide = guide_legend(title = "Data shared?")) +
+  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)],
+                    guide = guide_legend(title = "Data shared?")) +
+    scale_y_continuous("Number of papers",
+                     breaks= pretty_breaks()) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
         legend.position = c(0.8, 0.7)) +
@@ -270,22 +301,22 @@ library(gridExtra)
 library(grid)
 
 library(cowplot)
-email_sharing_plots <- 
-plot_grid(sharing_by_year, 
+email_sharing_plots <-
+plot_grid(sharing_by_year,
                      sharing_by_student,
                      sharing_by_country,
-                     sharing_by_journal,  
+                     sharing_by_journal,
           axis = "lt",
-          ncol = 2, 
-          align = "hv", 
+          ncol = 2,
+          align = "hv",
           labels = "AUTO")
 
-save_plot("../figures/email_sharing_plots.svg", 
+save_plot("../figures/email_sharing_plots.svg",
           email_sharing_plots,
           base_height = 8)
 ```
 
-```{r fig.cap="Summary of results of email requests for data. A. Responses by year of journal article publication, B. Student status of first author, C. Country location of first author, D. Journal (AAS = Archaeological and Anthropological Sciences, AMANT = American Antiquity, ARCHMTRY = Archaeometry, JAS = Journal of Archaeological Science, JFA = Journal of Field Archaeology, JHE = Journal of Human Evolution, LT = Lithic Technology, SCI = Science."}
+```{r email-figs, fig.cap="Summary of results of email requests for data. A. Responses by year of journal article publication, B. Student status of first author, C. Country location of first author, D. Journal (AAS = Archaeological and Anthropological Sciences, AQ = American Antiquity, ARCHMTRY = Archaeometry, JAS = Journal of Archaeological Science, JFA = Journal of Field Archaeology, JHE = Journal of Human Evolution, LT = Lithic Technology, SCI = Science."}
 knitr::include_graphics("../figures/email_sharing_plots_hand_edit.png")
 ```
 
@@ -308,185 +339,205 @@ data_in_supp_perc <- round(data_in_supp / data_are_avail * 100, 0)
 data_in_repo <-  nrow(jas_article_survey[grepl("www|dryad|osf", tolower(jas_article_survey$`Where is the data?`)), ])
 data_in_repo_perc <- round(data_in_repo / data_are_avail * 100, 0)
 
-data_type <- jas_article_survey %>% 
-  filter(`data type?` != "na") %>% 
-  group_by(`data type?`) %>% 
-  tally(sort = TRUE) %>% 
+data_type <- jas_article_survey %>%
+  filter(`data type?` != "na") %>%
+  group_by(`data type?`) %>%
+  tally(sort = TRUE) %>%
   mutate(perc = round(n / sum(n) *100,1))
 
-comp_n <- data_type %>% 
-  filter(`data type?`  == "compositional") %>% 
+comp_n <- data_type %>%
+  filter(`data type?`  == "compositional") %>%
   pull(n)
 
-comp_perc <- data_type %>% 
-  filter(`data type?`  == "compositional") %>% 
-  mutate(perc = round(perc, 0)) %>% 
+comp_perc <- data_type %>%
+  filter(`data type?`  == "compositional") %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-dna_n <- data_type %>% 
-  filter(`data type?`  == "DNA sequence") %>% 
+dna_n <- data_type %>%
+  filter(`data type?`  == "DNA sequence") %>%
   pull(n)
 
-dna_perc <- data_type %>% 
-  filter(`data type?`  == "DNA sequence") %>% 
-  mutate(perc = round(perc, 0)) %>% 
+dna_perc <- data_type %>%
+  filter(`data type?`  == "DNA sequence") %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-dates_n <- data_type %>% 
-  filter(grepl("dates", `data type?`)) %>% 
-  summarise(n = sum(n)) %>% 
+dates_n <- data_type %>%
+  filter(grepl("dates", `data type?`)) %>%
+  summarise(n = sum(n)) %>%
   pull(n)
 
-dates_perc <- data_type %>% 
-  filter(grepl("dates", `data type?`)) %>% 
+dates_perc <- data_type %>%
+  filter(grepl("dates", `data type?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
-  mutate(perc = round(perc, 0)) %>% 
+            perc = sum(perc)) %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-file_type <- jas_article_survey %>% 
-  filter(`What file format?` != "na") %>% 
-  group_by(`What file format?`) %>% 
-  tally(sort = TRUE) %>% 
+file_type <- jas_article_survey %>%
+  filter(`What file format?` != "na") %>%
+  group_by(`What file format?`) %>%
+  tally(sort = TRUE) %>%
   mutate(perc = round(n / sum(n) *100,1))
 
-xlsx_n <- file_type %>% 
-  filter(grepl("XLSX", `What file format?`)) %>% 
+xlsx_n <- file_type %>%
+  filter(grepl("XLSX", `What file format?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
-  mutate(perc = round(perc, 0)) %>% 
+            perc = sum(perc)) %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-xlsx_perc <- file_type %>% 
-  filter(grepl("XLSX", `What file format?`)) %>% 
+xlsx_perc <- file_type %>%
+  filter(grepl("XLSX", `What file format?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
-  mutate(perc = round(perc, 0)) %>% 
+            perc = sum(perc)) %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-csv_n <- file_type %>% 
-  filter(grepl("CSV", `What file format?`)) %>% 
+csv_n <- file_type %>%
+  filter(grepl("CSV", `What file format?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
+            perc = sum(perc)) %>%
   pull(n)
 
-csv_perc <- file_type %>% 
-  filter(grepl("CSV", `What file format?`)) %>% 
+csv_perc <- file_type %>%
+  filter(grepl("CSV", `What file format?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
-  mutate(perc = round(perc, 0)) %>% 
+            perc = sum(perc)) %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-doc_n <- file_type %>% 
-  filter(grepl("doc|DOC", `What file format?`)) %>% 
+doc_n <- file_type %>%
+  filter(grepl("doc|DOC", `What file format?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
+            perc = sum(perc)) %>%
   pull(n)
 
-doc_perc <- file_type %>% 
-  filter(grepl("doc|DOC", `What file format?`)) %>% 
+doc_perc <- file_type %>%
+  filter(grepl("doc|DOC", `What file format?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
-  mutate(perc = round(perc, 0)) %>% 
+            perc = sum(perc)) %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
-software <- jas_article_survey %>% 
-  filter(`Analysis software?` != "na") %>% 
-  group_by(`Analysis software?`) %>% 
-  tally(sort = TRUE) %>% 
+software <- jas_article_survey %>%
+  filter(`Analysis software?` != "na") %>%
+  group_by(`Analysis software?`) %>%
+  tally(sort = TRUE) %>%
   mutate(perc = round(n / sum(n) *100,1))
 
-script_n <- software %>% 
-  filter(grepl("^R$|.*R$|Python|MATLAB|OxCal", `Analysis software?`)) %>% 
+script_n <- software %>%
+  filter(grepl("^R$|.*R$|Python|MATLAB|OxCal", `Analysis software?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
+            perc = sum(perc)) %>%
   pull(n)
 
-script_perc <- software %>% 
-  filter(grepl("^R$|.*R$|Python|MATLAB|OxCal", `Analysis software?`)) %>% 
+script_perc <- software %>%
+  filter(grepl("^R$|.*R$|Python|MATLAB|OxCal", `Analysis software?`)) %>%
   summarise(n = sum(n),
-            perc = sum(perc)) %>% 
-  mutate(perc = round(perc, 0)) %>% 
+            perc = sum(perc)) %>%
+  mutate(perc = round(perc, 0)) %>%
   pull(perc)
 
 ```
 
-In addition to our email survey, we also conducted a pilot study of a random sample of `r nrow(jas_article_survey)` articles published during 2016-2017 in the _Journal of Archaeological Science_ to investigate data sharing behaviours. In this sample we found openly available raw data in `r data_are_avail` papers (`r data_are_avail_perc`%), even though only `r have_data_avail_statement` articles (`r have_data_avail_statement_perc`%) include a data availability statement. For papers where data was available, `r data_in_supp` papers (`r data_in_supp_perc`%) have data contained in supplementary files published with the paper, `r data_in_table` (`r data_in_table_perc`%) have all the raw data in tables in the text of the paper, and `r data_in_repo` (`r data_in_repo_perc`%) have data in an online repository. The most frequently shared type of data is compositional (e.g. element concentrations, n = `r comp_n`, `r comp_perc`%), followed by radiocarbon and luminescence age data (where the dates are the primary object of analysis, n = `r dates_n`, `r dates_perc`%) and DNA sequences (n = `r dna_n`, `r dna_perc`%). Generally, compositional data is presented in tables in the text, dating data is presented in supplementary files, and DNA data are in repositories (as is typical for DNA data). Data shared in supplementary files and online repositories were most often in Microsoft Excel format (n = `r xlsx_n`, `r xlsx_perc`% of the files in supplements files and repositories), followed by CSV (comma separated variables, an open source plain text spreadsheet format, n = `r csv_n`, `r csv_perc`%), and tables embedded in Microsoft Word or PDF documents (n = `r doc_n`, `r doc_perc`%). When a scripting language such as R, Python, MATLAB or OxCal was used as the analysis software for a paper (n = `r script_n`, `r script_perc`% of the papers where would identify the software), only 2 papers also provided the script with the paper. 
+```{r}
+# what is the total number of articles published in the population that we drew our sample from 
 
-The _Journal of Archaeological Science_ has had a 'data disclosure' policy since at least 2013 (Editors, 2013) which states that “All data relating to the article must be made available in Supplementary files or deposited in external repositories and linked to within the article”. The data availability rate of 53% reported in our pilot study reflects either weak enforcement of this policy or an incomplete understanding among editors and authors of how to interpret and implement this policy. The prominence of compositional and dating data among the shared data types suggests a least effort strategy by authors sharing data that do not require extensive cleaning and tidying (because the data are generated by instruments rather than entered by hand, such as artefact attribute data). The size of compositional and dating datasets means that they mostly fit easily into tables in the text or supplementary files, and do not require much effort to organise (e.g. very little metadata is required for others to use these data). The small proportion of papers in our sample using or sharing a scripting language suggests that unlike other fields (Eglen et al. 2017), archaeologists do not appear to recognise code for data analysis as a primary research object to share with the research community. 
+
+# start http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2016.11.003
+# end   http://doi.org.offcampus.lib.washington.edu/10.1016/j.jas.2017.04.002
+
+# start: Volume 78, February 2017, Pages 66-77
+# end:   Volume 81, May 2017, Pages 90-100
+
+# Vol, n_papers
+# 81, 11
+# 80,  9
+# 79, 10
+# 78, 18
+
+# total: 48
+
+```
+
+In addition to our email survey, we also conducted a pilot study of a random sample of `r nrow(jas_article_survey)` 48 articles published during February-May 2017 in the _Journal of Archaeological Science_ to investigate data sharing behaviours. In this sample we found openly available raw data in `r data_are_avail` papers (`r data_are_avail_perc`%), even though only `r have_data_avail_statement` articles (`r have_data_avail_statement_perc`%) include a data availability statement. For papers where data was available, `r data_in_supp` papers (`r data_in_supp_perc`%) have data contained in supplementary files published with the paper, `r data_in_table` (`r data_in_table_perc`%) have all the raw data in tables in the text of the paper, and `r data_in_repo` (`r data_in_repo_perc`%) have data in an online repository. The most frequently shared type of data is compositional (e.g. element concentrations, n = `r comp_n`, `r comp_perc`%), followed by radiocarbon and luminescence age data (where the dates are the primary object of analysis, n = `r dates_n`, `r dates_perc`%) and DNA sequences (n = `r dna_n`, `r dna_perc`%). Generally, compositional data is presented in tables in the text, dating data is presented in supplementary files, and DNA data are in repositories (as is typical for DNA data) (Figure \@ref(fig:data-types-and-files)). Data shared in supplementary files and online repositories were most often in Microsoft Excel format (n = `r xlsx_n`, `r xlsx_perc`% of the files in supplements files and repositories), followed by CSV (comma separated variables, an open source plain text spreadsheet format, n = `r csv_n`, `r csv_perc`%), and tables embedded in Microsoft Word or PDF documents (n = `r doc_n`, `r doc_perc`%). When a scripting language such as R, Python, MATLAB or OxCal was used as the analysis software for a paper (n = `r script_n`, `r script_perc`% of the papers where would identify the software), only 2 papers also provided the script with the paper.
+
+The _Journal of Archaeological Science_ has had a 'data disclosure' policy since at least 2013 (Editors, 2013) which states that "All data relating to the article must be made available in Supplementary files or deposited in external repositories and linked to within the article". The data availability rate of `r data_are_avail_perc`% reported in our pilot study reflects either weak enforcement of this policy or an incomplete understanding among editors, reviewers, and authors of how to interpret and implement this policy. The prominence of compositional and dating data among the shared data types suggests a least effort strategy by authors sharing data that do not require extensive cleaning and tidying (because the data are generated by instruments rather than entered by hand, such as artefact attribute data). The size of compositional and dating datasets means that they mostly fit easily into tables in the text or supplementary files, and do not require much effort to organise (e.g. very little metadata is required for others to use these data). The small proportion of papers in our sample using or sharing a scripting language suggests that unlike other fields (Eglen et al. 2017), archaeologists do not appear to recognise code for data analysis as a primary research object to share with the research community. Code for even the simplest operations should be shared along with data because code communicates decisions made about the data analysis that can help others understand, analyse, and reuse the data. 
 
 ```{r}
 # correlation of data type and location of sharing
-file_type_location <- 
-jas_article_survey %>% 
-  mutate(file = strsplit(as.character(`What file format?`), ",")) %>% 
-  unnest(file) %>% 
-  filter(file != "na" & `Where is the data?` != "na") %>% 
-  select(file,  `Where is the data?`) %>% 
+file_type_location <-
+jas_article_survey %>%
+  mutate(file = strsplit(as.character(`What file format?`), ",")) %>%
+  unnest(file) %>%
+  filter(file != "na" & `Where is the data?` != "na") %>%
+  select(file,  `Where is the data?`) %>%
   mutate(location = case_when(
     grepl("sup", tolower(`Where is the data?`)) ~ "Supplementary",
     grepl("tab", tolower(`Where is the data?`)) ~ "Table",
     grepl("www|dryad|osf", tolower(`Where is the data?`)) ~ "Repository",
-  )) %>% 
+  )) %>%
   mutate(file = case_when(
     grepl("DOCX|doc", file) ~ "DOCX",
     grepl("XLSX| XLSX", file) ~ "XLSX",
     TRUE ~ file
     ))
 
-plot_file_type_location <- 
-file_type_location %>% 
-  group_by(file, location) %>% 
-  tally() %>% 
-  ggplot(aes(file, location)) + 
+plot_file_type_location <-
+file_type_location %>%
+  group_by(file, location) %>%
+  tally() %>%
+  ggplot(aes(file, location)) +
   geom_point(aes(size = n),
-             colour = viridis(2)[2],
+             colour = wes_palette("Rushmore")[c(2)],
              shape = 16) +
-  theme_bw() + 
-  xlab("") + 
+  theme_bw() +
+  xlab("") +
   ylab("") +
-  scale_size_continuous(range=c(7,25)) + 
+  scale_size_continuous(range=c(7,25)) +
   geom_text(aes(label = n)) +
-  theme(legend.position = "none") 
+  theme(legend.position = "none")
 ```
 
 ```{r}
 # correlation of data type and location of sharing
-data_type_location <- 
-jas_article_survey %>% 
-  filter(`data type?` != "na" & `Where is the data?` != "na") %>% 
-  select(`data type?`, `Where is the data?`) %>% 
+data_type_location <-
+jas_article_survey %>%
+  filter(`data type?` != "na" & `Where is the data?` != "na") %>%
+  select(`data type?`, `Where is the data?`) %>%
   mutate(data_type = case_when(
     grepl("comp", tolower(`data type?`)) ~ "Compositional",
     grepl("c14|osl", tolower(`data type?`)) ~ "Dating",
     grepl("dna", tolower(`data type?`)) ~ "DNA",
     TRUE ~ `data type?`
-  )) %>% 
+  )) %>%
    mutate(location = case_when(
     grepl("sup", tolower(`Where is the data?`)) ~ "Supplementary",
     grepl("tab", tolower(`Where is the data?`)) ~ "Table",
     grepl("www|dryad|osf", tolower(`Where is the data?`)) ~ "Repository"
-  )) 
+  ))
 
-plot_data_type_location <- 
-data_type_location %>% 
-  group_by(data_type, location) %>% 
-  tally() %>% 
-  filter(n >= 2) %>% 
-  ggplot(aes(data_type, location)) + 
+plot_data_type_location <-
+data_type_location %>%
+  group_by(data_type, location) %>%
+  tally() %>%
+  filter(n >= 2) %>%
+  ggplot(aes(data_type, location)) +
   geom_point(aes(size = n),
-             colour = viridis(2)[1],
+             colour = wes_palette("Rushmore")[c(2)],
              shape = 16) +
-  theme_bw() + 
-  xlab("") + 
+  theme_bw() +
+  xlab("") +
   ylab("") +
-  scale_size_continuous(range=c(7,25)) + 
-  geom_text(aes(label = n), colour = "white") +
-  theme(legend.position = "none") 
+  scale_size_continuous(range=c(7,25)) +
+  geom_text(aes(label = n), colour = "black") +
+  theme(legend.position = "none")
 ```
 
-```{r  fig.cap="Summary of relationships between file types, data types, and data locations. A. File types and data locations, B. Data types and data locations. "}
-plot_data_type <- plot_grid(plot_file_type_location, 
+```{r data-types-and-files, fig.cap="Summary of relationships between file types, data types, and data locations. A. File types and data locations, B. Data types and data locations. "}
+plot_data_type <- plot_grid(plot_file_type_location,
                             plot_data_type_location,
                       labels="AUTO", ncol = 1)
 plot_data_type
@@ -504,7 +555,7 @@ library(tidyverse)
 # library(rdatacite)
 # dc_arch <- dc_search(q = "archaeology", rows = pretty(100000)[2])
 
-# It doesn't get much of tDAR, so let's be more specific 
+# It doesn't get much of tDAR, so let's be more specific
 # dc_arch_tdar <- dc_search(q = "10.6067", rows = pretty(100000)[2])
 # library(osfr)
 # upload_file("ksruz", "analysis/data/raw_data/dc_arch_tdar.rds", dest = "dc_arch_tdar.rds")
@@ -529,11 +580,11 @@ library(tidyverse)
 library(stringr)
 # glimpse(dc_arch)
 
-dc_arch <- 
-dc_arch %>% 
+dc_arch <-
+dc_arch %>%
 mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
        the_text = gsub("(\\-)\\1+", "\\1", the_text),
-       the_text = gsub("-$", "", the_text)) %>% 
+       the_text = gsub("-$", "", the_text)) %>%
   mutate(cc = case_when(
     grepl("SEMANTICS/OPENACCESS", the_text) ~ "EU Open Access",
     grepl("SEMANTICS/RESTRICTEDACCESS", the_text) ~ "EU Restricted Access",
@@ -544,19 +595,19 @@ mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
     grepl("CC-BY-NC-ND|BY-NC-ND|ATTRIBUTION-NONCOMMERCIAL-NO-DERIVATIVE|ATTRIBUTION-NONCOMMERCIAL-NODERIVATIVES|ATTRIBUTION-NONCOMMERCIAL-NODERIVS|NAMENSNENNUNG-NICHTKOMMERZIELL-KEINEBEARBEITUNG|NAMENSNENNUNG-KEINE-KOMMERZIELLE-NUTZUNG", the_text) ~ "CC-BY-NC-ND",
     grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
     grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
-  )) %>% 
+  )) %>%
   mutate(yyyy_date = as.numeric(substr(date, 1,4)),
-         yyyy_created = as.numeric(substr(created, 1,4))) %>% 
-  mutate(yyyy_date = if_else(is.na(yyyy_date), as.numeric(publicationYear), yyyy_date)) %>% 
-  filter(yyyy_date > 1500) %>% 
-  filter(yyyy_date < 2018) %>% 
+         yyyy_created = as.numeric(substr(created, 1,4))) %>%
+  mutate(yyyy_date = if_else(is.na(yyyy_date), as.numeric(publicationYear), yyyy_date)) %>%
+  filter(yyyy_date > 1500) %>%
+  filter(yyyy_date < 2018) %>%
   filter(!grepl("PANGAEA|Global Biodiversity", datacentre)) # pesky Mediterranean Data Archaeology and Rescue & Danish plants!
 ```
 
 ```{r}
 # select cols of interest
-xx <- 
-dc_arch %>% 
+xx <-
+dc_arch %>%
   select( datacentre,
           allocator ,
           date,
@@ -567,34 +618,34 @@ dc_arch %>%
           rights,
           subject,
           format,
-          publisher, 
-          yyyy_date, 
-          yyyy_created) 
+          publisher,
+          yyyy_date,
+          yyyy_created)
 
 # tallies
 datacentre <-  arrange(as_data_frame(table(xx[ , "datacentre"])), desc(n))
 allocator  <-  arrange(as_data_frame(table(xx[ , "allocator"])), desc(n))
 dates <-       arrange(as_data_frame(table(xx[ , "date"])), desc(n))
-creator <-     arrange(as_data_frame(table(xx[ , "creator"])), desc(n)) 
-language <-    arrange(as_data_frame(table(xx[ , "language"])), desc(n))  
-contributor <- arrange(as_data_frame(table(xx[ , "contributor"])), desc(n)) 
-rights <-      arrange(as_data_frame(table(xx[ , "rights"])), desc(n)) 
-publisher  <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n)) 
+creator <-     arrange(as_data_frame(table(xx[ , "creator"])), desc(n))
+language <-    arrange(as_data_frame(table(xx[ , "language"])), desc(n))
+contributor <- arrange(as_data_frame(table(xx[ , "contributor"])), desc(n))
+rights <-      arrange(as_data_frame(table(xx[ , "rights"])), desc(n))
+publisher  <-  arrange(as_data_frame(table(xx[ , "publisher"])), desc(n))
 file_format <-  arrange(as_data_frame(table(xx[ , "format"])), desc(n))
 ```
 
 ```{r first-dates}
-dates <- 
-  dc_arch 
+dates <-
+  dc_arch
 
 # when was the first record created?
 first_created <- min(dates$yyyy_created)
 first_date <-  min(dates$yyyy_date, na.rm = TRUE)
 
 # when is the break out
-dates_tally <- 
-  dates %>% 
-  group_by(yyyy_date) %>% 
+dates_tally <-
+  dates %>%
+  group_by(yyyy_date) %>%
   tally()
 
 # when is that big peak, it's 2009
@@ -603,51 +654,49 @@ out <- cpt.meanvar(dates_tally$n, test.stat = "Poisson", method = "BinSeg")
 breakouts <- dates_tally[cpts.ts(out), ]
 
 # who is the top data source in each year?
-top_data_sources <- 
-dates %>% 
-  group_by(datacentre) %>% 
-  tally(sort = TRUE) %>% 
-  slice(1:10) %>% 
+top_data_sources <-
+dates %>%
+  group_by(datacentre) %>%
+  tally(sort = TRUE) %>%
+  slice(1:10) %>%
   pull(datacentre)
 
-top_data_source_each_year <- 
-dates %>% 
-  group_by(datacentre, yyyy_date) %>% 
-  tally() %>%  
-  ungroup(datacentre) %>% 
-  group_by(yyyy_date) %>% 
-  slice(which.max(n)) %>% 
+top_data_source_each_year <-
+dates %>%
+  group_by(datacentre, yyyy_date) %>%
+  tally() %>%
+  ungroup(datacentre) %>%
+  group_by(yyyy_date) %>%
+  slice(which.max(n)) %>%
   arrange(desc(yyyy_date))
 
 
- peak_year <- 
-   dates %>% 
-   group_by(yyyy_date) %>% 
-   tally(sort = TRUE) %>% 
-   slice(c(1,4)) %>% 
+ peak_year <-
+   dates %>%
+   group_by(yyyy_date) %>%
+   tally(sort = TRUE) %>%
+   slice(c(1,4)) %>%
    pull(yyyy_date)
- 
+
  ymax <- 18000
 
-library(viridis)
-date_plot <- 
-  dates  %>% 
-  filter(!is.na(yyyy_date)) %>% 
+date_plot <-
+  dates  %>%
+  filter(!is.na(yyyy_date)) %>%
+  filter(datacentre %in% top_data_sources[1:5]) %>% 
   ggplot(aes(yyyy_date,
              fill = datacentre
              )) +
   geom_bar() +
   # guides(fill=FALSE) +
-  scale_fill_viridis(discrete = TRUE,
-                     breaks = top_data_sources[1:5],
-                     labels = top_data_sources[1:5]) +
+  scale_fill_manual(values = wes_palette("Rushmore")) +
   theme_new() +
   theme(legend.position = c(0.3, 0.5)) +
   scale_x_continuous(limits = c(1950,2017), expand = c(0,0)) +
   xlab("Year data was collected") +
   ylab("Number of archaeology DOIs\nknown to DataCite") +
   geom_vline(xintercept = peak_year, colour = "red") +
-  annotate("text", 
+  annotate("text",
            x = peak_year - 1.5,
            y = ymax,
            label = peak_year,
@@ -655,35 +704,36 @@ date_plot <-
   # coord_fixed(ratio = 1/1000)
 
 # change in each major repo over time
-per_repo <- 
-dates  %>% 
-  filter(!is.na(yyyy_date)) %>% 
-  group_by(yyyy_date, datacentre)  %>% 
-  tally() %>% 
+per_repo <-
+dates  %>%
+  filter(!is.na(yyyy_date)) %>%
+  group_by(yyyy_date, datacentre)  %>%
+  tally() %>%
   filter(n != 0,
-         datacentre %in% top_data_sources[1:9]) %>% 
-    mutate(datacentre = str_wrap(datacentre, width = )) %>% 
+         datacentre %in% top_data_sources[1:9]) %>%
+    mutate(datacentre = str_wrap(datacentre, width = )) %>%
    ggplot(aes(yyyy_date,
               n
              )) +
   geom_line(size = 1)  +
-  scale_color_viridis(discrete = TRUE) +
+  scale_fill_manual(values = wes_palette("Rushmore")) +
   scale_y_log10() +
   xlim(c(1990, 2017)) +
-  xlab("Trends over time at major archaeological data repositories") +
+  xlab("Year DOI registered (1990-2017 only)") +
+  ylab("Number of DOIs\nregistered per year") +
   theme_new() +
   facet_wrap(~ datacentre)
 
 # show plots
-datacite_temporal_plots <- 
- plot_grid(date_plot, 
+datacite_temporal_plots <-
+ plot_grid(date_plot,
            per_repo,
-           labels="AUTO", 
+           labels="AUTO",
            ncol = 1,
            align = "hv",
            axis = "lr")
 
-save_plot("../figures/datacite_temporal_plots.png", 
+save_plot("../figures/datacite_temporal_plots.png",
           datacite_temporal_plots,
           base_height = 8)
 ```
@@ -692,102 +742,82 @@ save_plot("../figures/datacite_temporal_plots.png",
 knitr::include_graphics("../figures/datacite_temporal_plots.png")
 ```
 
-```{r eval = FALSE}
-# text mine a little
-library(tidytext)
-subject_1gram <- 
-xx %>% 
-  unnest_tokens(word, subject) %>%
-  anti_join(stop_words) %>%
-  count(word, sort = TRUE) 
-
-subject_2gram <- 
-xx %>% 
-  unnest_tokens(bigram, subject, token = "ngrams", n = 2) %>%
-  count(word, sort = TRUE) 
-
-subject_3gram <- 
-xx %>% 
-  unnest_tokens(trigram, subject, token = "ngrams", n = 3) %>%
-  count(word, sort = TRUE) 
-```
-
 ```{r file-types}
 # File types
 
 # how many records with file type info?
 file_types <- c("pdf|image|imagejpeg|jpg|tiff|png|gif|bmp|ai|illustrator|access|mdb|dbf|dbase|accdb|dbase|doc|rtf|word|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet|ply|archeolink|autocad|dwg")
 
-number_of_records_with_file_type <- 
-file_format %>% 
-  filter(grepl(file_types, tolower(Var1))) %>% 
-  summarise(sum = sum(n)) %>% 
+number_of_records_with_file_type <-
+file_format %>%
+  filter(grepl(file_types, tolower(Var1))) %>%
+  summarise(sum = sum(n)) %>%
   pull(sum)
 
 perc_of_records_with_file_type <- round(number_of_records_with_file_type / nrow(dc_arch) * 100, 0)
 
-# how many that are only PDFs? 
-have_a_pdf_in_there <- 
-file_format %>% 
-   filter(grepl("pdf", tolower(Var1))) %>% 
+# how many that are only PDFs?
+have_a_pdf_in_there <-
+file_format %>%
+   filter(grepl("pdf", tolower(Var1))) %>%
    mutate(Var1 = tolower(gsub("application/|/", "", Var1)) )
 
 perc_have_a_pdf <- round(sum(have_a_pdf_in_there$n) / number_of_records_with_file_type * 100, 0)
 
-n_only_pdf <-  have_a_pdf_in_there %>% 
-    group_by(Var1) %>% 
-    tally(sort = TRUE) %>% 
-    filter(Var1 %in% c("pdf", "pdf,pdf", "pdfx,pdf", "pdfx")) %>% 
-    summarise(nnn = sum(nn)) %>% 
+n_only_pdf <-  have_a_pdf_in_there %>%
+    group_by(Var1) %>%
+    tally(sort = TRUE) %>%
+    filter(Var1 %in% c("pdf", "pdf,pdf", "pdfx,pdf", "pdfx")) %>%
+    summarise(nnn = sum(nn)) %>%
     pull(nnn)
 
 perc_only_pdf <-  round(n_only_pdf / number_of_records_with_file_type * 100, 0)
 
 # how many that are only images?
 have_an_image_in_there <-
-file_format %>% 
-   filter(grepl("image|jpg|tiff|png|gif|bmp|ai|illustrator|imagejpeg", tolower(Var1))) %>% 
+file_format %>%
+   filter(grepl("image|jpg|tiff|png|gif|bmp|ai|illustrator|imagejpeg", tolower(Var1))) %>%
    mutate(Var1 = tolower(gsub("application/|/", "", Var1)) )
 
-n_only_image <-  have_an_image_in_there %>% 
-    group_by(Var1) %>% 
-    tally(sort = TRUE) %>% 
-    filter(Var1 %in% c("image", "jpg", "tiff", "png", "gif", "bmp", "ai", "illustrator", "imagejpeg", "imagetiff", "imagepng")) %>% 
-    summarise(nnn = sum(nn)) %>% 
+n_only_image <-  have_an_image_in_there %>%
+    group_by(Var1) %>%
+    tally(sort = TRUE) %>%
+    filter(Var1 %in% c("image", "jpg", "tiff", "png", "gif", "bmp", "ai", "illustrator", "imagejpeg", "imagetiff", "imagepng")) %>%
+    summarise(nnn = sum(nn)) %>%
     pull(nnn)
 
 perc_only_image <-  round(n_only_image / number_of_records_with_file_type * 100, 0)
 
 # how many records contain a structured data file (csv, xls, dbf, etc)?
-have_a_structured_data_file_in_there <- 
-  file_format %>% 
-  filter(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet", tolower(Var1))) %>% 
+have_a_structured_data_file_in_there <-
+  file_format %>%
+  filter(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet", tolower(Var1))) %>%
    mutate(Var1 = tolower(gsub("application/|/", "", Var1)) )
 
-n_structured_data_file <- have_a_structured_data_file_in_there %>% 
-  group_by(Var1) %>% 
-  tally(sort=TRUE) %>% 
-  summarise(nnn = sum(nn)) %>% 
+n_structured_data_file <- have_a_structured_data_file_in_there %>%
+  group_by(Var1) %>%
+  tally(sort=TRUE) %>%
+  summarise(nnn = sum(nn)) %>%
   pull(nnn)
 
 perc_structured_data_file <- round(n_structured_data_file / number_of_records_with_file_type * 100, 0)
 
 # count each file type once, even for records with multiple files types
-file_format_single <- 
-file_format %>% 
-  filter(grepl(file_types, tolower(Var1))) %>% 
-  mutate(file_format = tolower(gsub("application|/", "", Var1))) %>% 
-  mutate(file_format_single = strsplit(as.character(file_format), ",|;")) %>% 
-  unnest(file_format_single) 
+file_format_single <-
+file_format %>%
+  filter(grepl(file_types, tolower(Var1))) %>%
+  mutate(file_format = tolower(gsub("application|/", "", Var1))) %>%
+  mutate(file_format_single = strsplit(as.character(file_format), ",|;")) %>%
+  unnest(file_format_single)
 
 # how many unique types?
-how_many_unique_file_types <- 
-file_format_single %>% 
-  group_by(file_format_single) %>% 
+how_many_unique_file_types <-
+file_format_single %>%
+  group_by(file_format_single) %>%
   tally(sort = TRUE)
-  
-file_format_simple <- 
-file_format_single %>% 
+
+file_format_simple <-
+file_format_single %>%
   mutate(file_type = case_when(
     grepl("pdf", file_format_single) ~ "pdf",
     grepl("image|imagejpeg|jpg|tiff|png|gif|bmp|ai|illustrator", file_format_single) ~ "image",
@@ -798,57 +828,57 @@ file_format_single %>%
     grepl("ply", file_format_single) ~ "3D",
     grepl("archeolink", file_format_single) ~ "archeolink",
     grepl("autocad|dwg", file_format_single) ~ "autocad"
-  ))  
+  ))
 
-file_format_simple_tally <- 
-file_format_simple %>% 
-  filter(!is.na(file_type)) %>% 
-  group_by(file_type) %>% 
-  tally(sort = TRUE) %>% 
+file_format_simple_tally <-
+file_format_simple %>%
+  filter(!is.na(file_type)) %>%
+  group_by(file_type) %>%
+  tally(sort = TRUE) %>%
   mutate(perc = round(nn / sum (nn) * 100, 0))
 
-file_format_combos_tally <- 
-file_format_simple %>% 
-  filter(!is.na(file_type)) %>% 
-  group_by(n) %>% 
-  filter(n_distinct(file_type) >= 2) %>% 
+file_format_combos_tally <-
+file_format_simple %>%
+  filter(!is.na(file_type)) %>%
+  group_by(n) %>%
+  filter(n_distinct(file_type) >= 2) %>%
   slice(1) %>% # look at the file_format col only
-  group_by(file_format) %>% 
+  group_by(file_format) %>%
   tally(sort = TRUE)
 
 # which group has the highest *proportion* of structured data files?
-structured_data_files <- 
-dc_arch %>% 
-    mutate(strutured_data = ifelse(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet", tolower(format)), "has_structured_data", "no")) 
+structured_data_files <-
+dc_arch %>%
+    mutate(strutured_data = ifelse(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet", tolower(format)), "has_structured_data", "no"))
 
-proportion_structured_data_files <- 
-  structured_data_files %>% 
-  group_by(datacentre, strutured_data) %>% 
-  tally(sort = TRUE) %>% 
-  spread(strutured_data, n) %>% 
-  mutate(perc_structured = has_structured_data / (has_structured_data + no) * 100) %>% 
+proportion_structured_data_files <-
+  structured_data_files %>%
+  group_by(datacentre, strutured_data) %>%
+  tally(sort = TRUE) %>%
+  spread(strutured_data, n) %>%
+  mutate(perc_structured = has_structured_data / (has_structured_data + no) * 100) %>%
   arrange(desc(perc_structured))
 
-perc_struc_in_ads <- 
-  proportion_structured_data_files %>% 
-  filter(grepl("ADS", datacentre)) %>% 
-  pull(perc_structured) %>% 
+perc_struc_in_ads <-
+  proportion_structured_data_files %>%
+  filter(grepl("ADS", datacentre)) %>%
+  pull(perc_structured) %>%
   round(., 2)
 
-n_struc_in_ads <- 
-  proportion_structured_data_files %>% 
-  filter(grepl("ADS", datacentre)) %>% 
-  pull(has_structured_data) 
+n_struc_in_ads <-
+  proportion_structured_data_files %>%
+  filter(grepl("ADS", datacentre)) %>%
+  pull(has_structured_data)
 
-perc_struc_in_dans <- 
-  proportion_structured_data_files %>% 
-  filter(grepl("DANS", datacentre)) %>% 
-  pull(perc_structured) %>% 
+perc_struc_in_dans <-
+  proportion_structured_data_files %>%
+  filter(grepl("DANS", datacentre)) %>%
+  pull(perc_structured) %>%
   round(., 0)
 
-n_struc_in_dans <- 
-  proportion_structured_data_files %>% 
-  filter(grepl("DANS", datacentre)) %>% 
+n_struc_in_dans <-
+  proportion_structured_data_files %>%
+  filter(grepl("DANS", datacentre)) %>%
   pull(has_structured_data)
 
 ```
@@ -856,68 +886,68 @@ n_struc_in_dans <-
 ```{r}
 library(tidyr)
 
-structured_data_files_per_file <- 
-dc_arch %>% 
-    mutate(has_data = ifelse(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet|pdf", tolower(format)), "has_data", "no")) %>% 
-  filter(has_data == "has_data") %>% 
-  mutate(format_simple = gsub("application|text|image|\\(|\\)| en ", "", format)) %>% 
-  separate(format_simple, 
+structured_data_files_per_file <-
+dc_arch %>%
+    mutate(has_data = ifelse(grepl("access|mdb|dbf|dbase|accdb|dbase|arcgis|shape|shp|mapinfo|mid|mif|surfer|xls|excel|csv|spreadsheet|spreadsheet|pdf", tolower(format)), "has_data", "no")) %>%
+  filter(has_data == "has_data") %>%
+  mutate(format_simple = gsub("application|text|image|\\(|\\)| en ", "", format)) %>%
+  separate(format_simple,
            sapply(1:50, function(i) paste0('f', i)),
-           sep = "/|,|:|;|-|\\.| ") %>% 
-  select(datacentre, dataset_id, f1:f50) %>% 
-  gather(key = variable, 
-         value = value, 
+           sep = "/|,|:|;|-|\\.| ") %>%
+  select(datacentre, dataset_id, f1:f50) %>%
+  gather(key = variable,
+         value = value,
          -datacentre,
          -dataset_id,
-         na.rm = TRUE) %>% 
-  select(-variable) %>% 
-  filter(value != "") %>% 
-  mutate(format = str_trim(tolower(value))) %>% 
-  filter(grepl("[a-z]+", format)) %>% 
-  select(-value) %>% 
-  mutate(format = gsub('ms', "", format)) %>% 
+         na.rm = TRUE) %>%
+  select(-variable) %>%
+  filter(value != "") %>%
+  mutate(format = str_trim(tolower(value))) %>%
+  filter(grepl("[a-z]+", format)) %>%
+  select(-value) %>%
+  mutate(format = gsub('ms', "", format)) %>%
   mutate(format = if_else(format %in% c("xls", "xlsx", "excel"),
-                          "xls or xlsx", 
-                          format)) %>% 
-  filter(format != "") %>% 
+                          "xls or xlsx",
+                          format)) %>%
+  filter(format != "") %>%
   distinct(datacentre, dataset_id, format)
 
 # table(structured_data_files_per_file$datacentre)
 
-top_file_formats <- 
-  structured_data_files_per_file %>% 
-  group_by(format) %>% 
-  tally(sort = TRUE) %>% 
-  slice(1:20) %>% 
-  filter(format != "p") 
-  
-structured_data_files_per_file_tally <- 
-structured_data_files_per_file %>% 
-  group_by(format, datacentre) %>% 
-  tally(sort = TRUE) %>% 
-  filter(format %in% top_file_formats$format) %>% 
+top_file_formats <-
+  structured_data_files_per_file %>%
+  group_by(format) %>%
+  tally(sort = TRUE) %>%
+  slice(1:20) %>%
+  filter(format != "p")
+
+structured_data_files_per_file_tally <-
+structured_data_files_per_file %>%
+  group_by(format, datacentre) %>%
+  tally(sort = TRUE) %>%
+  filter(format %in% top_file_formats$format) %>%
   filter(datacentre %in% top_data_sources)
- 
+
 library(ggrepel)
-plot_structured_data_files_per_file_tally <- 
+plot_structured_data_files_per_file_tally <-
 ggplot(structured_data_files_per_file_tally,
-       aes(str_wrap(datacentre, 20), 
+       aes(str_wrap(datacentre, 20),
            format)) +
-      geom_point(aes(size = n), 
-             shape = 16, 
+      geom_point(aes(size = n),
+             shape = 16,
              #alpha = 0.4,
-             colour = viridis(3)[3]) +
-    geom_text_repel(aes(label = prettyNum(n, big.mark = ",")), 
+             colour = wes_palette("Rushmore")[c(2)]) +
+    geom_text_repel(aes(label = prettyNum(n, big.mark = ",")),
                   size = 2.5,
-                  colour = "black", 
+                  colour = "black",
                   segment.colour="black",
-                  min.segment.length = unit(0.5, "lines"), 
-                  nudge_x = 0.3, 
+                  min.segment.length = unit(0.5, "lines"),
+                  nudge_x = 0.3,
                   nudge_y = 0.5) +
   scale_size_continuous(range=c(2,25), guide = FALSE) +
     theme_bw() +
-  theme(axis.text.x = element_text(angle = 90, 
-                                   vjust = 0.5, 
+  theme(axis.text.x = element_text(angle = 90,
+                                   vjust = 0.5,
                                    hjust = 1)) +
   coord_flip() +
   xlab("Data centre") +
@@ -928,16 +958,16 @@ ggsave("../figures/plot_structured_data_files_per_file_tally.png",
        width = 10)
 ```
 
-```{r, fig.cap = "Relationships between data centres and file formats. The ten most frequently found file formats are shown here, in the data centres with these files from the top ten data centres by number of DOIs. Open file formats for structured data, such as CSV, are not common."}
+```{r, data-centre-file-types, fig.cap = "Relationships between data centres and file formats. The ten most frequently found file formats are shown here, in the data centres with these files from the top ten data centres by number of DOIs. Open file formats for structured data, such as CSV, are not common."}
 knitr::include_graphics("../figures/plot_structured_data_files_per_file_tally.png")
 ```
 
 ```{r rights}
-rights_summary <- 
-  rights %>% 
+rights_summary <-
+  rights %>%
   mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", Var1)),
          the_text = gsub("(\\-)\\1+", "\\1", the_text),
-         the_text = gsub("-$", "", the_text)) %>% 
+         the_text = gsub("-$", "", the_text)) %>%
   mutate(cc = case_when(
     grepl("SEMANTICS/OPENACCESS", the_text) ~ "EU Open Access",
     grepl("SEMANTICS/RESTRICTEDACCESS", the_text) ~ "EU Restricted Access",
@@ -948,114 +978,114 @@ rights_summary <-
     grepl("CC-BY-NC-ND|BY-NC-ND|ATTRIBUTION-NONCOMMERCIAL-NO-DERIVATIVE|ATTRIBUTION-NONCOMMERCIAL-NODERIVATIVES|ATTRIBUTION-NONCOMMERCIAL-NODERIVS|NAMENSNENNUNG-NICHTKOMMERZIELL-KEINEBEARBEITUNG|NAMENSNENNUNG-KEINE-KOMMERZIELLE-NUTZUNG", the_text) ~ "CC-BY-NC-ND",
     grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
     grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
-  )) %>% 
-  select(cc, n) %>% 
-  filter(!is.na(cc)) %>% 
-  group_by(cc) %>% 
-  tally(sort = TRUE) %>% 
+  )) %>%
+  select(cc, n) %>%
+  filter(!is.na(cc)) %>%
+  group_by(cc) %>%
+  tally(sort = TRUE) %>%
   mutate(perc = round(nn / sum(nn) * 100, 0))
 
 # what proportion is ADS or others?
-rights_ads_perc <- 
-rights_summary %>% 
-  filter(cc == "ADS") %>% 
+rights_ads_perc <-
+rights_summary %>%
+  filter(cc == "ADS") %>%
   pull(perc)
 
-rights_ads_n <- 
-rights_summary %>% 
-  filter(cc == "ADS") %>% 
+rights_ads_n <-
+rights_summary %>%
+  filter(cc == "ADS") %>%
   pull(nn)
 
-rights_eu_perc <- 
-rights_summary %>% 
-  filter(cc == "EU Open Access") %>% 
+rights_eu_perc <-
+rights_summary %>%
+  filter(cc == "EU Open Access") %>%
   pull(perc)
 
-rights_eu_n <- 
-rights_summary %>% 
-  filter(cc == "EU Open Access") %>% 
+rights_eu_n <-
+rights_summary %>%
+  filter(cc == "EU Open Access") %>%
   pull(nn)
-  
+
 
 ```
 
-Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite (an organisation that provides persistent identifiers, or DOIs for research data). The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY). Although the earliest data dates to `r first_date`, file deposition started and steadily increased during 1990-2008, as personal computers became more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY repository saw in influx of records from Dutch CRM firms. This relates to the introduction of Dutch archaeology legislation, the _Wet op de archeologische monumentenzorg_ (Wamz), in 2007 that formally obligated archaeologists in the Netherlands to archive their data via DANS within two years of completion of their projects (Keers et al. 2011). Another spike occurs in 2012 when tDAR had a large increase in deposits, likely due to them waiving their deposit fees for that year (Ellison 2012). After 2009 the volume of deposits declined in many repositories, with the exception of generic repositories such as Figshare, Zenodo and ResearchGate, which continued to grow.
+Our third investigation of archaeologists' data sharing behaviours is an analysis of all records (n = `r prettyNum(nrow(dc_arch), big.mark = ",")`, as of August 2017) of archaeological data files in online repositories tracked by DataCite. DataCite is the primary (but not the only) organisation that provides persistent identifiers, or DOIs, for research data. Although DataCite is an international organisation, our results are highly concentrated in just a few locations in Europe. The majority of records come from the Archaeology Data Service (ADS) in the UK, followed by the Dutch Archiving and Network Services (DANS-EASY) (Figure \@ref(fig:datacite-summary)). Although the earliest data dates to `r first_date`, file deposition started and steadily increased during 1990-2008, as personal computers became more affordable and data easier to digitize. There is a substantial increase in 2009 when the DANS-EASY repository saw in influx of records from Dutch CRM firms. This can be explained as a result of Dutch archaeology legislation, the _Wet op de archeologische monumentenzorg_ (Wamz), in 2007 that formally obligated archaeologists in the Netherlands to archive their data via DANS within two years of completion of their projects (Keers et al. 2011). Another spike occurs in 2012 when tDAR had a large increase in deposits, likely due to them waiving their deposit fees for that year (Ellison 2012). After 2009 the volume of deposits declined in many repositories, with the exception of generic repositories such as Figshare, Zenodo and ResearchGate, which continued to grow (Figure \@ref(fig:datacite-temporal-summary)).
 
-Of the `r prettyNum(sum(rights_summary$nn), big.mark = ",")` records with copyright information, the majority are released under the ADS conditions of use (n = `r prettyNum(rights_ads_n, big.mark = ",")`, `r rights_ads_perc`%), which is broadly similar to the CC-BY-NC (Moore and Richards 2015). The next most frequently used condition is the EU Open Access license (n = `r prettyNum(rights_eu_n, big.mark = ",")`, `r rights_eu_perc`%), similar to the CC-BY license. Creative Commons licenses such as CC-BY, CC-0 and others are used by less than 3% of records. 
+Of the `r prettyNum(sum(rights_summary$nn), big.mark = ",")` records with copyright information, the majority are released under the ADS conditions of use (n = `r prettyNum(rights_ads_n, big.mark = ",")`, `r rights_ads_perc`%), which is broadly similar to the CC-BY-NC (Moore and Richards 2015) (Figure \@ref(fig:data-licenses-summary)). The next most frequently used condition is the EU Open Access license (n = `r prettyNum(rights_eu_n, big.mark = ",")`, `r rights_eu_perc`%), similar to the CC-BY license. Creative Commons licenses such as CC-BY, CC-0 and others are used by less than 3% of records.
 
-Many of the records are grey literature such as unpublished reports, produced by commercial consultants or research projects. Of the `r prettyNum(number_of_records_with_file_type, big.mark = ",")` (`r perc_of_records_with_file_type`%) records that include information about the file types in the deposit, `r perc_only_pdf`% (n = `r prettyNum(n_only_pdf, big.mark = ",")`) contain only PDFs. Structured data files such as spreadsheets, databases or shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ",")`) records. The highest proportion of records with structured data files are found in the DANS-EASY repository (n = `r prettyNum(n_struc_in_dans, big.mark = ",")`, `r perc_struc_in_dans`%), followed by the ADS with `r perc_struc_in_ads`% (n = `r n_struc_in_ads`). Note that file format information is not present for all records in this sample, and some of the smaller repositories do not supply this information to DataCite at all, so it is possible that the true proportion of structured files in these records is higher than observed here. 
+Many of the records are grey literature such as unpublished reports (Figure \@ref(fig:data-centre-file-types)), produced by commercial consultants or research projects. Of the `r prettyNum(number_of_records_with_file_type, big.mark = ",")` (`r perc_of_records_with_file_type`%) records that include information about the file types in the deposit, `r perc_only_pdf`% (n = `r prettyNum(n_only_pdf, big.mark = ",")`) contain only PDFs. Structured data files such as spreadsheets, databases or shapefiles are found either alone or together with other file types (typically PDFs) in `r perc_structured_data_file`% (n = `r prettyNum(n_structured_data_file, big.mark = ",")`) records. The highest proportion of records with structured data files are found in the DANS-EASY repository (n = `r prettyNum(n_struc_in_dans, big.mark = ",")`, `r perc_struc_in_dans`%), followed by the ADS with `r perc_struc_in_ads`% (n = `r n_struc_in_ads`). Note that file format information is not present for all records in this sample, and some of the smaller repositories do not supply this information to DataCite at all, so it is possible that the true proportion of structured files in these records is higher than observed here.
 
-From this pilot study of repository data we see that policy mandates in the UK and the Netherlands have been effective in populating repositories with archaeological data. With the 2012 spike in records deposited in tDAR we also see that archaeologists are sensitive to the price of sharing data. Nearly all records are made available under conditions that permit others to use the data while requiring that the original author of the data receive credit in reuse. In most cases this is because the repository hosting the data requires the author to choose one of these permissive licenses as a condition of making the deposit. However, although many items are _able_ to be reused because of the licenses, the ease of reuse of these items is low. Only a small fraction of the items deposited are machine-readable structured data files. The majority of items are PDFs, which require extensive manual handling to extract tabular data for convenient reuse and combination with other datasets. 
+From this pilot study of repository data we see that policy mandates in the UK and the Netherlands have been effective in populating repositories with archaeological data. With the 2012 spike in records deposited in tDAR we also see that archaeologists are sensitive to the price of sharing data. Nearly all records are made available under conditions that permit others to use the data while requiring that the original author of the data receive credit in reuse. In most cases this is because the repository hosting the data requires the author to choose one of these permissive licenses as a condition of making the deposit. However, although many items are _able_ to be reused because of the licenses, the ease of reuse of these items is low. Only a small fraction of the items deposited are machine-readable structured data files. The majority of items are PDFs, which require extensive manual handling to extract tabular data for convenient reuse and combination with other datasets.
 
 ```{r datacite-plots}
-datacentre_plot <- 
-  datacentre %>% 
-  mutate(Var1 = str_wrap(Var1, 20)) %>% 
-  slice(1:10) %>% 
+datacentre_plot <-
+  datacentre %>%
+  mutate(Var1 = str_wrap(Var1, 20)) %>%
+  slice(1:10) %>%
 ggplot(aes(reorder(Var1, n),
            n)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip() +
   xlab("Data centre") +
   ylab("") +
   theme_new() +
-  theme(axis.text.y  = element_text(size = 8)) 
+  theme(axis.text.y  = element_text(size = 8))
 
-allocator_plot <- 
+allocator_plot <-
 ggplot(allocator[1:10,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip() +
   theme_new()
 
-creator_plot <- 
+creator_plot <-
 ggplot(creator[1:30,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip() +
   theme_new()
 
-language_plot <- 
-  language %>% 
-  mutate(Var2 = ifelse(grepl("en|En", Var1), "en", Var1)) %>% 
-  mutate(Var2 = ifelse(grepl("de|ger", Var2), "de", Var2)) %>% 
-  group_by(Var2) %>% 
-  tally(sort = TRUE) %>% 
-  slice(1:5) %>% 
+language_plot <-
+  language %>%
+  mutate(Var2 = ifelse(grepl("en|En", Var1), "en", Var1)) %>%
+  mutate(Var2 = ifelse(grepl("de|ger", Var2), "de", Var2)) %>%
+  group_by(Var2) %>%
+  tally(sort = TRUE) %>%
+  slice(1:5) %>%
 ggplot(aes(reorder(Var2, nn),
            nn)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip()  +
   theme_new() +
   xlab("Language") +
   ylab("")
 
-contributor_plot <- 
+contributor_plot <-
 ggplot(contributor[1:20,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip()  +
   theme_new()
 
-rights_plot <- 
+rights_plot <-
 ggplot(rights_summary,
        aes(reorder(cc, nn),
            nn)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip()  +
   theme_new() +
   xlab("License") +
   ylab("")
 
 
-publisher_plot <- 
+publisher_plot <-
 ggplot(publisher[1:10,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col() +
+  geom_col(fill = wes_palette("Rushmore")[4]) +
   coord_flip() +
   theme_new()
 
@@ -1069,18 +1099,18 @@ ggplot(publisher[1:10,],
 # publisher_plot
 
 # Wow, we can nest cowplot::plot_grid in gridExtra::grid.arrange !! amazing and easy!
-datacite_plots <- 
-arrangeGrob(datacentre_plot, 
-             plot_grid(language_plot, 
-                       rights_plot, 
-                       ncol=1, 
+datacite_plots <-
+arrangeGrob(datacentre_plot,
+             plot_grid(language_plot,
+                       rights_plot,
+                       ncol=1,
                        align="v",
-                       axis = "lr"), 
+                       axis = "lr"),
              layout_matrix = rbind(c(1,2),
                                    c(1,2)),
              ncol = 2)
 
-save_plot("../figures/datacite_plots.png", 
+save_plot("../figures/datacite_plots.png",
           grid.draw(datacite_plots),
           base_height = 8)
 ```
@@ -1088,84 +1118,85 @@ save_plot("../figures/datacite_plots.png",
 ```{r datacite-summary, fig.cap = "Distributions of data centers, languages (en = English, nl = Dutch, swe = Swedish, de = German, it = Italian) and licenses (see text for details) among archaeology datasets known to DataCite. Horizontal axis is the number of DOIs."}
 knitr::include_graphics("../figures/datacite_plots.png")
 ```
+
 ```{r dates, eval = TRUE}
 # why so many in 2009? http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0078080 it's the Dutch
 
-top_per_year <- 
-dates %>% 
-  group_by(yyyy_date, datacentre) %>% 
-   tally(sort = TRUE)  %>% 
-   top_n(n=1) 
+top_per_year <-
+dates %>%
+  group_by(yyyy_date, datacentre) %>%
+   tally(sort = TRUE)  %>%
+   top_n(n=1)
 
-why_2013 <- 
-  xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2013)  %>% 
-  group_by(datacentre) %>% 
+why_2013 <-
+  xx %>%
+  filter(as.numeric(substr(date, 1,4)) == 2013)  %>%
+  group_by(datacentre) %>%
   tally(sort = TRUE)
 
-why_2012 <- 
-  xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2012)  %>% 
-  group_by(datacentre) %>% 
+why_2012 <-
+  xx %>%
+  filter(as.numeric(substr(date, 1,4)) == 2012)  %>%
+  group_by(datacentre) %>%
   tally(sort = TRUE)
 
-why_2011 <- 
-  xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2011)  %>% 
-  group_by(datacentre) %>% 
+why_2011 <-
+  xx %>%
+  filter(as.numeric(substr(date, 1,4)) == 2011)  %>%
+  group_by(datacentre) %>%
   tally(sort = TRUE)
 
-why_2010 <- 
-xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2010)  %>% 
-  group_by(datacentre) %>% 
+why_2010 <-
+xx %>%
+  filter(as.numeric(substr(date, 1,4)) == 2010)  %>%
+  group_by(datacentre) %>%
   tally(sort = TRUE)
 
-why_2009 <- 
-  xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2009)  %>% 
-  group_by(datacentre) %>% 
+why_2009 <-
+  xx %>%
+  filter(as.numeric(substr(date, 1,4)) == 2009)  %>%
+  group_by(datacentre) %>%
   tally(sort = TRUE)
 
-why_2008 <- 
-  xx %>% 
-  filter(as.numeric(substr(date, 1,4)) == 2008)  %>% 
-  group_by(datacentre) %>% 
+why_2008 <-
+  xx %>%
+  filter(as.numeric(substr(date, 1,4)) == 2008)  %>%
+  group_by(datacentre) %>%
   tally(sort = TRUE)
 
 # in 2009, among the Dutch, what is going on?
-dutch_2009 <- 
-dc_arch %>% 
+dutch_2009 <-
+dc_arch %>%
   filter(yyyy_date == 2009,
-         datacentre == "DELFT.EASY - DANS-EASY") %>% 
-  group_by(publisher) %>% 
-  tally(sort=TRUE) 
+         datacentre == "DELFT.EASY - DANS-EASY") %>%
+  group_by(publisher) %>%
+  tally(sort=TRUE)
 
 # how about in ADS?
-ads_2009 <- 
-dc_arch %>% 
+ads_2009 <-
+dc_arch %>%
   filter(yyyy_date == 2009,
-         grepl("ADS", datacentre)) %>% 
-  group_by(creator) %>% 
-  tally(sort=TRUE) 
+         grepl("ADS", datacentre)) %>%
+  group_by(creator) %>%
+  tally(sort=TRUE)
 
 # compare to 2009
-dutch_2008 <- 
-dc_arch %>% 
+dutch_2008 <-
+dc_arch %>%
   filter(yyyy_date == 2008,
-         datacentre == "DELFT.EASY - DANS-EASY") %>% 
-  group_by(publisher) %>% 
-  tally(sort=TRUE) 
+         datacentre == "DELFT.EASY - DANS-EASY") %>%
+  group_by(publisher) %>%
+  tally(sort=TRUE)
 ```
- 
+
 ```{r}
 
 # look at some relationships
-datacentre_rights_table <- 
-dc_arch %>% 
+datacentre_rights_table <-
+dc_arch %>%
   mutate(the_text =  toupper(gsub(" |_|\\(|\\)", "-", rights)),
          the_text = gsub("(\\-)\\1+", "\\1", the_text),
-         the_text = gsub("-$", "", the_text)) %>% 
+         the_text = gsub("-$", "", the_text)) %>%
   mutate(cc = case_when(
     grepl("SEMANTICS/OPENACCESS", the_text) ~ "EU Open Access",
     grepl("SEMANTICS/RESTRICTEDACCESS", the_text) ~ "EU Restricted Access",
@@ -1176,41 +1207,41 @@ dc_arch %>%
     grepl("CC-BY-NC-ND|BY-NC-ND|ATTRIBUTION-NONCOMMERCIAL-NO-DERIVATIVE|ATTRIBUTION-NONCOMMERCIAL-NODERIVATIVES|ATTRIBUTION-NONCOMMERCIAL-NODERIVS|NAMENSNENNUNG-NICHTKOMMERZIELL-KEINEBEARBEITUNG|NAMENSNENNUNG-KEINE-KOMMERZIELLE-NUTZUNG", the_text) ~ "CC-BY-NC-ND",
     grepl("ADS|ARCHAEOLOGYDATASERVICE", the_text) ~ "ADS",
     grepl("CC0|CC-0|ZERO", the_text) ~ "CC-0"
-  )) %>% 
-  group_by(datacentre, cc) %>% 
-  filter(!is.na(cc))  %>% 
-  tally(sort = TRUE) 
+  )) %>%
+  group_by(datacentre, cc) %>%
+  filter(!is.na(cc))  %>%
+  tally(sort = TRUE)
 
-plot_datacentre_rights_table <- 
-datacentre_rights_table[1:11,] %>% 
-  ggplot(aes(cc, str_wrap(str_trunc(datacentre, side = "right", 35), 15))) + 
+plot_datacentre_rights_table <-
+datacentre_rights_table[1:11,] %>%
+  ggplot(aes(cc, str_wrap(str_trunc(datacentre, side = "right", 35), 15))) +
   geom_point(aes(size = n),
-             colour = "grey80",
+             colour =  wes_palette("Rushmore")[1],
              shape = 16) +
-  theme_bw() + 
-  xlab("") + 
+  theme_bw() +
+  xlab("") +
   ylab("") +
-  scale_size_continuous(range=c(7,25)) + 
+  scale_size_continuous(range=c(7,25)) +
   geom_text(aes(label = prettyNum(n, big.mark = ","))) +
   theme(legend.position = "none",
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) 
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
-ggsave("../figures/datacentre_rights_table.png", 
+ggsave("../figures/datacentre_rights_table.png",
        plot_datacentre_rights_table,
        height = 7)
 
 # changes over time
 # library(ggrepel)
-# 
-# datacentre_by_year <- 
-# dc_arch %>% 
-#   group_by(yyyy_created, datacentre) %>% 
-#   tally(sort = TRUE) %>% 
-#   ungroup() %>% 
+#
+# datacentre_by_year <-
+# dc_arch %>%
+#   group_by(yyyy_created, datacentre) %>%
+#   tally(sort = TRUE) %>%
+#   ungroup() %>%
 #   filter(n > 150)
-# 
-# 
-#   ggplot(datacentre_by_year, 
+#
+#
+#   ggplot(datacentre_by_year,
 #          aes(yyyy_created,
 #              n,
 #              colour = datacentre)) +
@@ -1222,12 +1253,9 @@ ggsave("../figures/datacentre_rights_table.png",
 
 ```
 
-
-```{r fig.cap = "Summary of licenses used by data centers with archaeological data"}
+```{r data-licenses-summary, fig.cap = "Summary of licenses used by data centers with archaeological data"}
 knitr::include_graphics("../figures/datacentre_rights_table.png")
 ```
-
-
 
 ```{r events, eval = FALSE}
 # get cross-ref events for dataset dois
@@ -1236,15 +1264,15 @@ library(crevents)
 
 # contact the API and get the data...
 cred_query_safe <- safely(cred_query)
-events <- 
-map(dc_arch$doi, ~cred_query_safe(rows = 10, 
+events <-
+map(dc_arch$doi, ~cred_query_safe(rows = 10,
                                   filter = list(`obj-id` = .x)))
 
 # saveRDS(events, "../data/raw_data/cross_ref_events_2017_09_03.rds")
 # events <- read_rds("../data/raw_data/cross_ref_events.rds")
 
 # Extract dataframes for analysis
-events_df <- 
+events_df <-
 map_df(events, ~.x$result$message$events)
 # 366 obs 2 Oct
 # 367 obs 3 Oct
@@ -1252,28 +1280,29 @@ map_df(events, ~.x$result$message$events)
 
 ```
 
-
 # How to share archaeological data?
 
-In the pilot studies reported above we see three common approaches to sharing data: sending files privately by email, following a personal request; including data as supplementary files submitted for publication with a journal article; and sharing data by depositing files in a trustworthy, public, DOI-issuing repository. The third method, via a public repository, is by far the most widely recommended method both specifically by archaeologists (Kintigh 2006; Kansa et al. 2011; Kansa and Kansa 2013), and in other sciences (cf. Cranston et al. 2014; Penev et al. 2017; Mounce 2014; Thessen & Patterson 2011; Whitlock 2011). List of trustworthy repositories are maintained by the editors of the journal _Scientific Data_ (n.d) and <http://www.re3data.org>, a global registry of research data repositories (Pampel et al. 2013). There are many guidelines and conventions from other disciplines that are relevant to sharing archaeological data (ICPSR 2012; Strasser et al. 2012; Wilkinson et al. 2016). Table \@ref(tab:desirable) summarises some of these, and recommendations specifically written for archaeologists can be found in UK Archaeology Data Service (n.d.), ARCHES project. (n.d.). Many of these guidelines may create new technical and practical challenges to archaeologists who are not accustomed to sharing data, and many not want to dedicate resources to sharing data. However, we should not let the perfect be the enemy of the good. In our own work we try to follow these guidelines with no dedicated resources for data sharing, and with an incomplete knowledge of some of the technical details of repository operations. While we recognise that our data sharing practises fall short of all the guidelines, we still see value in sharing data imperfectly, rather than not at all. 
+In the pilot studies reported above we see three common approaches to sharing data: sending files privately by email, following a personal request; including data as supplementary files submitted for publication with a journal article; and sharing data by depositing files in a trustworthy, public, DOI-issuing repository. The third method, via a public repository, is by far the most widely recommended method both specifically by archaeologists (Kintigh 2006; Kansa et al. 2011; Kansa and Kansa 2013), and in other sciences (cf. Cranston et al. 2014; Penev et al. 2017; Mounce 2014; Thessen & Patterson 2011; Whitlock 2011). List of trustworthy repositories are maintained by the editors of the journal _Scientific Data_ (n.d) and <http://www.re3data.org>, a global registry of research data repositories (Pampel et al. 2013). University librarians are another resource for advice on choosing repositories and preparing data for sharing. There are many guidelines and conventions from other disciplines that are relevant to sharing archaeological data (ICPSR 2012; Strasser et al. 2012; Wilkinson et al. 2016). Table \@ref(tab:desirable) summarises some of these, and recommendations specifically written for archaeologists can be found in UK Archaeology Data Service (n.d.), ARCHES project. (n.d.). Many of these guidelines may create new technical and practical challenges to archaeologists who are not accustomed to sharing data, and many not want to dedicate resources to sharing data. However, we should not let the perfect be the enemy of the good. In our own work we try to follow these guidelines with no dedicated resources for data sharing, and with an incomplete knowledge of some of the technical details of repository operations. While we recognise that our data sharing practises fall short of all the guidelines, we still see value in sharing data imperfectly, rather than not at all.
 
-Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier-issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the web server of a research project is problematic because these files could disappear at any time, the data can change in untracked ways, and published links to the files are broken when these websites are reorganised, making the files inaccessible. Sharing data via supplementary files attached to a journal article is problematic because they are inaccessible to non-subscribers for paywalled journals, and because publishers often alter the data file formats and file names during the production process. For example, machine-readable format such as CSV are sometimes presented as PDF or Microsoft Word files in supplementary files. The modification of supplementary file names during the article production process can break scripts that attempt to read files by referring to file names as they were prior to the publisher handling the files. Finally, authors who write in their publications that 'the data are available by request' are not sharing data. Not only are the data not actually available, but there is no way to enforce that the authors will actually honour any requests for their data.  A simple strategy for avoiding these pseudo-sharing behaviours is to deposit data files in a trustworthy data repository, and use persistent links to the files in reports and manuscripts. 
+Data sharing is a relatively new behaviour for most archaeologists, so it is important to clarify what does not count as data sharing. Making data available on a web site that is not a trustworthy, persistent-identifier-issuing repository is not data sharing. For example, data files hosted on a personal faculty webpage or the web server of a research project is problematic because these files could disappear at any time, the data can change in untracked ways, and published links to the files are broken when these websites are reorganised, making the files inaccessible. Sharing data via supplementary files attached to a journal article is problematic because they are inaccessible to non-subscribers for paywalled journals, because publishers often alter the data file formats and file names during the production process, and because publishers own that data, and the original author may need to request permission to reuse their own data. For example, machine-readable formats such as CSV are sometimes presented as PDF or Microsoft Word files in supplementary files. The modification of supplementary file names during the article production process can break scripts that attempt to read files by referring to file names as they were prior to the publisher handling the files. 
+
+Finally, authors who write in their publications that 'the data are available by request' are not sharing data. Not only are the data not actually available, but there is no way to enforce that the authors will actually honour any requests for their data. A simple strategy for avoiding these pseudo-sharing behaviours is to deposit data files in a trustworthy data repository, and use persistent links to the files in reports and manuscripts. In our own work we have used figshare.com, zenodo.org, osf.io, neotomadb.org, opencontext.org and our University repositories. However, there are many other options, and a full discussion of how to choose the ideal data repository is beyond the scope of this paper. We recommend seeking advice from librarians and funding agencies to help with finding the most suitable service.  
 
 # How to cite archaeological data?
 
 The Joint Declaration of Data Citation Principles is the current standard in many disciplines for data citation within any research object (Data Citation Synthesis Group 2014). The result of these principles is a citation formation as follows (the exact order of the items may vary slightly across different referencing styles):
 
-Creator (PublicationYear). Title. Version. Publisher. Identifier 
+Creator (PublicationYear). Title. Version. Publisher. Identifier
 
-The 'PublicationYear', 'Title' and 'Publisher' are familiar from traditional citation formats, except that the publisher may not be a traditional book or journal publisher, but a dedicated data repository organisation. 'Creator' is equivalent to the author or primary collector and arranger of the data (e.g. Open Context or tDAR). The 'Version' and 'Identifier' fields are unique to data citation, and can take a variety of forms. The identifier is a special type of persistent internet address. The identifier must have two important qualities: the address contains some metadata (such as the identity of the publisher, but not necessarily in a human-readable format), and they remained fixed to a specific file or bundle of files over the lifetime of those objects, even if their location on the internet changes. There are several varieties of these in use, with DOIs (digital object identifiers) currently the most common form. When a data publisher changes the internet address of a data set, they are responsible for informing the DOI-issuing authority so that the DOI resolves to the new location of the files. 
+The 'PublicationYear', 'Title' and 'Publisher' are familiar from traditional citation formats, except that the publisher may not be a traditional book or journal publisher, but a dedicated data repository organisation. 'Creator' is equivalent to the author or primary collector and arranger of the data (e.g. Open Context or tDAR). The 'Version' and 'Identifier' fields are unique to data citation, and can take a variety of forms. The identifier is a special type of persistent internet address. The identifier must have two important qualities: the address contains some metadata (such as the identity of the publisher, but not necessarily in a human-readable format), and they remained fixed to a specific file or bundle of files over the lifetime of those objects, even if their location on the internet changes. There are several varieties of these in use, with DOIs (digital object identifiers) currently the most common form. When a data publisher changes the internet address of a data set, they are responsible for informing the DOI-issuing authority so that the DOI resolves to the new location of the files.
 
-A DOI consists of three parts: 
+A DOI consists of three parts:
 
 - the proxy, usually https://doi.org but sometimes also https://hdl.handle.net/ or just doi:
 - the prefix, usually a string of numbers that is unique to the organisation publishing the DOI. For example, tDAR prefix is 10.6067
-- the suffix, a random-looking string of any combination of characters and numbers that uniquely identified the file or bundle of files, this is also known as a local identifier (local ID) or an 'accession', an identifier which, by itself, is only guaranteed to be locally unique within the database or source (McMurry et al. 2017) 
+- the suffix, a random-looking string of any combination of characters and numbers that uniquely identified the file or bundle of files, this is also known as a local identifier (local ID) or an 'accession', an identifier which, by itself, is only guaranteed to be locally unique within the database or source (McMurry et al. 2017)
 
-A DOI alone is not sufficient for citing a dataset because, like many things on the internet, the files can change over time. For example we might upload data files to the repository when we submit a paper for peer review, then get a DOI and cite that in our manuscript so the peer reviewers can see them (some services provide a private URL that can be shared with reviewers but is not publicly accessible or discoverable by a search engine). Then when we resubmit our manuscript after peer review, we might update the repository to include additional data files relating to additional analyses requested by the reviewers. We still have the same DOI in our manuscript for this data set, but the files have changed because of the revisions we did in response to the peer reviewers' comments. Most data repositories will keep each version of the files that you upload, so in this scenario there will be at least two versions of the files in our data repository. Even if we do not follow this exact sequence of updating the files, we may still change them in the future, after our paper has been published. Because of this potential to change the files stored at the DOI, it is necessary to identify specific file versions in our citation of the data. A simple method to record the version is to include the date that the data files were accessed, as when citing any other resource found on the internet. Some repositories also provide DOIs that have a version number suffix like '.v2', '.2', '/2'. However this is not formally a functionality of the DOI system, so including the date accessed is a more robust and general method of indicating the version. Technological solutions to issues of transience, permanence and granularity in data citation are still in development. 
+A DOI alone is not sufficient for citing a dataset because, like many things on the internet, the files can change over time. For example we might upload data files to the repository when we submit a paper for peer review, then get a DOI and cite that in our manuscript so the peer reviewers can see them (some services provide a private URL that can be shared with reviewers but is not publicly accessible or discoverable by a search engine). Then when we resubmit our manuscript after peer review, we might update the repository to include additional data files relating to additional analyses requested by the reviewers. We still have the same DOI in our manuscript for this data set, but the files have changed because of the revisions we did in response to the peer reviewers' comments. Most data repositories will keep each version of the files that you upload, so in this scenario there will be at least two versions of the files in our data repository. Even if we do not follow this exact sequence of updating the files, we may still change them in the future, after our paper has been published. Because of this potential to change the files stored at the DOI, it is necessary to identify specific file versions in our citation of the data. A simple method to record the version is to include the date that the data files were accessed, as when citing any other resource found on the internet. Some repositories also provide DOIs that have a version number suffix like '.v2', '.2', '/2'. However this is not formally a functionality of the DOI system, so including the date accessed is a more robust and general method of indicating the version. Technological solutions to issues of transience, permanence and granularity in data citation are still in development.
 
 When citing data in the text of a manuscript or report, the ideal practice is to cite the dataset and the traditional publication that first described it, like so (Penev et al. 2017):
 
@@ -1283,7 +1312,7 @@ For example:
 
 "This paper uses data from the Open Science Framework data repository at http://doi.org/10.17605/OSF.IO/32A87 (Marwick 2017), first described in Marwick et al. 2017."
 
-Citing both the dataset and the publication helps to resolve ambiguity about the source of the data, and gives context to the data. Furthermore, the authorship of the data files may differ from those of the author's paper describing the data, and it is important that both authors (or sets of authors) receive credit for their work through the normal mechanisms of citation recognition.
+Citing both the dataset and the publication helps to resolve ambiguity about the source of the data, and gives context to the data. Furthermore, the authorship of the data files may differ from those of the author's paper describing the data, and it is important that both authors (or sets of authors) receive credit for their work through the normal mechanisms of citation recognition. In cases where an author has published their data, and then makes an intellectual contribution to a separate study lead by others that uses the published data, then the data author should also be a co-author of the separate study. If other researchers use published data in their publication without any input from the data author, then citation of the data is all that is required, and adding the data author as a co-author is not required. 
 
 In the paper in which these data are first described, the citation statement should be included in the body of the paper, in the Material and Methods section. In addition, the formal data reference should be included in the paper's reference list, using the recommended journal's reference format. For example, here is a statement that would appear in the paper in which the data are first presented:
 
@@ -1293,25 +1322,24 @@ With the reference list of that paper including Marwick (2017) as:
 
 Marwick, B. (2017). Dataset and R code for "Movement of lithics by trampling: An experiment in the Madjedbebe sediments", http://doi.org/10.17605/OSF.IO/32A87, Open Science Framework, Accessed 7 Sept 2017.
 
-# What are the ethics of data sharing?
-
-A full treatment of the ethical issues of data sharing is beyond the scope of this paper, but we can highlight some points specifically relevant to the question of when _not_ to share archaeological data. Much of the discussion on ethics and data sharing generally relates to appropriate attribution (assigning credit for the data) in data reuse (Duke et al. 2013). The default position for archaeological data, like data from many other sciences, is that they are part of the global human patrimony, and should be accessible to other scholars and the public (Zimmerman et al. 2003; Vitelli & Colwell-Chanthaphonh 2006). However, archaeologists, like other researchers working with local and indigenous communities, governments, and international collaborators, generate research data that is intellectual property with many stakeholders. With diverse stakeholders, archaeological data can become entangled in economics, nationalism, cultural politics, and identity (Nicholas and Wylie 2009). Often, one of these stakeholders is an indigenous community, and archaeologists may find differences between Western and indigenous conceptions of what data are, how they may be generated, used, shared, and 'owned' (Harding et al. 2012). 
-
-One of these differences is that Western researchers often have individual autonomy in sharing data, and once data are shared, it is free for all to use. In contrast, within indigenous communities, data are part of the group's identity and property, akin to tangible heritage (Nicholas 2014), with certain members entrusted to keep that data on behalf of the group, and sometimes it may be inappropriate for these people to share the data with other members of the group, or beyond the group (Tsosie 2007). Differences between Western and indigenous concepts or data are not only cultural - substantial inequalities exist in access to resources for converting archaeological data into economic and political benefit (e.g. graduate degrees, employment, publications, grants, promotions). On one hand, making archaeological data openly available benefits indigenous communities, because it removes some of the financial and technical barriers to accessing that data (e.g. subscription fees to journals). On the other hand, this may be little more than a useless courtesy (Hymes 1972), because simply making data openly available does not give indigenous people access to the contexts where the data can be used to generate economic and political benefits. Thus, open data has different values for Western and indigenous communities, and if archaeologists want to make a compelling case to their indigenous partners for data sharing, they should also make a commitment to reducing some of the inequalities in making use of the data, for example, by providing some training in data analysis, or adapting the data into a context that is valued by the indigenous community.
-
-In short, there is more to the ethics of data sharing than avoiding risk of damage. Redacting the locations of archaeological sites to prevent looting is an obvious case of preparing data for sharing to reduce the risk of damage to the sites (and in some jurisdictions, mandated by law). However, because of cultural, economic and political differences between Western archaeologists and the communities they work with, an archaeologist cannot consider their own risk assessment to be comprehensive and exhaustive (Nicholas and Wylie 2012). It is crucial for archaeologists to discuss data sharing plans during negotiations with representatives authorized by the indigenous peoples whose cultural heritage is the subject of investigation. This negotiation process is important because only indigenous peoples themselves can identify potential adverse outcomes to data sharing, and they can do this only if they understand the proposed research and anticipated results. The concrete outcome of this process is often a Memorandum of Understanding between the indigenous community and the archaeologist's employer that documents the outcome of negotiations about data sharing. If the archaeologist's indigenous partners have reasons not to share data in public, then the archaeologist should respect that position, and note in publication that the data are restricted at the request of the indigenous collaborators. 
-
 # Summary and Conclusion
 
-The status of research data is slowly changing in many fields from a gift-culture where data are privately-held commodities traded for co-authorship, invitations, and other status tokens (Hagstrom 1982; Wallis et al. 2013), to part of the public commons, accessible to anyone with an internet connection. This change has been fastest in data-rich 'big science' fields, such as astronomy, physics, and oceanography, that use expensive instruments that generate data shared with large teams of collaborators to produce new discoveries (Reichman and Uhlir 2003). However, in 'smaller' data-poor sciences such as archaeology, where collaborative groups are small, data sharing is still mostly ad hoc and disaggregated. Our pilot studies, while small and limited in many ways, support this statement with an overall sharing rate of `r sharing_rate`% in responses to private requests for data, and `r data_are_avail_perc`% of sampled journal articles with openly available data, in a wide variety of formats and locations. In examining archaeological data deposited in repositories, we found that most of the contents are PDF files of reports, and only a very small fraction of the data files are structured data such as spreadsheets. Archaeologists still have a long way to go in making their data easier to reuse by sharing data in plain text structured data formats such as CSV. We found that legislation requiring data sharing resulted in a substantial increase in the rate of data deposition, and that archaeologists are sensitive to fees charged by a repository. 
+The status of research data is slowly changing in many fields from a gift-culture where data are privately-held commodities traded for co-authorship, invitations, and other status tokens (Hagstrom 1982; Wallis et al. 2013), to part of the public commons, accessible to anyone with an internet connection. This change has been fastest in data-rich 'big science' fields, such as astronomy, physics, and oceanography, that use expensive instruments that generate data shared with large teams of collaborators to produce new discoveries (Reichman and Uhlir 2003). However, in 'smaller' data-poor sciences such as archaeology, where collaborative groups are small, data sharing is still mostly ad hoc and disaggregated. Our pilot studies, while small and limited in many ways, support this statement with an overall sharing rate of `r sharing_rate`% in responses to private requests for data, and `r data_are_avail_perc`% of sampled journal articles with openly available data, in a wide variety of formats and locations. We found that legislation requiring data sharing resulted in a substantial increase in the rate of data deposition, and that archaeologists are sensitive to repository fees. In examining archaeological data deposited in repositories, we found that most of the contents are PDF files of reports, and only a very small fraction of the data files are structured data such as spreadsheets. Archaeologists still have a long way to go in making their data easier to reuse by sharing data in plain text structured data formats such as CSV. Table \@ref(tab:desirable) summarises nine key tasks archaeologists should do to their data to optimise its discovery and reuse.
 
-Among the many challenges of increasing the rate of data sharing in archaeology and other 'small' sciences is that data sharing is unfunded, unrewarded and is only rarely required. The challenge of funding can be addressed by professional societies, such as the Society of American Archaeology, communicating to funding bodies, such as the National Science Foundation, about the importance of allocating funds specifically for data sharing and requesting a chance in policy. The challenge of requiring data sharing can also be addressed by funding bodies, but may be most effectively tackled by journal editors and editorial boards, for example by adopting the Transparency and Openness Protocols of the Centre for Open Science (Nosek et al. 2015). Changes in journal-specific submission guidelines can result in desirable changes in authors’ research practices (Giofrè et al 2017). For example, if archaeology journals adopt incentives such as badging (Kidwell et al. 2016), and require as a condition of publication that submitted articles include in the text a properly formatted citation to the data analysed in the article (or an explanation why the data are not available), authors would quickly adapt to this new requirement to ensure their article will be published. As peer reviewers, we can also communicate to editors that we require the manuscripts that we review to include citations of datasets analysed in the manuscript. 
+```{r desirable}
+tbl <- readr::read_csv("../figures/tbl_rules_of_data_sharing.csv")
+knitr::kable(tbl, caption = "Nine key things to do with your data, from Hart et al. (2016) ")
+```
+
+Among the many challenges of increasing the rate of data sharing in archaeology and other 'small' sciences is that data sharing is unfunded, unrewarded and is only rarely required. Who is responsible for changing this? There is no simple answer, but we believe the task must be shared between individuals and institutions, with individuals pushing for institutial change. The challenge of funding can be tackled by practical action from members of professional societies. For example, the Society of American Archaeology should communicate to funding bodies, such as the National Science Foundation, about the importance of allocating funds specifically for data sharing, and providing reliable information on how to choose and and use data repositories. The challenge of requiring data sharing can also be addressed by funding bodies and federal agencies, through more rigourous evaluation and enforcement of data mangement plans during the review process. However, changes in the policies of professional societies and other agencies are primarily responses to changes in norms in the community of researchers. In practice, individual researchers are responsible for communicating the value of data sharing to professional societies and funding agencies. Changes in individual practice will demonstrate a change in norms, and motivate our institutions to formalise these new data sharing values through policies and regulations. 
+
+One area where changes in individual practice may be especially effective is among journal editors and editorial boards. For example, editors of archaeology journals should adopt the Transparency and Openness Protocols of the Centre for Open Science (Nosek et al. 2015). Editors should then educate their editorial boards members, peer reviewers, and contributors about their obligations to these protocols. Editors should only accept papers that, minimally, provide the raw data used to produce each table and visualisation in the manuscript. Changes in journal-specific submission guidelines can result in substantial changes in authors’ research practices (Giofrè et al 2017). For example, if archaeology journals adopt incentives such as badging (Kidwell et al. 2016), and require as a condition of publication that submitted articles include in the text a properly formatted citation to the data analysed in the article (or if the data cannot be shared, an explanation why the data are not available), authors would quickly adapt to this new requirement to ensure their article will be published. As peer reviewers, we have a responsibility to communicate to editors that we require data to be available for papers that we read, and that the manuscripts we review must include citations of datasets analysed in the manuscript.
 
 The challenge of data sharing as an unrewarded behaviour was the primary motivation for this article. By specifying a standard for the scholarly citation of archaeological data we provide a method for giving credit to the authors or compilers of the data. This rewards those authors with visibility and recognition for their effort with citations, a currency that is valued broadly in the discipline. The data citation standard outlined above is easy for humans and search engines to understand, and is highly functional, with a full internet address to the data contained in the citation. The standard can accommodate the addition of additional information required by different citation styles and publishers' requirements. The data citation standard is not dependent on any specific choices of software, archive, data producer, publisher, or author and is easy to adapt into existing writing and research workflows.
 
 # Acknowledgements
 
-This paper emerged out of discussions at the 2017 SAA meeting, specifically the forum ‘Beyond Data Management: A Conversation about “Digital Data Realities”’, organised by Sarah Kansa and Eric Kansa, and the SAA publications committee meeting. Thanks to Canan Cakirlar for insights into the history of archaeological data sharing in the Netherlands, and Stefano Costa for many helpful suggestions. BM was supported by an Australian Research Council Future Fellowship (FT140100101). 
+This paper emerged out of discussions at the 2017 SAA meeting, specifically the forum ‘Beyond Data Management: A Conversation about “Digital Data Realities”’, organised by Sarah Kansa and Eric Kansa, and the SAA publications committee meeting. Thanks to Canan Cakirlar for insights into the history of archaeological data sharing in the Netherlands, and Stefano Costa for many helpful suggestions. BM was supported by an Australian Research Council Future Fellowship (FT140100101).
 
 # References
 
@@ -1367,7 +1395,7 @@ Keers, G., van der Reijden, H., and van Rossum, H. 2011. Planning Archaeology: A
 
 Kratz JE, Strasser C (2015) Researcher Perspectives on Publication and Peer Review of Data. PLOS ONE 10(2): e0117619. doi: 10.1371/journal.pone.0117619
 
-Kratz J and Strasser C. Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research 2014, 3:94 
+Kratz J and Strasser C. Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research 2014, 3:94
 (doi: 10.12688/f1000research.3979.1)
 
 Kyzas PA, Loizou KT, and Ioannidis JP. (2005) Selective reporting biases in cancer prognostic factor studies. Journal of the National Cancer Institute 97, 1043-1055.
@@ -1380,7 +1408,7 @@ McCullough BD, McGeary KA, Harrison TD. (2006) Lessons from the JMCB Archive. Jo
 
 McCullough BD and Vinod HD. (2005) Comment: Econometrics and Software. Journal of Economic Perspectives 17(1), 223-224.
 
-McMurry, J. A., Juty, N., Blomberg, N., Burdett, T., Conlin, T., Conte, N., … Parkinson, H. (2017). Identifiers for the 21st century: How to design, provision, and reuse persistent identifiers to maximize utility and impact of life science data. PLOS Biology, 15(6), e2001414. https://doi.org/10.1371/journal.pbio.2001414
+McMurry, J. A., Juty, N., Blomberg, N., Burdett, T., Conlin, T., Conte, N., Parkinson, H., Winfree, L., Mungall, C., Haendel, M., H. Parkinson (2017). Identifiers for the 21st century: How to design, provision, and reuse persistent identifiers to maximize utility and impact of life science data. PLOS Biology, 15(6), e2001414. https://doi.org/10.1371/journal.pbio.2001414
 
 Merton, R.K. (1942) "The Normative Structure of Science". In: Merton, R. K., The Sociology of Science: Theoretical and Empirical Investigations, Chicago, IL: University Of Chicago Press.
 
@@ -1470,7 +1498,7 @@ Zimmerman, L. J., Vitelli, K. D., & Hollowell-Zimmer, J. (Eds.). (2003). Ethical
 
 ### Colophon
 
-This document contains `r prettyNum(wordcountaddin:::text_stats_fn_(readLines("paper.Rmd"))$n_words_korp, big.mark = ",")` words and was generated on `r Sys.time()` using the following computational environment and dependencies: 
+This document contains `r prettyNum(wordcountaddin:::text_stats_fn_(readLines("paper.Rmd"))$n_words_korp, big.mark = ",")` words and was generated on `r Sys.time()` using the following computational environment and dependencies:
 
 ```{r colophon, cache = FALSE, eval = TRUE}
 # which R packages and versions?
@@ -1484,4 +1512,3 @@ The current Git commit details are:
 # if your Rmd is not in analysis/paper/
 git2r::repository("../..")
 ```
-
