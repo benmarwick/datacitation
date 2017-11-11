@@ -1,0 +1,16 @@
+base
+methods
+datasets
+utils
+grDevices
+graphics
+stats
+tools
+shiny
+shinyAce
+shinyFiles
+shinyBS
+knitr
+rmarkdown
+editR
+datacitation
