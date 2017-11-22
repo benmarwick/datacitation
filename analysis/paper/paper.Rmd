@@ -1017,6 +1017,8 @@ Many of the records are grey literature such as unpublished reports (Figure \@re
 
 From this pilot study of repository data we see that policy mandates in the UK and the Netherlands have been effective in populating repositories with archaeological data. With the 2012 spike in records deposited in tDAR we also see that archaeologists are sensitive to the price of sharing data. Nearly all records are made available under conditions that permit others to use the data while requiring that the original author of the data receive credit in reuse. In most cases this is because the repository hosting the data requires the author to choose one of these permissive licenses as a condition of making the deposit. However, although many items are _able_ to be reused because of the licenses, the ease of reuse of these items is low. Only a small fraction of the items deposited are machine-readable structured data files. The majority of items are PDFs, which require extensive manual handling to extract tabular data for convenient reuse and combination with other datasets.
 
+<!-- something about data citation results here -->
+
 ```{r datacite-plots}
 datacentre_plot <-
   datacentre %>%
@@ -1263,19 +1265,36 @@ knitr::include_graphics("../figures/datacentre_rights_table.png")
 library(crevents)
 
 # contact the API and get the data...
-cred_query_safe <- safely(cred_query)
-events <-
-map(dc_arch$doi, ~cred_query_safe(rows = 10,
-                                  filter = list(`obj-id` = .x)))
+# cred_query_safe <- safely(cred_query)
+# events <-
+# map(dc_arch$doi, ~cred_query_safe(rows = 10,
+#                                   filter = list(`obj-id` = .x)))
 
 # saveRDS(events, "../data/raw_data/cross_ref_events_2017_09_03.rds")
-# events <- read_rds("../data/raw_data/cross_ref_events.rds")
+events <- read_rds("../data/raw_data/cross_ref_events.rds")
 
 # Extract dataframes for analysis
 events_df <-
 map_df(events, ~.x$result$message$events)
 # 366 obs 2 Oct
 # 367 obs 3 Oct
+
+# which provider is most cited?
+library(urltools)
+
+events_df <- 
+events_df %>% 
+  mutate(doi_provider = str_extract(obj_id, 
+                                    regex('(\\d+\\.\\d+)'))) %>% 
+  mutate(doi_consumer = str_extract(subj_id, 
+                                    regex('(\\d+\\.\\d+)'))) %>% 
+  mutate(base_url_consumer = map_chr(subj.url, ~suffix_extract(domain(.x))[,1]))
+
+
+
+
+# what sources do the most citing?
+
 
 
 ```
@@ -1331,11 +1350,19 @@ tbl <- readr::read_csv("../figures/tbl_rules_of_data_sharing.csv")
 knitr::kable(tbl, caption = "Nine key things to do with your data, from Hart et al. (2016) ")
 ```
 
-Among the many challenges of increasing the rate of data sharing in archaeology and other 'small' sciences is that data sharing is unfunded, unrewarded and is only rarely required. Who is responsible for changing this? There is no simple answer, but we believe the task must be shared between individuals and institutions, with individuals pushing for institutial change. The challenge of funding can be tackled by practical action from members of professional societies. For example, the Society of American Archaeology should communicate to funding bodies, such as the National Science Foundation, about the importance of allocating funds specifically for data sharing, and providing reliable information on how to choose and and use data repositories. The challenge of requiring data sharing can also be addressed by funding bodies and federal agencies, through more rigourous evaluation and enforcement of data mangement plans during the review process. However, changes in the policies of professional societies and other agencies are primarily responses to changes in norms in the community of researchers. In practice, individual researchers are responsible for communicating the value of data sharing to professional societies and funding agencies. Changes in individual practice will demonstrate a change in norms, and motivate our institutions to formalise these new data sharing values through policies and regulations. 
+Among the many challenges of increasing the rate of data sharing in archaeology and other 'small' sciences is that data sharing is unfunded, unrewarded and is only rarely required. Who is responsible for changing this? There is no simple answer, but we believe the task must be shared between individuals and institutions, with individuals pushing for institutial change. The challenge of funding can be tackled by practical action from members of professional societies. For example, the Society of American Archaeology should communicate to funding bodies, such as the National Science Foundation, about the importance of allocating funds specifically for data sharing, and providing reliable information on how to choose and and use data repositories. The challenge of requiring data sharing can also be addressed by funding bodies and federal agencies, through more rigourous evaluation and enforcement of data mangement plans during the review process. However, changes in the policies of professional societies and other agencies are primarily responses to changes in norms in the community of researchers. In practice, individual researchers are responsible for communicating the value of data sharing to professional societies and funding agencies (e.g. by holding peers to high standards of data sharing during grant reviews). Changes in individual practice will demonstrate a change in norms, and motivate our institutions to formalise these new data sharing values through policies and regulations. 
 
-One area where changes in individual practice may be especially effective is among journal editors and editorial boards. For example, editors of archaeology journals should adopt the Transparency and Openness Protocols of the Centre for Open Science (Nosek et al. 2015). Editors should then educate their editorial boards members, peer reviewers, and contributors about their obligations to these protocols. Editors should only accept papers that, minimally, provide the raw data used to produce each table and visualisation in the manuscript. Changes in journal-specific submission guidelines can result in substantial changes in authors’ research practices (Giofrè et al 2017). For example, if archaeology journals adopt incentives such as badging (Kidwell et al. 2016), and require as a condition of publication that submitted articles include in the text a properly formatted citation to the data analysed in the article (or if the data cannot be shared, an explanation why the data are not available), authors would quickly adapt to this new requirement to ensure their article will be published. As peer reviewers, we have a responsibility to communicate to editors that we require data to be available for papers that we read, and that the manuscripts we review must include citations of datasets analysed in the manuscript.
+One area where changes in individual practice may be especially effective is among journal editors and editorial boards. For example, editors of archaeology journals should adopt the Transparency and Openness Protocols of the Centre for Open Science (Nosek et al. 2015). Editors should then educate their editorial boards members, peer reviewers, and contributors about their obligations to these protocols. Editors should only accept papers that, minimally, provide the raw data used to produce each table and visualisation in the manuscript. Changes in journal-specific submission guidelines can result in substantial changes in authors’ research practices (Giofrè et al 2017). For example, if archaeology journals adopt incentives such as badging (Kidwell et al. 2016), and require as a condition of publication that submitted articles include in the text a properly formatted citation to the data analysed in the article (or if the data cannot be shared, an explanation why the data are not available), authors would quickly adapt to this new requirement to ensure their article will be published. 
 
-The challenge of data sharing as an unrewarded behaviour was the primary motivation for this article. By specifying a standard for the scholarly citation of archaeological data we provide a method for giving credit to the authors or compilers of the data. This rewards those authors with visibility and recognition for their effort with citations, a currency that is valued broadly in the discipline. The data citation standard outlined above is easy for humans and search engines to understand, and is highly functional, with a full internet address to the data contained in the citation. The standard can accommodate the addition of additional information required by different citation styles and publishers' requirements. The data citation standard is not dependent on any specific choices of software, archive, data producer, publisher, or author and is easy to adapt into existing writing and research workflows.
+Individual researchers can also contribute to changing the norms on data sharing via several practical actions suitable for typical day-to-day work:
+
+- When preparing research for publication, upload data to a trustworthy repository and cite the data in the manuscript.      
+- When writing peer reviews of journal articles, we can tell editors that we require data to be available for papers that we read, and that the manuscripts we review must include citations of datasets analysed in the manuscript. We can write in our peer reviews that data need to be available for us to make a proper assessment of the manuscript.    
+- When reviewing grant applications, we can critically evaluate data management plans, and report on the applicants' past record on data sharing. We can offer helpful suggestions about how to improve data availability.     
+- When teaching students, we can teach them how to prepare data for sharing, and how to find and use publicly available datasets to give students experience analysing and writing about shared data, and to cultivate the expectation that data sharing is a normal part of archaeological research.     
+- When evaluating candidates for hiring and promotion, ensure that commitments to data sharing are considered.      
+
+The challenge of data sharing as an unrewarded behaviour was the primary motivation for this article. By specifying a standard for the scholarly citation of archaeological data we provide a method for giving credit to the authors or compilers of the data. This rewards those authors with visibility and recognition for their effort with citations, a currency that is valued broadly in the discipline. The data citation standard outlined above is easy for humans and search engines to understand, and is highly functional, with a full internet address to the data contained in the citation. The standard can accommodate the addition of additional information required by different citation styles and publishers' requirements. The data citation standard is not dependent on any specific choices of software, archive, data producer, publisher, or author and is easy to adapt into existing writing and research workflows. There are still many unresolved challenges in data sharing, such as how to manage high volumes of data generated by photogrammetry. However, we are confident that solutions to many of these challenges will emerge as data sharing is increasingly valued by the research community. 
 
 # Acknowledgements
 
