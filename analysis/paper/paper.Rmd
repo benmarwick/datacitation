@@ -1280,6 +1280,8 @@ map_df(events, ~.x$result$message$events)
 # 367 obs 3 Oct
 
 # which provider is most cited?
+# what sources do the most citing?
+
 library(urltools)
 
 events_df <- 
@@ -1290,11 +1292,77 @@ events_df %>%
                                     regex('(\\d+\\.\\d+)'))) %>% 
   mutate(base_url_consumer = map_chr(subj.url, ~suffix_extract(domain(.x))[,1]))
 
+# look at the top ones, manually look them up
+top_doi_providers <- 
+events_df %>% 
+  group_by(doi_provider) %>% 
+  tally(sort= TRUE) %>% 
+  filter(n >= 10)
 
+top_doi_consumers <- 
+events_df %>% 
+  group_by(doi_consumer) %>% 
+  tally(sort= TRUE) %>% 
+  filter(n >= 10)
 
+doi_lookup <- 
+tribble(  ~doi,       ~doi_name,
+ "10.5281",   "Zenodo",
+ "10.5284",   "Medieval Archaeology",
+ "10.6067",   "tDAR",
+ "10.15468",  "GBIF",
+ "10.14279",  "Technische Universität Berlin",
+ "10.17026",  "EASY-DANS",
+ "10.11141",  "Internet Archaeology",
+ "10.1080",   "Various journal publishers") # OUP, CUP, Sage, Wiley, Springer
 
-# what sources do the most citing?
+# join names to main table
+events_df_names <- 
+  events_df %>% 
+  left_join(doi_lookup, by = c("doi_provider" = "doi")) %>% 
+  rename(doi_provider_name = doi_name) %>% 
+  left_join(doi_lookup, by = c("doi_consumer" = "doi"))  %>% 
+  rename(doi_consumer_name = doi_name) %>% 
+  mutate(base_url_consumer = suffix_extract(base_url_consumer)$domain) %>% 
+  mutate(doi_consumer_name = if_else(is.na(doi_consumer_name), 
+                                     base_url_consumer, 
+                                     doi_consumer_name))
 
+# cross-tab
+events_df_names_ct <- 
+events_df_names %>% 
+  group_by(doi_provider_name, 
+           doi_consumer_name) %>% 
+  tally() %>% 
+  filter(!is.na(doi_provider_name)) %>% 
+  filter(!is.na(doi_consumer_name)) %>% 
+  spread(doi_consumer_name, n, fill = 0)
+
+library(wesanderson)
+plot_citation_table <-
+events_df_names %>% 
+  group_by(doi_provider_name, 
+           doi_consumer_name) %>% 
+  tally() %>% 
+  filter(!is.na(doi_provider_name)) %>% 
+  filter(!is.na(doi_consumer_name)) %>% 
+  ggplot(
+         aes(str_wrap(str_trunc(doi_provider_name, side = "right", 35), 15),
+             str_wrap(str_trunc(doi_consumer_name, side = "right", 35), 15))) +
+  geom_point(aes(size = n),
+             colour =  wes_palette("Rushmore")[1],
+             shape = 16) +
+  theme_bw() +
+  xlab("Source") +
+  ylab("Cited by") +
+  scale_size_continuous(range=c(5,25)) +
+  geom_text(aes(label = prettyNum(n, big.mark = ","))) +
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+ggsave("../figures/doi_citation_table.png",
+       plot_citation_table,
+       height = 7)
 
 
 ```
@@ -1315,7 +1383,7 @@ Creator (PublicationYear). Title. Version. Publisher. Identifier
 
 The 'PublicationYear', 'Title' and 'Publisher' are familiar from traditional citation formats, except that the publisher may not be a traditional book or journal publisher, but a dedicated data repository organisation. 'Creator' is equivalent to the author or primary collector and arranger of the data (e.g. Open Context or tDAR). The 'Version' and 'Identifier' fields are unique to data citation, and can take a variety of forms. The identifier is a special type of persistent internet address. The identifier must have two important qualities: the address contains some metadata (such as the identity of the publisher, but not necessarily in a human-readable format), and they remained fixed to a specific file or bundle of files over the lifetime of those objects, even if their location on the internet changes. There are several varieties of these in use, with DOIs (digital object identifiers) currently the most common form. When a data publisher changes the internet address of a data set, they are responsible for informing the DOI-issuing authority so that the DOI resolves to the new location of the files.
 
-A DOI consists of three parts:
+A DOI consists of three parts: 
 
 - the proxy, usually https://doi.org but sometimes also https://hdl.handle.net/ or just doi:
 - the prefix, usually a string of numbers that is unique to the organisation publishing the DOI. For example, tDAR prefix is 10.6067
