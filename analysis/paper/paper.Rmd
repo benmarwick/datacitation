@@ -39,7 +39,7 @@ abstract: |
 ---
 
 
-```{r, setup2, echo = FALSE}
+```{r, setup2, echo = FALSE, message=FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -1017,7 +1017,6 @@ Many of the records are grey literature such as unpublished reports (Figure \@re
 
 From this pilot study of repository data we see that policy mandates in the UK and the Netherlands have been effective in populating repositories with archaeological data. With the 2012 spike in records deposited in tDAR we also see that archaeologists are sensitive to the price of sharing data. Nearly all records are made available under conditions that permit others to use the data while requiring that the original author of the data receive credit in reuse. In most cases this is because the repository hosting the data requires the author to choose one of these permissive licenses as a condition of making the deposit. However, although many items are _able_ to be reused because of the licenses, the ease of reuse of these items is low. Only a small fraction of the items deposited are machine-readable structured data files. The majority of items are PDFs, which require extensive manual handling to extract tabular data for convenient reuse and combination with other datasets.
 
-<!-- something about data citation results here -->
 
 ```{r datacite-plots}
 datacentre_plot <-
@@ -1259,7 +1258,7 @@ ggsave("../figures/datacentre_rights_table.png",
 knitr::include_graphics("../figures/datacentre_rights_table.png")
 ```
 
-```{r events, eval = FALSE}
+```{r citation-events}
 # get cross-ref events for dataset dois
 # this is mostly citations of the datasets
 library(crevents)
@@ -1353,7 +1352,7 @@ events_df_names %>%
              colour =  wes_palette("Rushmore")[1],
              shape = 16) +
   theme_bw() +
-  xlab("Source") +
+  xlab("Data source") +
   ylab("Cited by") +
   scale_size_continuous(range=c(5,25)) +
   geom_text(aes(label = prettyNum(n, big.mark = ","))) +
@@ -1363,8 +1362,49 @@ events_df_names %>%
 ggsave("../figures/doi_citation_table.png",
        plot_citation_table,
        height = 7)
+```
 
 
+```{r citation-time-series}
+citation_time_series_plot <-  
+events_df_names %>% 
+  select(occurred_at) %>% 
+  mutate(occurred_at = as.Date(occurred_at)) %>% 
+ggplot(aes(occurred_at)) +
+  geom_histogram() +
+  scale_x_date(date_breaks = "6 month") +
+  theme_bw(base_size = 10) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+  xlab("Date of citation event") +
+  ylab("Number of citations\nper day")
+
+ggsave("../figures/citation_time_series_plot.png",
+       citation_time_series_plot,
+       height = 3)
+  
+```
+
+```{r combine-citation-plots}
+# combine citation plots
+library(cowplot)
+
+combined_citation_plots <- 
+ggdraw() +
+  draw_plot(plot_citation_table) +
+  draw_plot(citation_time_series_plot,
+            x = 0.25, y = -0.1, scale = 0.4)
+
+ggsave("../figures/combined_citation_plots.png",
+       combined_citation_plots,
+       height = 7, width = 10)
+```
+
+
+We can get some insights into the impact of repository data by querying the Crossref (2017) Events Data service, a freely accessible DOI citation dataset produced by periodic scanning of a variety of online sources. Crossref is an official DOI registration agency, focused on issuing DOIs for scholarly materials such as journal articles, books, ebooks, etc. Another source for data citation data is Thomson Reuters' Data Citation Index (Pavlech 2016), but this resource is not free, and we did not have access to a subscription. Of the `r prettyNum(length(dc_arch$doi), big.mark = ",")` DOIs in our sample, we found a total of `r nrow(events_df)` citations of `r length(unique(events_df$obj_id))` unique DOIs in the Crossref events data. The majority of these citations were found on Wikipedia \@ref(fig:citation-plot), followed by other data repositories (i.e. cross-citations from one data set to another in the same repository). The largest source of citations is the Zenodo repository, followed by articles in the journal _Medieval Archaeology_, which appear here because volumes 1-50 are hosted by the Archaeology Data Service. According to the Crossref data, citation of archaeological data in repositories is a recent phenomena, with the majority in our sample occuring over the last twelve months. We found only one example of a dataset DOI cited in a journal article (McCoy and Codlin 2016). This may be an underestimate, given Huggett's (2017) finding that 56 of 476 archaeology data sources in Thomson Reuters' Data Citation Index have citations in Web of Science databases. However, Huggett notes that the Thomson Reuters citation data is unreliable, for example, with incomplete citations, and citations that pre-date the cited dataset. Huggett also shows an example of archaeologists citing datasets but omitting the DOI (e.g. Nugent and  Williams 2012), so the citation is not captured by services such as Crossref or Thomson Reuters. These malformed citations add to the difficulty of accurately measuring data citation in archaeology.    
+
+
+```{r citation-plot, fig.cap = "Citation of archaeological data DOIs tracked by the Crossref Events Data service. Inset shows the distribution of these citations over time."}
+knitr::include_graphics("../figures/combined_citation_plots.png")
 ```
 
 # How to share archaeological data?
@@ -1411,7 +1451,7 @@ Marwick, B. (2017). Dataset and R code for "Movement of lithics by trampling: An
 
 # Summary and Conclusion
 
-The status of research data is slowly changing in many fields from a gift-culture where data are privately-held commodities traded for co-authorship, invitations, and other status tokens (Hagstrom 1982; Wallis et al. 2013), to part of the public commons, accessible to anyone with an internet connection. This change has been fastest in data-rich 'big science' fields, such as astronomy, physics, and oceanography, that use expensive instruments that generate data shared with large teams of collaborators to produce new discoveries (Reichman and Uhlir 2003). However, in 'smaller' data-poor sciences such as archaeology, where collaborative groups are small, data sharing is still mostly ad hoc and disaggregated. Our pilot studies, while small and limited in many ways, support this statement with an overall sharing rate of `r sharing_rate`% in responses to private requests for data, and `r data_are_avail_perc`% of sampled journal articles with openly available data, in a wide variety of formats and locations. We found that legislation requiring data sharing resulted in a substantial increase in the rate of data deposition, and that archaeologists are sensitive to repository fees. In examining archaeological data deposited in repositories, we found that most of the contents are PDF files of reports, and only a very small fraction of the data files are structured data such as spreadsheets. Archaeologists still have a long way to go in making their data easier to reuse by sharing data in plain text structured data formats such as CSV. Table \@ref(tab:desirable) summarises nine key tasks archaeologists should do to their data to optimise its discovery and reuse.
+The status of research data is slowly changing in many fields from a gift-culture where data are privately-held commodities traded for co-authorship, invitations, and other status tokens (Hagstrom 1982; Wallis et al. 2013), to part of the public commons, accessible to anyone with an internet connection. This change has been fastest in data-rich 'big science' fields, such as astronomy, physics, and oceanography, that use expensive instruments that generate data shared with large teams of collaborators to produce new discoveries (Reichman and Uhlir 2003). However, in 'smaller' data-poor sciences such as archaeology, where collaborative groups are small, data sharing is still mostly ad hoc and disaggregated. Our pilot studies, while small and limited in many ways, support this statement with an overall sharing rate of `r sharing_rate`% in responses to private requests for data, and `r data_are_avail_perc`% of sampled journal articles with openly available data, in a wide variety of formats and locations. We found that legislation requiring data sharing resulted in a substantial increase in the rate of data deposition, and that archaeologists are sensitive to repository fees. In examining archaeological data deposited in repositories, we found that most of the contents are PDF files of reports, and only a very small fraction of the data files are structured data such as spreadsheets. Archaeologists still have a long way to go in making their data easier to reuse by sharing data in plain text structured data formats such as CSV. We found that citation of datasets, although problematic to measure, appears to be almost non-existant in archaeological literature. Table \@ref(tab:desirable) summarises nine key tasks archaeologists should do to their data to optimise its discovery and reuse.
 
 ```{r desirable}
 tbl <- readr::read_csv("../figures/tbl_rules_of_data_sharing.csv")
@@ -1434,7 +1474,7 @@ The challenge of data sharing as an unrewarded behaviour was the primary motivat
 
 # Acknowledgements
 
-This paper emerged out of discussions at the 2017 SAA meeting, specifically the forum ‘Beyond Data Management: A Conversation about “Digital Data Realities”’, organised by Sarah Kansa and Eric Kansa, and the SAA publications committee meeting. Thanks to Canan Cakirlar for insights into the history of archaeological data sharing in the Netherlands, and Stefano Costa for many helpful suggestions. BM was supported by an Australian Research Council Future Fellowship (FT140100101).
+This paper emerged out of discussions at the 2017 SAA meeting, specifically the forum ‘Beyond Data Management: A Conversation about “Digital Data Realities”’, organised by Sarah Kansa and Eric Kansa, and the SAA publications committee meeting. Thanks to Canan Cakirlar for insights into the history of archaeological data sharing in the Netherlands, and Stefano Costa for many helpful suggestions. BM was supported by an Australian Research Council Future Fellowship (FT140100101). Thanks to the five peer reviewers for their constructive suggestions.
 
 # References
 
@@ -1452,7 +1492,9 @@ Borgman, C. L. (2012). The conundrum of sharing research data. Journal of the Am
 
 Chambers, C. (2017). The seven deadly sins of psychology: A manifesto for reforming the culture of scientific practice. Princeton, NJ: Princeton University Press.
 
-Clarke, Mary. 2015. The Digital Dilemma: Preservation and the Digital. Archaeological Record. Advances in Archaeological Practice. 3(4): 313-330.
+Clarke, Mary. (2015). The Digital Dilemma: Preservation and the Digital. Archaeological Record. Advances in Archaeological Practice. 3(4): 313-330.
+
+Crossref (2017). Event Data User Guide, Version 1.0.0 - Beta. Retrieved November 7, 2017, from https://www.eventdata.crossref.org/guide/
 
 Daston, Lorraine, Galison Peter. (1992) The Image of Objectivity. Representations. 40:81–128.
 
@@ -1499,6 +1541,8 @@ Leonelli, S. (2016). The philosophy of data, In Floridi, L. (Ed.) The Routledge 
 
 Marwick, B. (2017). Computational reproducibility in archaeological research: Basic principles and a case study of their implementation. Journal of Archaeological Method and Theory, 24(2), 424-450.
 
+McCoy, M. D., and M. C. Codlin. (2016). The Influence of Religious Authority in Everyday Life: A Landscape-Scale Study of Domestic Architecture and Religious Law in Ancient Hawai’i. World Archaeology 48 (3):411–30. 
+
 McCullough BD, McGeary KA, Harrison TD. (2006) Lessons from the JMCB Archive. Journal of Money, Credit, and Banking 38(4), 1093-1107. doi:10.1353/mcb.2006.0061
 
 McCullough BD and Vinod HD. (2005) Comment: Econometrics and Software. Journal of Economic Perspectives 17(1), 223-224.
@@ -1528,6 +1572,8 @@ National Science Foundation. (2010). Data Management & Sharing Frequently Asked 
 National Science Foundation. (2016). Dissemination and Sharing of Research Results. Retrieved September 7, 2017, from https://www.nsf.gov/bfa/dias/policy/dmp.jsp
 
 Pampel, H., Vierkant, P., Scholze, F., Bertelmann, R., Kindling, M., Klump, J. & Dierolf, U. (2013). Making research data repositories visible: The re3data.org registry. PloS one, 8(11), e78080.
+
+Pavlech, L. L. (2016). Data Citation Index. Journal of the Medical Library Association : JMLA, 104(1), 88–90. 
 
 Peng RD, Dominici F, and Zeger SL. (2006) Reproducible Epidemiological Research. American Journal of Epidemology 163, 783-789 doi: 10.1093/aje/kwj093
 
