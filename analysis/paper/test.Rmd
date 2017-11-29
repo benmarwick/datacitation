@@ -1,0 +1,15 @@
+---
+output: bookdown::html_document2
+---
+
+Table \@ref(tab:onecol)
+
+```{r onecol}
+knitr::kable(data.frame(x = 1:2), caption = "One col table")
+```
+
+Table \@ref(tab:twocol)
+
+```{r twocol}
+knitr::kable(data.frame(x = 1:2, y = 1:2), caption = "Two col table")
+```
