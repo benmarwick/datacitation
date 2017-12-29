@@ -1532,59 +1532,84 @@ Daston, LLorraine, and Peter Galison
 Data Citation Synthesis Group
 2014	Joint Declaration of Data Citation Principles. In _FORCE11; 2014_ edited by M. Martone, Electronic document, https://doi.org/10.25490/a97f-egyk, accessed on 7 September 2017. 
 
-Dorch, B. F., Drachen, T. M., and O. Ellegaard
-2015	The Data Sharing Advantage in Astrophysics. Proceedings of the International Astronomical Union, 11(A29A), 172-175.
+Dorch, Bertil. F., Thea M. Drachen, and Ole Ellegaard
+2015	The Data Sharing Advantage in Astrophysics. _Proceedings of the International Astronomical Union_ 11(A29A): 172-175.
 
-Duke, C. S., and J. H. Porter
-2013.	The Ethics of Data Sharing and Reuse in Biology. BioScience, 63(6), 483–489. 
+Duke, Clifford S. and John H. Porter
+2013	The Ethics of Data Sharing and Reuse in Biology. BioScience, 63(6): 483–489. 
+
 Editors
 2013.	Guide for Authors. Journal of Archaeological Science. Electronic document, https://web.archive.org/web/20130125222940/https://www.elsevier.com/journals/journal-of-archaeological-science/0305-4403/guide-for-authors, accessed 7 September 7, 2017
-Ellison, L. A. 
-2012.	Just 20 days left!! Upload Your Archaeological Information FREE to tDAR!! | The Digital Archaeological Record (blog). Electronic document https://www.tdar.org/news/2012/12/just-20-days-left-upload-your-archaeological-information-free-to-tdar/, accessed 7 September 2017
-Eglen, S. J., Marwick, B., Halchenko, Y. O., Hanke, M., Sufi, S., Gleeson, P., J.-B. Poline
-2017.	Toward Standard Practices for Sharing Computer Code and Programs in Neuroscience. Nature Neuroscience, 20(6), 770–773. 
-Fienberg, S. E., Martin, M. E., & Straf, M. L. 
-1985	Sharing Research Data. National Academy Press, Washington DC.
-Floridi, L. 
-2011.	The Philosophy of Information. Oxford University Press, London.
-Giofrè, D., Cumming, G., Fresc, L., Boedker, I., and P. Tressoldi
-2017.	The influence of journal submission guidelines on authors’ reporting of statistics and use of open research practices. PLoS ONE, 12(4). DOI:10.1371/journal.pone.0175583, accessed on 7 September 2017
-Gleditsch, N. P., Metelits, C., and H. Strand
-2003.	Posting Your Data: Will You be Scooped or will You be Famous. International Studies Perspectives, 4(1), 89-97.
-Hacking I.
-1992.	The Self-Vindication of the Laboratory Sciences. In Science as Practice and Culture, edited by Andrew Pickering. The University of Chicago Press, pp. 29–64, Chicago, Illinois. 
-Hagstrom, W O. 
-1982.	Gift Giving as an Organising Principle in Science In Science in Context: Readings in the Sociology of Science edited by B. Barnes and D. Edge, pp. 21–34, The Open University Press, Milton Keynes. 
-Harding, A., Harper, B., Stone, D., O’Neill, C., Berger, P., Harris, S., and J. Donatuto
-2012.	Conducting Research with Tribal Communities: Sovereignty, Ethics, and Data-Sharing Issues. Environmental Health Perspectives, 120(1), 6.
-Hart, E. M., Barmby, P., LeBauer, D., Michonneau, F., Mount, S., Mulrooney, P., and , J. W. Hollister
-2016.	Ten Simple Rules for Digital Data Storage. PLOS Computational Biology, 12(10), e1005097. DOI:10.1371/journal.pcbi.1005097, accessed on 7 September 2017
-Henneken, E. A., and A. Accomazzi
-2011.	Linking to Data-Effect on Citation Rates in Astronomy. Electronic document, https://arxiv.org/abs/1111.3618, accessed 17 September 2017
-Huggett, J. 
+
+Ellison, Leigh A. 
+2012.	Just 20 days left!! Upload Your Archaeological Information FREE to tDAR!! _The Digital Archaeological Record_ (blog). Electronic document https://www.tdar.org/news/2012/12/just-20-days-left-upload-your-archaeological-information-free-to-tdar/, accessed 7 September 2017
+
+Eglen, Stephen. J., Ben Marwick, Yaroslav O. Halchenko, Michael Hanke, Shoaib Sufi, Padraig Gleeson, Jean-Baptist Poline
+2017	Toward Standard Practices for Sharing Computer Code and Programs in Neuroscience. _Nature Neuroscience_ 20(6), 770–773.
+
+Fienberg, Stephen E., Margaret E. Martin, & Miron L. Straf 
+1985	_Sharing Research Data_. National Academy Press, Washington DC.
+
+Floridi, Luciano
+2011	The Philosophy of Information. Oxford University Press, London.
+
+Giofrè, David, Geoff Cumming, Luca Fresc, Ingrid Boedker and Patrizio Tressoldi
+2017	The influence of journal submission guidelines on authors’ reporting of statistics and use of open research practices. _PLoS ONE_ 12(4). DOI:10.1371/journal.pone.0175583, accessed on 7 September 2017
+
+Gleditsch, Nils. P., Claire Metelits and Håvard Strand
+2003	Posting Your Data: Will You be Scooped or will You be Famous. _International Studies Perspectives_ 4(1): 89-97.
+
+Hacking, Ian
+1992	The Self-Vindication of the Laboratory Sciences. In _Science as Practice and Culture_, edited by Andrew Pickering. The University of Chicago Press, pp. 29–64, Chicago, Illinois. 
+
+Hagstrom, Warren O. 
+1982	Gift Giving as an Organising Principle in Science. In _Science in Context: Readings in the Sociology of Science_ edited by B. Barnes and D. Edge, pp. 21–34, The Open University Press, Milton Keynes. 
+
+Harding, Anna, Barbara Harper, Dave Stone, Catherine O’Neill, Patricia Berger, Stuart Harris and Jamie Donatuto
+2012	Conducting Research with Tribal Communities: Sovereignty, Ethics, and Data-Sharing Issues. _Environmental Health Perspectives_ 120(1): 6-10.
+
+Hart, Edmund M., Pauline Barmby, David LeBauer, François Michonneau, Sarah Mount, Patrick Mulrooney and Jeffrey. W. Hollister
+2016	Ten Simple Rules for Digital Data Storage. _PLOS Computational Biology_ 12(10), e1005097. DOI:10.1371/journal.pcbi.1005097, accessed on 7 September 2017
+
+Henneken, Edwin A., and Alberto Accomazzi
+2011	Linking to Data-Effect on Citation Rates in Astronomy. Electronic document, https://arxiv.org/abs/1111.3618, accessed 17 September 2017
+
+Huggett, Jeremy 
 2017	Citing Data Reuse. Electronic document, https://introspectivedigitalarchaeology.wordpress.com/2017/05/23/citing-data-reuse/, accessed September 7, 2017
-Hymes, D. 
-1972.	Reinventing Anthropology. Pantheon, New York.
+
+Hymes, Dell 
+1972	_Reinventing Anthropology_. Pantheon, New York.
+
 Inter-university Consortium for Political and Social Research
-2012.	Guide to Social Science Data Preparation and Archiving: Best Practice Throughout the Data Life Cycle (5th ed.). Institute for Social Research University of Michigan, Ann Arbor, Michigan
-Kansa, E. C. and S. W. Kansa
-2013.	Open Archaeology: We All Know That a 14 Is a Sheep: Data Publication and Professionalism in Archaeological Communication. Journal of Eastern Mediterranean Archaeology & Heritage Studies, 1(1), 88-97.
-Kansa, E. C., S. W. Kansa and E. Watrall, E. (editors)
-2011.	Archaeology 2.0: new approaches to communication and collaboration. Cotsen Digital Archaeology Series, University of California, Electronic document, https://escholarship.org/uc/item/1r6137tb, accessed 7 November 2017
-Kidwell, M. C., Lazarević, L. B., Baranski, E., Hardwicke, T. E., Piechowski, S., Falkenberg, L. S. and T. M. Errington
-2016.	Badges to Acknowledge Open Practices: A Simple, Low-cost, Effective Method for Increasing Transparency. PLoS Biology, 14(5), e1002456.
-Kintigh, K. 
-2006.	The Promise and Challenge of Archaeological Data Integration. American Antiquity, 71(3), 567-578.
-Keers, G., van der Reijden, H., and H. van Rossum
-2011.	Planning Archaeology: A Synthesis of the Thematic Sub-reports. RIGO Research en Advies, Amsterdam. 
-Kratz J. and C. Strasser 
-2015.	 Researcher Perspectives on Publication and Peer Review of Data. PLOS ONE 10(2): e0117619. DOI:10.1371/journal.pone.0117619, accessed 7 September 2017.
-Kratz J. and C. Strasser 
-2014.	Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research, Electronic document, https://f1000research.com/articles/3-94/v1, accessed 7 September 2017.
-Kyzas P.A, K.T. Loizou, and J.P. Ioannidis
-2005.	Selective reporting biases in cancer prognostic factor studies. Journal of the National Cancer Institute 97, 1043-1055.
-Latour, B. 
-1999.	Pandora's Hope: Essays on the Reality of Science Studies. Harvard University Press, Massachusetts. 
+2012	_Guide to Social Science Data Preparation and Archiving: Best Practice Throughout the Data Life Cycle_ (5th ed.). Institute for Social Research University of Michigan, Ann Arbor, Michigan
+
+Kansa, Eric C. and Sarah W. Kansa
+2013	Open Archaeology: We All Know That a 14 Is a Sheep: Data Publication and Professionalism in Archaeological Communication. _Journal of Eastern Mediterranean Archaeology & Heritage Studies_ 1(1): 88-97.
+
+Kansa, Eric C., Sarah. W. Kansa and Ethan Watrall (editors)
+2011	_Archaeology 2.0: new approaches to communication and collaboration_. Cotsen Digital Archaeology Series, University of California, Electronic document, https://escholarship.org/uc/item/1r6137tb, accessed 7 November 2017
+
+Kidwell, Mallory C., Ljiljana B. Lazarević, Erica Baranski, Tom Hardwicke, Sarah Piechowski, Lina-Sophia Falkenberg and Brian Nosek
+2016	Badges to Acknowledge Open Practices: A Simple, Low-cost, Effective Method for Increasing Transparency. _PLoS Biology_ 14(5), e1002456.
+
+Kintigh, Keith 
+2006.	The Promise and Challenge of Archaeological Data Integration. _American Antiquity_ 71(3): 567-578.
+
+Keers, Geurt, Hans van der Reijden and Hans van Rossum
+2011	_Planning Archaeology: A Synthesis of the Thematic Sub-reports_. RIGO Research en Advies, Amsterdam. 
+
+Kratz John and Carly Strasser 
+2015	 Researcher Perspectives on Publication and Peer Review of Data. _PLOS ONE_ 10(2): e0117619. DOI:10.1371/journal.pone.0117619, accessed 7 September 2017.
+
+Kratz John and Carly Strasser 
+2014	Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research, Electronic document, https://f1000research.com/articles/3-94/v1, accessed 7 September 2017.
+
+Kyzas Panayiotis A., Konstantinos T. Loizou and John P. A. Ioannidis
+2005.	Selective reporting biases in cancer prognostic factor studies. _Journal of the National Cancer Institute_ 97: 1043-1055.
+
+Latour, Bruno 
+1999	_Pandora's Hope: Essays on the Reality of Science Studies_. Harvard University Press, Massachusetts. 
+
 Leonelli, S. 
 2016.	The Philosophy of Data, In The Routledge Handbook of Philosophy of Information, edited by L. Floridi. Routledge, New York.
 Leonelli, S. 
