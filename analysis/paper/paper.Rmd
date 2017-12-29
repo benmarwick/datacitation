@@ -128,7 +128,7 @@ knitr::kable(tbl, caption = "Summary of individual benefits to data sharing")
 
 # What do Researchers Think about Sharing Data?
 
-Sharing of data is a quality that is fundamental to the definition of science (cf. Merton’s (1942) communalism norm, where intellectual property rights are normally given up in exchange for recognition and esteem) and to data both as an abstract quality (cf. the definitions in Table \@ref(tab:summary-of-defs-of-data) that mention data as ‘portable’, ‘stable across different domains’) and as a concrete detail to be managed with policy. For example, for over a decade the National Science Foundation (2016) has had a data sharing policy that states "Investigators are expected to share with other researchers, at no more than incremental cost and within a reasonable time, the primary data, samples, physical collections and other supporting materials created or gathered in the course of work under NSF grants. Grantees are expected to encourage and facilitate such sharing." Surveys of researchers across different domains repeatedly show that people value the ideal of data sharing (Kratz and Strasser 2015). However, data sharing is not widespread in many disciplines, raising questions about why researchers do or do not share their data. Three recent studies have attempted to answer these questions, in the search for strategies to encourage sharing.
+Sharing of data is a quality that is fundamental to the definition of science (cf. Merton’s (1942) communalism norm, where intellectual property rights are normally given up in exchange for recognition and esteem) and to data both as an abstract quality (cf. the definitions in Table \@ref(tab:summary-of-defs-of-data) that mention data as ‘portable’, ‘stable across different domains’) and as a concrete detail to be managed with policy. For example, for over a decade the National Science Foundation (2016) has had a data sharing policy that states "Investigators are expected to share with other researchers, at no more than incremental cost and within a reasonable time, the primary data, samples, physical collections and other supporting materials created or gathered in the course of work under NSF grants. Grantees are expected to encourage and facilitate such sharing." Surveys of researchers across different domains repeatedly show that people value the ideal of data sharing (Kratz and Strasser 2014; 2015). However, data sharing is not widespread in many disciplines, raising questions about why researchers do or do not share their data. Three recent studies have attempted to answer these questions, in the search for strategies to encourage sharing.
 
 Stodden (2010) surveyed registrants at a top machine learning conference (the Neural Information Processing Systems (NIPS) conference) to identify the factors that affect researchers’ decisions to reveal data (Table \@ref(tab:sharingbenefits)). Stodden found that communitarian factors influence scientists to share their data, but private incentives determine when scientists choose not to share their code and data. In the top three reasons not to share, we see a lack of incentives to invest time in data sharing (however, there are many other time-consuming tasks in research, and they get done because clear reward structures are in place); a lack of faith in data citation (which we hope this paper will help with); and a lack of an efficient copyright process. Stodden’s (2009a, b) ‘Reproducible Research Standard’, summarized in Table \@ref(tab:stodden-rrs), is a convenient and robust copyright schema that is in wide use for many typical research projects.
 
@@ -1502,6 +1502,9 @@ Alsheikh-Ali, Alawi A., Waqas Qureshi, Mouaz H. Al-Mallah and John P. A. Ioannid
 American Psychological Association
 2001	Ethical Standards for the Reporting and Publishing of Scientiﬁc Information. In _Publication Manual edited by American Psychological Association_, pp. 387–396. Washington, DC
 
+Archaeology Data Service / Digital Antiquity 
+2011  Guides to Good Practice. Electronic document, http://guides.archaeologydataservice.ac.uk/ accessed on 7 September 2017. 
+
 ARCHES project
 n.d. _The Standard and Guide to Best Practice in Archaeological Archiving in Europe._ Electronic document, http://archaeologydataservice.ac.uk/arches/Wiki.jsp?page=ARCHES%20Introduction, accessed on 7 September 2017.
 
@@ -1509,10 +1512,10 @@ Bogen, James, and James Woodward
 1998	Saving the Phenomena. _The Philosophical Review_ 97(3): 303–352
 
 Borgman, Christine L. 
-2015	_Big Data, Little Data, No Data: Scholarship in the Networked World._ MIT Press, Massachusetts.
+2012	The Conundrum of Sharing Research Data. _Journal of the American Society for Information Science and Technology_ 63(6): 1059–1078.
 
 Borgman, Christine L. 
-2012	The Conundrum of Sharing Research Data. _Journal of the American Society for Information Science and Technology_ 63(6): 1059–1078.
+2015	_Big Data, Little Data, No Data: Scholarship in the Networked World._ MIT Press, Massachusetts.
 
 Chambers, Chris 
 2017	_The Seven Deadly Sins of Psychology: A Manifesto for Reforming the Culture of Scientific Practice._ Princeton University Press, Princeton, New Jersey. 
@@ -1589,20 +1592,20 @@ Kansa, Eric C. and Sarah W. Kansa
 Kansa, Eric C., Sarah. W. Kansa and Ethan Watrall (editors)
 2011	_Archaeology 2.0: new approaches to communication and collaboration_. Cotsen Digital Archaeology Series, University of California, Electronic document, https://escholarship.org/uc/item/1r6137tb, accessed 7 November 2017
 
+Keers, Geurt, Hans van der Reijden and Hans van Rossum
+2011	_Planning Archaeology: A Synthesis of the Thematic Sub-reports_. RIGO Research en Advies, Amsterdam. 
+
 Kidwell, Mallory C., Ljiljana B. Lazarević, Erica Baranski, Tom Hardwicke, Sarah Piechowski, Lina-Sophia Falkenberg and Brian Nosek
 2016	Badges to Acknowledge Open Practices: A Simple, Low-cost, Effective Method for Increasing Transparency. _PLoS Biology_ 14(5), e1002456.
 
 Kintigh, Keith 
 2006.	The Promise and Challenge of Archaeological Data Integration. _American Antiquity_ 71(3): 567-578.
 
-Keers, Geurt, Hans van der Reijden and Hans van Rossum
-2011	_Planning Archaeology: A Synthesis of the Thematic Sub-reports_. RIGO Research en Advies, Amsterdam. 
+Kratz John and Carly Strasser 
+2014	Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research, Electronic document, https://f1000research.com/articles/3-94/v1, accessed 7 September 2017.
 
 Kratz John and Carly Strasser 
 2015	 Researcher Perspectives on Publication and Peer Review of Data. _PLOS ONE_ 10(2): e0117619. DOI:10.1371/journal.pone.0117619, accessed 7 September 2017.
-
-Kratz John and Carly Strasser 
-2014	Data publication consensus and controversies [version 1; referees: 1 approved with reservations]. F1000Research, Electronic document, https://f1000research.com/articles/3-94/v1, accessed 7 September 2017.
 
 Kyzas Panayiotis A., Konstantinos T. Loizou and John P. A. Ioannidis
 2005.	Selective reporting biases in cancer prognostic factor studies. _Journal of the National Cancer Institute_ 97: 1043-1055.
@@ -1610,116 +1613,167 @@ Kyzas Panayiotis A., Konstantinos T. Loizou and John P. A. Ioannidis
 Latour, Bruno 
 1999	_Pandora's Hope: Essays on the Reality of Science Studies_. Harvard University Press, Massachusetts. 
 
-Leonelli, S. 
-2016.	The Philosophy of Data, In The Routledge Handbook of Philosophy of Information, edited by L. Floridi. Routledge, New York.
-Leonelli, S. 
-2015.	 What Counts as Scientific Data? A Relational Framework. Philosophy of Science, 82(5), 810-821.
-Marwick, B. 
-2017.	Computational Reproducibility in Archaeological Research: Basic Principles and a Case Study of their Implementation. Journal of Archaeological Method and Theory, 24(2), 424-450.
-Marwick, B., E. Hayes, C. Clarkson and R. Fullagar
-2017.	Movement of Lithics by Trampling: An Experiment in the Madjedbebe Sediments, Northern Australia. Journal of Archaeological Science 79:73-85.
-McCoy, M. D. and M. C. Codlin
-2016.	The Influence of Religious Authority in Everyday Life: A Landscape-Scale Study of Domestic Architecture and Religious Law in Ancient Hawai’i. World Archaeology 48 (3):411–30.
-McCullough B. D., K.A. McGeary and T. D. Harrison 
-2006.	Lessons from the JMCB Archive. Journal of Money, Credit, and Banking 38(4), 1093-1107.
-McCullough B. D. and H. D. Vinod
-2005.	Comment: Econometrics and Software. Journal of Economic Perspectives 17(1), 223-224.
-McMurry, J. A., Juty, N., Blomberg, N., Burdett, T., Conlin, T., Conte, N., Parkinson, H., Winfree, L., Mungall, C., Haendel, M. and H. Parkinson 
-2017.	Identifiers for the 21st Century: How to Design, Provision, and Reuse Persistent Identifiers to Maximize Utility and Impact of Life Science Data. PLOS Biology, 15(6), e2001414. DOI:10.1371/journal.pbio.2001414, accessed on 7 September 2017.
-Merton, R.K. 
-1942.	The Normative Structure of Science. In The Sociology of Science: Theoretical and Empirical Investigations, edited by R. K. Merton, University Of Chicago Press, Chicago, Illinois. 
-Moore, R., and J. Richards
-2015.	Here Today, Gone Tomorrow: Open Access, Open Data and Digital Preservation. In Open Source Archaeology: Ethics and Practice, edited by Andrew T. Wilson, Ben Edwards, De Gruyter, Netherlands
-Mounce, R. 
-2014.	Open Data and Palaeontology. In Issues in Open Research Data, edited by S. A. Moore. pp. 151–164. Ubiquity Press, London.
+Leonelli, Sabina 
+2015	 What Counts as Scientific Data? A Relational Framework. _Philosophy of Science_ 82(5): 810-821.
+
+Leonelli, Sabina 
+2016	The Philosophy of Data, In _The Routledge Handbook of Philosophy of Information_, edited by L. Floridi. Routledge, New York.
+
+Marwick, Ben 
+2017	Computational Reproducibility in Archaeological Research: Basic Principles and a Case Study of their Implementation. _Journal of Archaeological Method and Theory_ 24(2): 424-450.
+
+Marwick, Ben, Elspeth Hayes, Chris Clarkson and Richard. Fullagar
+2017	Movement of Lithics by Trampling: An Experiment in the Madjedbebe Sediments, Northern Australia. _Journal of Archaeological Science_ 79:73-85.
+
+McCoy, Mark D. and Maria C. Codlin
+2016	The Influence of Religious Authority in Everyday Life: A Landscape-Scale Study of Domestic Architecture and Religious Law in Ancient Hawai’i. _World Archaeology_ 48(3):411–30.
+
+McCullough, Bruce D., Kerry A. McGeary and Teresa D. Harrison 
+2006	Lessons from the JMCB Archive. _Journal of Money, Credit, and Banking_ 38(4): 1093-1107.
+
+McCullough Bruce D. and Hrishikesh D. Vinod
+2005	Comment: Econometrics and Software. _Journal of Economic Perspectives_ 17(1): 223-224.
+
+McMurry, Julie A., Nick Juty, Niklas Blomberg, Tony Burdett, Tom Conlin, Nathalie Conte and Helen Parkinson 
+2017	Identifiers for the 21st Century: How to Design, Provision, and Reuse Persistent Identifiers to Maximize Utility and Impact of Life Science Data. _PLOS Biology_ 15(6), e2001414. DOI:10.1371/journal.pbio.2001414, accessed on 7 September 2017.
+
+Merton, Robert K. 
+1942	The Normative Structure of Science. In _The Sociology of Science: Theoretical and Empirical Investigations_, edited by Robert K. Merton, University Of Chicago Press, Chicago, Illinois. 
+
+Moore, Ray, and Julian Richards
+2015	Here Today, Gone Tomorrow: Open Access, Open Data and Digital Preservation. In _Open Source Archaeology: Ethics and Practice_, edited by Andrew T. Wilson, Ben Edwards, De Gruyter, Netherlands
+
+Mounce, Ross. 
+2014	Open Data and Palaeontology. In _Issues in Open Research Data_, edited by S. A. Moore. pp. 151–164. Ubiquity Press, London.
+
 National Science Foundation
-2016.	Dissemination and Sharing of Research Results. Electronic document, https://www.nsf.gov/bfa/dias/policy/dmp.jsp, accessed 7 September 2017
-Nicholas, G. P.
-2014.	Indigenous cultural heritage in the age of technological reproducibility: Towards a postcolonial ethic of the public domain. In Dynamic Fair Dealing: Creating Canadian Culture Online, edited by Coombe, R. J., Wershler, D., and M. Zeilinger, pp. 213-24. University of Toronto Press, Toronto. 
-Nicholas, G. P., and A. Wylie
-2012.	Do Not Do Unto Others…’: Cultural misrecognition and the harms of appropriation in an open-source world. In Appropriating the Past: Philosophical Perspectives on Archaeological Practice, edited by R. Coningham and G. Scarre, pp. 195-221, Cambridge University Press, Cambridge.
-Nicholas, G. P. and A. Wylie
-2009.	Archaeological Finds: Legacies of Appropriation, Modes of Response. The Ethics of Cultural Appropriation, edited by J. O. Young and C. G. Brunk, pp. 11-54, Wiley-Blackwell, Oxford.
+2016	Dissemination and Sharing of Research Results. Electronic document, https://www.nsf.gov/bfa/dias/policy/dmp.jsp, accessed 7 September 2017
+
+Nicholas, George P.
+2014	Indigenous cultural heritage in the age of technological reproducibility: Towards a postcolonial ethic of the public domain. In _Dynamic Fair Dealing: Creating Canadian Culture Online_, edited by Rosemary Coombe, Darren Wershler and Martin Zeilinger, pp. 213-24. University of Toronto Press, Toronto. 
+
+Nicholas, George P. and Alison Wylie
+2009	Archaeological Finds: Legacies of Appropriation, Modes of Response. In _The Ethics of Cultural Appropriation_, edited by James O. Young and Conrad G. Brunk, pp. 11-54, Wiley-Blackwell, Oxford.
+
+Nicholas, George P. and Alison Wylie
+2012	Do Not Do Unto Others…’: Cultural misrecognition and the harms of appropriation in an open-source world. In _Appropriating the Past: Philosophical Perspectives on Archaeological Practice_, edited by Robin Coningham and Geoffrey Scarre, pp. 195-221, Cambridge University Press, Cambridge.
+
 Nosek, B. A., Alter, G., Banks, G. C., Borsboom, D., Bowman, S. D., Breckler, S. J. and T.  Yarkoni
-2015.	Promoting an Open Research Culture: Author Guidelines for Journals Could Help to Promote Transparency, Openness, and Reproducibility. Science, 348, 1422–5.
-Nugent, R., & Williams, H. 
-2012.	Sighted surfaces: ocular agency in early Anglo-Saxon cremation burials. In Encountering Imagery: Materialities, Perceptions, Relations, edited by I.-M. Back Danielsson, F. Fahlander and Y. Sjöstrand. pp. 187-208, Stockholm University, Stockholm.
-Nuijten, M. B., Borghuis, J., Veldkamp, C. L. S., Alvarez, L. D., van Assen, M. A. L. M., and J. M. Wicherts
-2017.	Journal Data Sharing Policies and Statistical Reporting Inconsistencies in Psychology. Electronic document, https://psyarxiv.com/sgbta, accessed 7 September 2017
+2015	Promoting an Open Research Culture: Author Guidelines for Journals Could Help to Promote Transparency, Openness, and Reproducibility. _Science_ 348: 1422–5.
+
+Nugent, Ruth & Howard Williams 
+2012	Sighted surfaces: ocular agency in early Anglo-Saxon cremation burials. In _Encountering Imagery: Materialities, Perceptions, Relations_, edited by Ing-Marie Back Danielsson, Fredrik Fahlander and Ylva Sjöstrand. pp. 187-208, Stockholm University, Stockholm.
+
+Nuijten, Michèle B., Jeroen Borghuis, Coosje Veldkamp, Linda Alvarez, Marvel van Assen and Jelte M. Wicherts
+2017	Journal Data Sharing Policies and Statistical Reporting Inconsistencies in Psychology. _Collabra: Psychology_ 3(1), 31. DOI:10.1525/collabra.102, accessed 7 September 2017.
+
 National Science Foundation
-2010.	Data Management & Sharing Frequently Asked Questions (FAQs). Electronic document, https://www.nsf.gov/bfa/dias/policy/dmpfaqs.jsp#1, accessed on 7 September 2017
-Pampel, H., Vierkant, P., Scholze, F., Bertelmann, R., Kindling, M., Klump, J. and U. Dierolf
-2013	Making research data repositories visible: The re3data.org registry. PloS ONE, 8(11), e78080, DOI: 10.1371/journal.pone.0078080, accessed 7 September 2017.
-Pavlech, L. L.
-2016	 Data Citation Index. Journal of the Medical Library Association, 104(1), 88–90.
-Peng R. D., F. Dominici F, and S. L. Zege
-2006.	 Reproducible Epidemiological Research. American Journal of Epidemology 163, 783-789
-Penev L, Mietchen D, Chavan V, Hagedorn G, Smith V, Shotton D, Ó Tuama É, Senderov V, Georgiev T, Stoev P, Groom Q, Remsen D, and S. Edmunds
-2017	Strategies and guidelines for Scholarly Publishing of Biodiversity Data. Research Ideas and Outcomes 3: e12431. DOI:10.3897/rio.3.e12431, accessed 7 September 2017.
-Pienta, A. M., Alter, G. C., and J. A Lyle
+2010	Data Management & Sharing Frequently Asked Questions (FAQs). Electronic document, https://www.nsf.gov/bfa/dias/policy/dmpfaqs.jsp#1, accessed on 7 September 2017
+
+Pampel, Heinz, Paul Vierkant, Frank Scholze, Roland Bertelmann, Maxi Kindling, Jens Klump and Uwe Dierolf
+2013	Making research data repositories visible: The re3data.org registry. _PloS ONE_ 8(11), e78080, DOI:10.1371/journal.pone.0078080, accessed 7 September 2017.
+
+Pavlech, Laura L.
+2016	 Data Citation Index. _Journal of the Medical Library Association_ 104(1): 88–90.
+
+Peng Roger D., Francesca Dominici  and Scott L. Zege
+2006	 Reproducible Epidemiological Research. _American Journal of Epidemology_ 163: 783-789.
+
+Penev, Lyubomir, Daniel Mietchen, Vishwas Shravan Chavan, Gregor Hagedorn, Vincent Stuart Smith, David Shotton, Éamonn Ó Tuama, Viktor Senderov, Teodor Georgiev, Pavel Stoev, Quentin John Groom, David Remsen and Scott C. Edmunds
+2017	Strategies and guidelines for Scholarly Publishing of Biodiversity Data. _Research Ideas and Outcomes_ 3, e12431. DOI:10.3897/rio.3.e12431, accessed 7 September 2017.
+
+Pienta, Amy M., George Alter and Jared A. Lyle
 2010	The Enduring Value of Social Science Research: The Use and Reuse of Primary Research Data. Electronic document, http://deepblue.lib.umich.edu/handle/2027.42/78307, accessed 27 September 2017
-Piwowar H. A., R. S. Day and D. B. Fridsma 
-2007.	Sharing Detailed Research Data is Associated with Increased Citation Rate. PLOS ONE 2(3): e308. 
-Piwowar, H. A. and T. J. Vision
-2013.	Data reuse and the open data citation advantage. PeerJ, 1, e175. DOI:10.7717/peerj.175 accessed on 7 September 2017
+
+Piwowar, Heather A., Roger S. Day and Douglas B. Fridsma 
+2007	Sharing Detailed Research Data is Associated with Increased Citation Rate. _PLOS ONE_ 2(3): e308.
+
+Piwowar, Heather A. and Todd. J. Vision
+2013	Data reuse and the open data citation advantage. _PeerJ_, 1, e175. DOI:10.7717/peerj.175 accessed on 7 September 2017
+
 PLoS Medicine Editorial and Publishing Policies. 
-2017.	Sharing of Materials, Methods and Data. PLoS Medicine Editorial and Publishing Policies. Electronic document. http://journals.plos.org/plosmedicine/policies.php#sharing, accessed on 7 September 2017
-Reichman, J. H., and P. F. Uhlir
-2003.	A Contractually Reconstructed Research Commons for Scientific Data in a Highly Protectionist Intellectual Property Environment. Law and Contemporary Problems, 66(1/2), 315-462.
-Reidpath D. D. and P. A. Allotey
-2002.	Data Sharing in Medical Research: An Empirical Investigation. Bioethics 15(2), 125- 134.
-Rowhani-Farid, A., Allen, M., and A. G.Barnett
-2017.	What Incentives Increase Data Sharing in Health and Medical Research? A Systematic Review. Research Integrity and Peer Review, 2(1), 4. 
-Savage C. J. and A. J. Vickers
-2009.	Empirical Study of Data Sharing by Authors Publishing in PLoS Journals. PLoS ONE 4(9): e7078. doi:10.1371/journal.pone.0007078, accessed 7 September 2017.
-Sawyer, S. 
-2008.	Data Wealth, Data Poverty, Science and Cyberinfrastructure. Prometheus, 26(4), 355-371.
+2017	Sharing of Materials, Methods and Data. PLoS Medicine Editorial and Publishing Policies. Electronic document. http://journals.plos.org/plosmedicine/policies.php#sharing, accessed on 7 September 2017
+
+Reichman, James H., and Paul F. Uhlir
+2003	A Contractually Reconstructed Research Commons for Scientific Data in a Highly Protectionist Intellectual Property Environment. _Law and Contemporary Problems_ 66(1/2): 315-462.
+
+Reidpath, Daniel D. and Pascale A. Allotey
+2002	Data Sharing in Medical Research: An Empirical Investigation. _Bioethics_ 15(2): 125-134.
+
+Rowhani-Farid, Anisa, Michelle Allen and Adrian G. Barnett
+2017	What Incentives Increase Data Sharing in Health and Medical Research? A Systematic Review. _Research Integrity and Peer Review_ 2(1): 4. DOI:10.1186/s41073-017-0028-9, accessed 7 September 2017.
+
+Savage Caroline J. and Andrew J. Vickers
+2009	Empirical Study of Data Sharing by Authors Publishing in PLoS Journals. _PLoS ONE_ 4(9): e7078. doi:10.1371/journal.pone.0007078, accessed 7 September 2017.
+
+Sawyer, Steve 
+2008	Data Wealth, Data Poverty, Science and Cyberinfrastructure. _Prometheus_ 26(4), 355-371.
+
 Scientific Data Editors
 n.d	 Recommended Data Repositories. Electronic document, https://www.nature.com/sdata/policies/repositories, accessed 13 September 2017
-Sears, J.R.L 
-2011.	Data Sharing Effect on Article Citation Rate in Paleoceanography. Presented at Fall Meeting of the American Geophysical Union. Electronic document, https://doi.org/10.6084/M9.FIGSHARE.1222998.V1, accessed 7 September 2017.
-Spencer, H.
-2010.	Thoughts on the Sharing of Data and Research Materials and the Role of Journal Policies. Electronic document, https://web.stanford.edu/~vcs/Nov21/hilary_spencer_rdcscsJan2010.pdf, accessed 7 September  2017
-Strasser, C., Cook, R., Michener, W. and A. Budden
-2012.	Primer on Data Management: What you always wanted to know. DataONE Best Practices Primer. Electronic document, https://doi.org/10.5060/D2251G48, accessed, 7 September 2017 
-Stodden, V. 
-2010.	The Scientific Method in Practice: Reproducibility in the Computational Sciences, Columbia University Academic Commons, Electronic document, http://hdl.handle.net/10022/AC:P:11417, Accessed 7 September 2017.
-Stodden, V. 
-2009a.	The Legal Framework for Reproducible Scientific Research: Licensing and Copyright. Computing in Science & Engineering, 11(1), 35-40.
-Stodden, V.
-2009b.	Enabling Reproducible Research: Open Licensing for Scientific Innovation. International Journal of Communications Law and Policy. https://ssrn.com/abstract=1362040, accessed 7 September 2017.
-Tenopir, C., Dalton, E. D., Allard, S., Frame, M., Pjesivac, I., Birch, B and K. Dorsett
-2015.	Changes in Data Sharing and Data Reuse Practices and Perceptions among Scientists Worldwide. PLOS ONE, 10(8), e0134826. DOI:10.1371/journal.pone.0134826, accessed 7 September 2017.
-Thessen, A. E. and D. J. Patterson 
-2011.	Data issues in the life sciences. ZooKeys 150, 15–51. DOI:10.3897/zookeys.150.1766, accessed 7 September 2017. 
-Tsosie, R. 
-2007. Cultural Challenges to Biotechnology: Native American Genetic Resources and the Concept of Cultural Harm. The Journal of Law, Medicine & Ethics 35(3), 396–411. 
-Uhlir, P.F., & Cohen, D. 
-2011. Internal document. Board on Research Data and Information, Policy and Global Affairs Division, National Academy of Sciences. 18 March 2011. Washington, DC.
-Archaeology Data Service / Digital Antiquity 
-2011. Guides to Good Practice. Electronic document, http://guides.archaeologydataservice.ac.uk/ accessed on 7 September 2017. 
-Vanpaemel, W., Vermorgen, M., Deriemaecker, L., and G. Storms
-2015. 	Are We Wasting a Good Crisis? The Availability of Psychological Research Data after the Storm. Collabra, 1(1): 3. DOI:10.1525/collabra.13, accessed 7 September 2017. 
-Vines, T.H, A. Y. Albert, R. L. Andrew, F. Débarre, D. G.Bock, M. T. Franklin and D. J.  Rennison
-2014.	 The Availability of Research Data Declines Rapidly with Article Age. Current Biology 24(1):94-97.
-Vitelli, K. D. and J. S. Colwell-Chanthaphonh, (editors)
-2006.	Archaeological Ethics. Rowman Altamira, New York.
-Wallis, J. C., Rolando, E. and C. L. Borgman
-2013.	If We Share Data, Will Anyone Use Them? Data Sharing and Reuse in the Long Tail of Science and Technology. PLoS ONE, 8(7), e67332. DOI:10.1371/journal.pone.0067332, accessed 7 September 2017.
-White E, Baldridge E, Brym Z, Locey K, McGlinn D and S. Supp
-2013.	 Nine simple ways to make it easier to (re)use your data. Ideas in Ecology and Evolution. 2013;6: 1–10. DOI:10.4033/iee.2013.6b.6.f, accessed on 7 September 2017
-Whitlock, M. C. 
-2011.	Data Archiving in Ecology and Evolution: Best Practices. Trends in Ecology & Evolution, 26(2), 61-65.
-Wicherts, J. M., Borsboom, D., Kats, J. and D. Molenaar
-2006.	The Poor Availability of Psychological Research Data for Reanalysis. American Psychologist, 61(7), 726.
-Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., Appleton, G., Axton, M., Baak, A. and P. E. Bourne
-2016.	The FAIR Guiding Principles for scientific data management and stewardship. Scientific Data, 3, 160018. DOI:10.1038/sdata.2016.18, accessed on 7 September 2017.
-Womack R.P.
-2015.	Research Data in Core Journals in Biology, Chemistry, Mathematics, and Physics. PLOS ONE 10(12): e0143460. DOI:10.1371/journal.pone.0143460, accessed on 7 September 2017. 
-Wouters P. and W. Haak 
-2017.	Open Data Report: The Researcher Perspective. Electronic document https://www.elsevier.com/about/open-science/research-data/open-data-report, accessed 11 October 2017
-Zimmerman, L. J., Vitelli, K. D., and J. Hollowell-Zimmer, (editors)
-2003.	Ethical Issues in Archaeology. Rowman Altamira, New York.
+
+Sears, Jonathan R. L. 
+2011	Data Sharing Effect on Article Citation Rate in Paleoceanography. Presented at Fall Meeting of the American Geophysical Union. Electronic document, https://doi.org/10.6084/M9.FIGSHARE.1222998.V1, accessed 7 September 2017.
+
+Spencer, Hilary.
+2010	Thoughts on the Sharing of Data and Research Materials and the Role of Journal Policies. Electronic document, https://web.stanford.edu/~vcs/Nov21/hilary_spencer_rdcscsJan2010.pdf, accessed 7 September2017
+
+Strasser, Carly, Robert Cook, William Michener and Amber Budden
+2012	Primer on Data Management: What you always wanted to know. DataONE Best Practices Primer. Electronic document, https://doi.org/10.5060/D2251G48, accessed, 7 September 2017 
+
+Stodden, Victoria 
+2009a	The Legal Framework for Reproducible Scientific Research: Licensing and Copyright. _Computing in Science & Engineering_ 11(1): 35-40.
+
+Stodden, Victoria
+2009b	Enabling Reproducible Research: Open Licensing for Scientific Innovation. _International Journal of Communications Law and Policy_ https://ssrn.com/abstract=1362040, accessed 7 September 2017.
+
+Stodden, Victoria 
+2010	The Scientific Method in Practice: Reproducibility in the Computational Sciences, Columbia University Academic Commons, Electronic document, http://hdl.handle.net/10022/AC:P:11417, Accessed 7 September 2017.
+
+Tenopir, Carol, Elizabeth Dalton, Suzie Allard, Mike Frame, Ivanka Pjesivac, Ben Birch and Kristina Dorsett
+2015	Changes in Data Sharing and Data Reuse Practices and Perceptions among Scientists Worldwide. _PLOS ONE_ 10(8), e0134826. DOI:10.1371/journal.pone.0134826, accessed 7 September 2017.
+
+Thessen, Anne E. and David J. Patterson 
+2011	Data issues in the life sciences. _ZooKeys_ 150, 15–51. DOI:10.3897/zookeys.150.1766, accessed 7 September 2017. 
+
+Tsosie, Rebecca 
+2007  Cultural Challenges to Biotechnology: Native American Genetic Resources and the Concept of Cultural Harm. _The Journal of Law, Medicine & Ethics_ 35(3), 396–411. 
+
+Uhlir, Paul F. and Daniel Cohen 
+2011  Internal document. Board on Research Data and Information, Policy and Global Affairs Division, National Academy of Sciences. 18 March 2011. Washington, DC.
+
+Vanpaemel, Wolf, Maarten Vermorgen, Leen Deriemaecker and Gert Storms
+2015 	Are We Wasting a Good Crisis? The Availability of Psychological Research Data after the Storm. _Collabra_ 1(1): 3. DOI:10.1525/collabra.13, accessed 7 September 2017. 
+
+Vines, Timothy H., Arianne Y. Albert, Rose L. Andrew, Florence Débarre, Dan G. Bock, Michelle T. Franklin and Diana J.  Rennison
+2014	 The Availability of Research Data Declines Rapidly with Article Age. _Current Biology_ 24(1):94-97.
+
+Vitelli, Karen D. and John. S. Colwell-Chanthaphonh, (editors)
+2006	_Archaeological Ethics_. Rowman Altamira, New York.
+
+Wallis, Jillian C., Elizabeth Rolando and Christine L. Borgman
+2013	If We Share Data, Will Anyone Use Them? Data Sharing and Reuse in the Long Tail of Science and Technology. _PLoS ONE_ 8(7), e67332. DOI:10.1371/journal.pone.0067332, accessed 7 September 2017.
+
+White, Ethan, Elita Baldridge, Zachary T. Brym, Kenneth Locey, Daniel McGlinn, and Sarah Supp
+2013	 Nine simple ways to make it easier to (re)use your data. Ideas in Ecology and Evolution. 2013(6): 1–10. DOI:10.4033/iee.2013.6b.6.f, accessed on 7 September 2017
+
+Whitlock, Michael C. 
+2011	Data Archiving in Ecology and Evolution: Best Practices. Trends in Ecology & Evolution, 26(2), 61-65.
+
+Wicherts, Jelte M., Denny Borsboom, Judith Kats and Dylan Molenaar
+2006	The Poor Availability of Psychological Research Data for Reanalysis. _American Psychologist_ 61(7): 726.
+
+Wilkinson, Mark D., Michel Dumontier, Isbrand J. Aalbersberg, Gabrielle Appleton, Myles Axton, Arie Baak and Barend Mons
+2016	The FAIR Guiding Principles for scientific data management and stewardship. _Scientific Data_ 3, 160018. DOI:10.1038/sdata.2016.18, accessed on 7 September 2017.
+
+Womack Ryan P.
+2015	Research Data in Core Journals in Biology, Chemistry, Mathematics, and Physics. _PLOS ONE_ 10(12): e0143460. DOI:10.1371/journal.pone.0143460, accessed on 7 September 2017.
+
+Wouters Paul and Wouter. Haak 
+2017	Open Data Report: The Researcher Perspective. Electronic document https://www.elsevier.com/about/open-science/research-data/open-data-report, accessed 11 October 2017
+
+Zimmerman, Larry J., Karen Vitelli, and Julie Hollowell-Zimmer (editors)
+2003	_Ethical Issues in Archaeology_. Rowman Altamira, New York.
 
 
 
