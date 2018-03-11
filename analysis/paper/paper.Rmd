@@ -189,7 +189,6 @@ knitr::kable(tbl, caption = "Summary of a selection of previous studies of data 
 ```
 
 ```{r date-and-sharing, fig.cap="There is no obvious trend in data sharing behavious and date of publication"}
-library(viridis)
 library(scales) 
 library(wesanderson)
 
@@ -208,7 +207,7 @@ email_survey %>%
     geom_col(aes(fill = `content recieved date`),
              # need devtools::install_github("tidyverse/ggplot2") for this
              position = position_dodge(preserve = 'single')) +
-  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)], 
+  scale_fill_manual(values = wes_palette("Rushmore1")[c(1,3)], 
                     guide = FALSE) +
   scale_x_continuous(breaks = years,
                     labels = years) +
@@ -234,7 +233,7 @@ email_survey %>%
   ggplot(aes(`author is graduate student at time of publication?`, n)) +
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
-  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)],
+  scale_fill_manual(values = wes_palette("Rushmore1")[c(1,3)],
                     guide = FALSE) +
   scale_y_continuous("Number of papers",
                      breaks= pretty_breaks()) +
@@ -257,7 +256,7 @@ email_survey %>%
   ggplot(aes(`author home`, n)) +
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
-  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)],
+  scale_fill_manual(values = wes_palette("Rushmore1")[c(1,3)],
                     guide = FALSE) +
     scale_y_continuous("Number of papers",
                      breaks= pretty_breaks()) +
@@ -288,7 +287,7 @@ sharing_by_journal <-
   ggplot(aes(journal, n)) +
     geom_col(aes(fill = `content recieved date`),
              position = position_dodge(preserve = 'single')) +
-  scale_fill_manual(values = wes_palette("Rushmore")[c(1,3)],
+  scale_fill_manual(values = wes_palette("Rushmore1")[c(1,3)],
                     guide = guide_legend(title = "Data shared?")) +
     scale_y_continuous("Number of papers",
                      breaks= pretty_breaks()) +
@@ -498,7 +497,7 @@ file_type_location %>%
   tally() %>%
   ggplot(aes(file, location)) +
   geom_point(aes(size = n),
-             colour = wes_palette("Rushmore")[c(2)],
+             colour = wes_palette("Rushmore1")[c(2)],
              shape = 16) +
   theme_bw() +
   xlab("") +
@@ -533,7 +532,7 @@ data_type_location %>%
   filter(n >= 2) %>%
   ggplot(aes(data_type, location)) +
   geom_point(aes(size = n),
-             colour = wes_palette("Rushmore")[c(2)],
+             colour = wes_palette("Rushmore1")[c(2)],
              shape = 16) +
   theme_bw() +
   xlab("") +
@@ -695,7 +694,7 @@ date_plot <-
              )) +
   geom_bar() +
   # guides(fill=FALSE) +
-  scale_fill_manual(values = wes_palette("Rushmore")) +
+  scale_fill_manual(values = wes_palette("Rushmore1")) +
   theme_new() +
   theme(legend.position = c(0.3, 0.5)) +
   scale_x_continuous(limits = c(1950,2017), expand = c(0,0)) +
@@ -729,19 +728,18 @@ dates  %>%
   group_by(yyyy_date, datacentre)  %>%
   tally() %>%
   filter(n != 0,
-         datacentre %in% top_data_sources[1:9]) %>%
-    mutate(datacentre = str_wrap(datacentre, width = )) %>%
+         datacentre %in% top_data_sources[1:9])  %>%
    ggplot(aes(yyyy_date,
-              n
-             )) +
-  geom_line(size = 1)  +
-  scale_fill_manual(values = wes_palette("Rushmore")) +
+              n,
+             group = datacentre)) +
+  geom_line(size = 1.5)  +
+  scale_fill_manual(values = wes_palette("Rushmore1")) +
   scale_y_log10() +
   xlim(c(1990, 2017)) +
   xlab("Year DOI registered (1990-2017 only)") +
   ylab("Number of DOIs\nregistered per year") +
   theme_new() +
-  facet_wrap(~ datacentre, labeller = labeller(datacentre = labels[1:9]))
+  facet_wrap( ~datacentre, labeller = labeller(datacentre = labels[1:9]))
 
 # show plots
 datacite_temporal_plots <-
@@ -955,7 +953,7 @@ ggplot(structured_data_files_per_file_tally,
       geom_point(aes(size = n),
              shape = 16,
              #alpha = 0.4,
-             colour = wes_palette("Rushmore")[c(2)]) +
+             colour = wes_palette("Rushmore1")[c(2)]) +
     geom_text_repel(aes(label = prettyNum(n, big.mark = ",")),
                   size = 2.5,
                   colour = "black",
@@ -969,7 +967,7 @@ ggplot(structured_data_files_per_file_tally,
                                    vjust = 0.5,
                                    hjust = 1)) +
   coord_flip() +
-  xlab("Data centre") +
+  xlab("Data center") +
   ylab("File format")
 
 ggsave("../figures/plot_structured_data_files_per_file_tally.png",
@@ -1043,7 +1041,7 @@ datacentre_plot <-
   slice(1:10) %>%
 ggplot(aes(reorder(Var1, n),
            n)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip() +
   xlab("Data centre") +
   ylab("") +
@@ -1054,7 +1052,7 @@ allocator_plot <-
 ggplot(allocator[1:10,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip() +
   theme_new()
 
@@ -1062,7 +1060,7 @@ creator_plot <-
 ggplot(creator[1:30,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip() +
   theme_new()
 
@@ -1075,7 +1073,7 @@ language_plot <-
   slice(1:5) %>%
 ggplot(aes(reorder(Var2, nn),
            nn)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip()  +
   theme_new() +
   xlab("Language") +
@@ -1085,7 +1083,7 @@ contributor_plot <-
 ggplot(contributor[1:20,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip()  +
   theme_new()
 
@@ -1093,7 +1091,7 @@ rights_plot <-
 ggplot(rights_summary,
        aes(reorder(cc, nn),
            nn)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip()  +
   theme_new() +
   xlab("License") +
@@ -1104,7 +1102,7 @@ publisher_plot <-
 ggplot(publisher[1:10,],
        aes(reorder(Var1, n),
            n)) +
-  geom_col(fill = wes_palette("Rushmore")[4]) +
+  geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip() +
   theme_new()
 
@@ -1235,7 +1233,7 @@ plot_datacentre_rights_table <-
 datacentre_rights_table[1:11,] %>%
   ggplot(aes(cc, str_wrap(str_trunc(datacentre, side = "right", 35), 15))) +
   geom_point(aes(size = n),
-             colour =  wes_palette("Rushmore")[1],
+             colour =  wes_palette("Rushmore1")[1],
              shape = 16) +
   theme_bw() +
   xlab("License") +
@@ -1329,7 +1327,7 @@ tribble(  ~doi,       ~doi_name,
  "10.6067",   "tDAR",
  "10.15468",  "GBIF",
  "10.14279",  "Technische Universität Berlin",
- "10.17026",  "EASY-DANS",
+ "10.17026",  "DANS-EASY",
  "10.11141",  "Internet Archaeology",
  "10.1080",   "Various journal publishers") # OUP, CUP, Sage, Wiley, Springer
 
@@ -1367,7 +1365,7 @@ events_df_names %>%
          aes(str_wrap(str_trunc(doi_provider_name, side = "right", 35), 15),
              str_wrap(str_trunc(doi_consumer_name, side = "right", 35), 15))) +
   geom_point(aes(size = n),
-             colour =  wes_palette("Rushmore")[1],
+             colour =  wes_palette("Rushmore1")[1],
              shape = 16) +
   theme_bw() +
   xlab("Data source") +
@@ -1389,7 +1387,7 @@ events_df_names %>%
   select(occurred_at) %>% 
   mutate(occurred_at = as.Date(occurred_at)) %>% 
 ggplot(aes(occurred_at)) +
-  geom_histogram(fill = wes_palette("Rushmore")[4]) +
+  geom_histogram(fill = wes_palette("Rushmore1")[4]) +
   scale_x_date(date_breaks = "6 month") +
   theme_bw(base_size = 10) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
