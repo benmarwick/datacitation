@@ -14,6 +14,9 @@ RUN . /etc/environment \
   && sudo apt-get update \
   && sudo apt-get install libudunits2-dev -y \
 
+  # need current dev version of ggplot2
+  && R -e "devtools::install_github('tidyverse/ggplot2')" \
+
   # build this compendium package
   && R -e "devtools::install('/datacitation', dep=TRUE)" \
 
