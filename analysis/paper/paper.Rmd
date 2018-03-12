@@ -12,7 +12,7 @@ author:
 affiliation:
   - id            : "1"
     institution   : "University of Washington, Seattle, Washington, USA"
-  - id            : "2"B
+  - id            : "2"
     institution   : "University of Georgia,  Athens, Georgia,  USA"
 
 date: "`r format(Sys.time(), '%d %B, %Y')`"
