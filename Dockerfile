@@ -14,7 +14,8 @@ RUN . /etc/environment \
   && sudo apt-get update \
   && sudo apt-get install libudunits2-dev -y \
 
-  # need current dev version of osfr, ggplot2, and  wesanderson
+  # need current dev version of some pkgs
+  && R -e "devtools::install_github('ropenscilabs/crevents')" \
   && R -e "devtools::install_github('chartgerink/osfr')" \
   && R -e "devtools::install_github('tidyverse/ggplot2')" \
   && R -e "devtools::install_github('karthik/wesanderson')" \
