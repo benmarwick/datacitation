@@ -14,7 +14,8 @@ RUN . /etc/environment \
   && sudo apt-get update \
   && sudo apt-get install libudunits2-dev -y \
 
-  # need current dev version of some pkgs
+  # need current dev version of some pkgs/not on CRAN
+  && R -e "devtools::install_github('benmarwick/wordcountaddin') \
   && R -e "devtools::install_github('ropenscilabs/crevents')" \
   && R -e "devtools::install_github('chartgerink/osfr')" \
   && R -e "devtools::install_github('tidyverse/ggplot2')" \
