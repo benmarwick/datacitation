@@ -572,12 +572,22 @@ library(tidyverse)
 # dc_arch <- readRDS("C:\\emacs\\dc_arch.rds")
 
 # Download from osf.io with this:
+
+# devtools::install_github("chartgerink/osfr")
 # library(osfr)
-# download_file("tsm89", private = TRUE)
+# download_files("tsm89", path = '../data/raw_data/')
+# download_files("z9w6j", path = '../data/raw_data/')
 
-
+if(!file.exists("../data/raw_data/dc_arch.rds")){
+    osfr::download_files("tsm89", path = '../data/raw_data/')
+ }
 dc_arch <- readRDS("../data/raw_data/dc_arch.rds")
+
+if(!file.exists("../data/raw_data/dc_arch_tdar.rds")){
+    osfr::download_files("z9w6j", path = '../data/raw_data/')
+ }
 dc_arch_tdar <- readRDS("../data/raw_data/dc_arch_tdar.rds")
+
 dc_arch <- bind_rows(dc_arch, dc_arch_tdar)
 ```
 
