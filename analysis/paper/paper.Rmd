@@ -983,7 +983,8 @@ ggplot(structured_data_files_per_file_tally,
 
 ggsave("../figures/plot_structured_data_files_per_file_tally.png",
        plot_structured_data_files_per_file_tally,
-       width = 10)
+       width = 10,
+       height = 4)
 ```
 
 ```{r, data-centre-file-types, fig.cap = "Relationships between data centers and file formats. The ten most frequently found file formats are shown here, in the data centers with these files from the top ten data centers by number of DOIs. Open file formats for structured data, such as CSV, are not common."}
@@ -1054,7 +1055,7 @@ ggplot(aes(reorder(Var1, n),
            n)) +
   geom_col(fill = wes_palette("Rushmore1")[4]) +
   coord_flip() +
-  xlab("Data centre") +
+  xlab("Data center") +
   ylab("") +
   theme_new() +
   theme(axis.text.y  = element_text(size = 8))
