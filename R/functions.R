@@ -276,7 +276,7 @@ set_csl <- function(x) {
     csl_template <- system.file(
       "rmarkdown", "templates", "apa6", "resources"
       , "apa6.csl"
-      , package = "papaja"
+      , package = "datacitation"
     )
     if(csl_template == "") stop("No CSL template file found.")
     return(c("--csl", rmarkdown::pandoc_path_arg(csl_template)))

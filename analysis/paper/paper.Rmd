@@ -12,7 +12,7 @@ author:
 affiliation:
   - id            : "1"
     institution   : "University of Washington, Seattle, Washington, USA"
-  - id            : "2"
+  - id            : "2"B
     institution   : "University of Georgia,  Athens, Georgia,  USA"
 
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -27,6 +27,7 @@ wordcount         : "" # '`r  prettyNum(unname(stringi::stri_stats_latex(readLin
 
 lang              : "english"
 class             : "man"
+csl               : journal-of-archaeological-science.csl
 
 output:
   datacitation::apa6_word
