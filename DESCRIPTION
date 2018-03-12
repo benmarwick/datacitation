@@ -26,4 +26,5 @@ Imports: bookdown,
     tidytext (>= 0.1.3),
     tidyverse (>= 1.1.1),
     viridis (>= 0.4.0),
-    wesanderson
+    wesanderson,
+    osfr
