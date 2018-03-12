@@ -20,7 +20,7 @@ This repository contains the data and code for our paper:
 
 Our pre-print is online here: 
 
-> Marwick, B., & S. Pilaar Birch (2018). A Standard for the Scholarly Citation of Archaeological Data as an Incentive to Data Sharing. Retrieved from osf.io/preprints/socarxiv/py4hz
+> Marwick, B., & S. Pilaar Birch (2018). A Standard for the Scholarly Citation of Archaeological Data as an Incentive to Data Sharing. Retrieved from <https://osf.io/preprints/socarxiv/py4hz>
 
 ### Citation
 
